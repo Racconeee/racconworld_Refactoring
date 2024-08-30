@@ -5,9 +5,7 @@ import racconworld.raccon.domain.test.entity.Test;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,8 +16,8 @@ public interface TestRepository extends JpaRepository<Test, Long> {
 
 
 
-//    @Query("SELECT t FROM Test t ORDER BY t.views ASC")
-//    Slice<Test> findAllOrderByViewsAsc(Pageable pageable);
+    @Query("SELECT t FROM Test t ORDER BY t.view ASC")
+    Slice<Test> findAllOrderByViewAsc(Pageable pageable);
 //
 //
 //    @Query("SELECT t FROM Test t JOIN FETCH t.questions WHERE t.id = :id")

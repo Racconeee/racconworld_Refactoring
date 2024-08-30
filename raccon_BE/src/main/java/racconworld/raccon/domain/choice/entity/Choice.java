@@ -5,12 +5,14 @@ import jakarta.persistence.*;
 
 import jakarta.persistence.Entity;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import racconworld.raccon.domain.question.entity.Question;
 
 @ToString
 @Entity
+@Getter
 @Inheritance(strategy =  InheritanceType.SINGLE_TABLE)
 @NoArgsConstructor( access = AccessLevel.PROTECTED)
 @DiscriminatorColumn(name = "dtype")
@@ -32,4 +34,6 @@ public abstract class Choice {
         this.choiceToQuestion = choiceToQuestion;
         this.choiceText = choiceText;
     }
+
+    public abstract Object getScore();
 }

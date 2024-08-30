@@ -3,10 +3,14 @@ package racconworld.raccon.domain.test.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import racconworld.raccon.domain.test.dto.Response.showTestResDto;
 import racconworld.raccon.domain.test.service.TestService;
+import racconworld.raccon.global.common.BaseResponse;
+import racconworld.raccon.global.common.code.SuccessCode;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,11 +21,16 @@ public class TestController {
     private final TestService testService;
 
 
-//    @GetMapping("/list")
-//    public ResponseEntity<List<ShowTestDto>> getTestList(@RequestParam(defaultValue = "0") int page) {
-//        List<ShowTestDto> testList = testService.getTestListByPage(page);
-//        return ResponseEntity.ok().body(testList);
-//    }
+    @GetMapping("/list")
+    public ResponseEntity<BaseResponse<showTestResDto>> getTestList(@RequestParam(defaultValue = "0") int pageNumber) {
+        showTestResDto testList = testService.getTestListByPage(pageNumber);
+
+        return BaseResponse.success(
+                SuccessCode.SELECT_SUCCESS,
+                testList
+        );
+    }
+
 
 
 

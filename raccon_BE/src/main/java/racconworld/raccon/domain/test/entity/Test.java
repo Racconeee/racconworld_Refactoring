@@ -26,16 +26,17 @@ public class Test {
     @Enumerated(EnumType.STRING)
 //    @Column(columnDefinition = "varchar(15)")
     private TestType testType; // 테스트 유형 (SCORE, PERSONALITY)
+    private String fileName;
     private String filePath;
-    private String fileDownload;
 
 
     @Builder
-    public Test(List<Question> questions, String testName, TestType testType, String filePath, String fileDownload) {
+    public Test(List<Question> questions, String testName, String view, TestType testType, String fileName, String filePath) {
         this.questions = questions;
         this.testName = testName;
+        this.view = view;
         this.testType = testType;
+        this.fileName = fileName;
         this.filePath = filePath;
-        this.fileDownload = fileDownload;
     }
 }
