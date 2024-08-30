@@ -18,6 +18,9 @@ public interface TestRepository extends JpaRepository<Test, Long> {
 
     @Query("SELECT t FROM Test t ORDER BY t.view ASC")
     Slice<Test> findAllOrderByViewAsc(Pageable pageable);
+
+    Optional<>
+
 //
 //
 //    @Query("SELECT t FROM Test t JOIN FETCH t.questions WHERE t.id = :id")
