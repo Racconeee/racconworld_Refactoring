@@ -22,7 +22,7 @@ public class Test {
     private List<Question> questions = new ArrayList<>();
 
     private String testName;
-    private String view;
+    private Long view;
     @Enumerated(EnumType.STRING)
 //    @Column(columnDefinition = "varchar(15)")
     private TestType testType; // 테스트 유형 (SCORE, PERSONALITY)
@@ -31,7 +31,7 @@ public class Test {
 
 
     @Builder
-    public Test(List<Question> questions, String testName, String view, TestType testType, String fileName, String filePath) {
+    public Test(List<Question> questions, String testName, Long view, TestType testType, String fileName, String filePath) {
         this.questions = questions;
         this.testName = testName;
         this.view = view;
@@ -39,4 +39,15 @@ public class Test {
         this.fileName = fileName;
         this.filePath = filePath;
     }
+
+    public Test(String testName, Long view, TestType testType) {
+        this.testName = testName;
+        this.view = view;
+        this.testType = testType;
+    }
+    public void uploadFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+
 }

@@ -1,10 +1,10 @@
 package racconworld.raccon.domain.result.service;
 
 
-import org.springframework.stereotype.Service;
+import racconworld.raccon.domain.result.dto.Response.ShowResultResDto;
 
 public interface ResultService {
 
-    String showResult( Long score , Long testId);
+    ShowResultResDto showResult(Long testId , String score);
 
 }

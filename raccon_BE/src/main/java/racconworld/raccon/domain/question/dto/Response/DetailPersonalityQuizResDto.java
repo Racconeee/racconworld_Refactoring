@@ -16,7 +16,7 @@ public class DetailPersonalityQuizResDto {
 
     private String testName;
     private TestType testType;
-    private String view;
+    private Long view;
     private String filePath;
     private String fileName;
     private List<DetailQuestionListResDto> questions; // List<DetailQuestionListResDto> 타입으로 정의합니다.

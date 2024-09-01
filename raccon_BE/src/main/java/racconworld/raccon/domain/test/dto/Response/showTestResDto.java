@@ -20,11 +20,11 @@ public class showTestResDto {
     public static class showTestListDto {
         private Long testId;
         private String testName;
-        private String view;
+        private Long view;
         private String fileName;
         private String filePath;
 
-        public showTestListDto(Long testId, String testName, String view,  String fileName, String filePath) {
+        public showTestListDto(Long testId, String testName, Long view, String fileName, String filePath) {
             this.testId = testId;
             this.testName = testName;
             this.view = view;

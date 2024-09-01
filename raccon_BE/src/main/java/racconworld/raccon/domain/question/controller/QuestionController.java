@@ -21,6 +21,7 @@ public class QuestionController {
     //기본 동작 로직 testId , testType을 받아서
     //해당하는 테스트 퀴즈 상세 조회
     //테스트 ,퀴즈 ,선택지 정보 제공 결국 테스트하는데 필요한 데이터 전부 제공한다.
+    //각각 데이터가 하나이니 PathVariable로 처리햇다. 직관적 url 기준 설계
     @GetMapping("/showDetail/score/{testId}")
     public ResponseEntity<BaseResponse<DetailScoreQuizResDto>> showDetailScoreQuiz(@PathVariable Long testId) throws Exception {
 

@@ -32,9 +32,8 @@ public class Question {
     private String questionText;
 
     @Builder
-    public Question(Test questionToTest, List<Choice> choices, String questionText) {
+    public Question(Test questionToTest, String questionText) {
         this.questionToTest = questionToTest;
-        this.choices = choices;
         this.questionText = questionText;
     }
 }

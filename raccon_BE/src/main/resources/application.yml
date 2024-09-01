@@ -16,7 +16,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/test_ddl
     username: root
-    password: 1234
+    password: 12345678
     mvc:
     view:
       prefix: /static/
@@ -31,19 +31,12 @@ spring:
     database-platform: org.hibernate.dialect.MySQLDialect
     open-in-view: false
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     properties:
       hibernate:
         format_sql: true
         show_sql: true
         default_batch_fetch_size: 1000
-
-image_file:
-  dir : /Users/raccon/study/project/Spring/racconworld_data/img/
-#  dir : /racconworld_data/
-quiz_result_image_file:
-  dir : file:///Users/raccon/study/project/Spring/racconworld_data/img/
-#  dir : /quiz/result/
 
 signup:
   Token : 7ae3c-cbf8f101ae-76a8becfb0-4002811a9c-5139f71893-80cdf25359-3073f96-a0da5eb6a35bd2-9638944694c19cc2a-178637ca9e8b227d-95374de6af-8d3447a452-58089826d4-b0ef3
@@ -61,3 +54,14 @@ jwt:
   refresh:
     expiration: 1209600000
     header: Authorization-refresh
+
+
+imagePath:
+  test:
+    dir:  /Users/raccon/Documents/racconworld_data/
+    # dir: /racconworld_data/
+  result:
+    dir:  /Users/raccon/Documents/racconworld_data/
+
+#    dir: file:///Users/raccon/study/project/Spring/racconworld_data/img/
+    # dir: /quiz/result/
