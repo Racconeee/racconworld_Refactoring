@@ -16,7 +16,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/test_ddl
     username: root
-    password: 12345678
+    password: 1234
     mvc:
     view:
       prefix: /static/
@@ -58,10 +58,15 @@ jwt:
 
 imagePath:
   test:
-    dir:  /Users/raccon/Documents/racconworld_data/
+    dir: /Users/raccon/Documents/racconworld_data/
     # dir: /racconworld_data/
   result:
-    dir:  /Users/raccon/Documents/racconworld_data/
+    dir: /Users/raccon/Documents/racconworld_data/
+
+
+redirectUrl:
+  login:
+    success: /admin/home
 
 #    dir: file:///Users/raccon/study/project/Spring/racconworld_data/img/
     # dir: /quiz/result/
