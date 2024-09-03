@@ -1,6 +1,8 @@
 package racconworld.raccon.global.Security.userdetails;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,19 +19,25 @@ import java.util.Collection;
 import java.util.Optional;
 
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
+
+    @Transactional
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         User user =  userRepository.findByUsername(username).orElseThrow(() -> new CustomExceptionHandler(ErrorCode.BAD_REQUEST,"해당 User가 없습니다."));
 
+
+
         return CustomUserDetails.builder()
                 .username(user.getUsername())
+                .password(user.getPassword())
                 .authorities(getAuthorities(user))
                 .build();
     }

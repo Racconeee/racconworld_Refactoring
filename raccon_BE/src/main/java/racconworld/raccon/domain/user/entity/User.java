@@ -38,6 +38,11 @@ public class User {
         this.role = Collections.singletonList(role);
     }
 
+
+    public List<Role> getRole() {
+        return role;
+    }
+
     public void updateRefreshToken(String refreshToken){
         this.refreshToken = refreshToken;
     }

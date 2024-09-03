@@ -31,7 +31,7 @@ spring:
     database-platform: org.hibernate.dialect.MySQLDialect
     open-in-view: false
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
@@ -50,10 +50,10 @@ jwt:
   secretKey: 12ASDGKWE41246AS21ASD2412FSDSD1421PWQEIDVN213
   access:
     expiration: 3600000
-    header: Authorization
+    header: AccessToken
   refresh:
     expiration: 1209600000
-    header: Authorization-refresh
+    header: RefreshToken
 
 
 imagePath:

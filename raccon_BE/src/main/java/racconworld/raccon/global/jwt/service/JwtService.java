@@ -36,7 +36,6 @@ public class JwtService {
 
     private final UserRepository userRepository;
 
-    private static final String ACCESS_HEADER_AUTHORIZATION = "Authorization";
     private static final String TOKEN_PREFIX = "Bearer ";
 
     @Value("${jwt.secretKey}")
@@ -47,9 +46,9 @@ public class JwtService {
     @Value("${jwt.refresh.header}")
     private String refreshHeader;
     @Value("${jwt.access.expiration}")
-    private String accessExpiration;
+    private Long accessExpiration;
     @Value("${jwt.refresh.expiration}")
-    private String refreshExpiration;
+    private Long refreshExpiration;
 
     private static final String ACCESS_TOKEN_SUBJECT = "AccessToken";
     private static final String REFRESH_TOKEN_SUBJECT = "RefreshToken";
@@ -71,7 +70,9 @@ public class JwtService {
     }
 
 
-    public String createAccessToken(String username ) {
+    public String createAccessToken(String username) {
+
+        System.out.println(System.currentTimeMillis() + accessExpiration);
         return JWT.create()
                 .withSubject(ACCESS_TOKEN_SUBJECT)
                 .withExpiresAt(new Date(System.currentTimeMillis() + accessExpiration))
@@ -82,7 +83,7 @@ public class JwtService {
     public String createRefreshToken() {
         return JWT.create()
                 .withSubject(REFRESH_TOKEN_SUBJECT)
-                .withExpiresAt(new Date(System.currentTimeMillis() + refreshExpiration)  )
+                .withExpiresAt(new Date(System.currentTimeMillis() + refreshExpiration))
                 .sign(Algorithm.HMAC256(secretKey));
     }
 
@@ -119,7 +120,7 @@ public class JwtService {
 
     public boolean isTokenValid(String token) {
         try {
-            JWT.require(Algorithm.HMAC512(secretKey)).build().verify(token);
+            JWT.require(Algorithm.HMAC256(secretKey)).build().verify(token);
             return true;
         } catch (Exception e) {
             log.error("유효하지 않은 토큰입니다. {}", e.getMessage());
@@ -138,6 +139,15 @@ public class JwtService {
                 .map(refreshToken -> refreshToken.replace(BEARER, ""));
     }
     public Claims verifyJwtToken(String accessToken) {
+
+        log.info("verify : {} " , Jwts.parserBuilder()
+                .setSigningKey(secretKey)
+                .build()
+                .parseClaimsJws(accessToken)
+                .getBody());
+
+        log.info("accessToken : {}" ,accessToken);
+
         try {
             return Jwts.parserBuilder()
                     .setSigningKey(secretKey)
