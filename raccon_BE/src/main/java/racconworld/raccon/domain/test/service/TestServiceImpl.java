@@ -22,11 +22,10 @@ public class TestServiceImpl implements TestService {
     private final TestRepository testRepository;
 
     @Transactional
-
     public showTestResDto getTestListByPage(int pageNumber) {
 
-        PageRequest pageRequest = PageRequest.of(pageNumber, 9, Sort.by(Sort.Direction.ASC, "id"));
-        Slice<Test> page = testRepository.findAllOrderByViewAsc(pageRequest);
+        PageRequest pageRequest = PageRequest.of(pageNumber, 9, Sort.by(Sort.Direction.ASC, "view"));
+        Slice<Test> page = testRepository.findAllOrderByViewDesc(pageRequest);
         List<showTestResDto.showTestListDto> showTestListDtos = page.map( t -> new showTestResDto.showTestListDto(t.getId() , t.getTestName() ,t.getView(), t.getFileName() , t.getFilePath())).stream().toList();
 
         return new showTestResDto(page.hasNext(), showTestListDtos);

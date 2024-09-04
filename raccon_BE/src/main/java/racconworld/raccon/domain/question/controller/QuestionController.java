@@ -23,7 +23,7 @@ public class QuestionController {
     //테스트 ,퀴즈 ,선택지 정보 제공 결국 테스트하는데 필요한 데이터 전부 제공한다.
     //각각 데이터가 하나이니 PathVariable로 처리햇다. 직관적 url 기준 설계
     @GetMapping("/showDetail/score/{testId}")
-    public ResponseEntity<BaseResponse<DetailScoreQuizResDto>> showDetailScoreQuiz(@PathVariable Long testId) throws Exception {
+    public ResponseEntity<BaseResponse<DetailScoreQuizResDto>> showDetailScoreQuiz(@PathVariable("testId") Long testId) throws Exception {
 
         DetailScoreQuizResDto detailScoreQuizResDto = questionService.showDetailScoreQuiz(testId);
 

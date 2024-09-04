@@ -11,6 +11,7 @@ import racconworld.raccon.domain.question.entity.Question;
 import racconworld.raccon.domain.question.repository.QuestionRepository;
 import racconworld.raccon.domain.test.entity.Test;
 import racconworld.raccon.domain.test.repository.TestRepository;
+import racconworld.raccon.domain.visit.repository.VisitRepository;
 import racconworld.raccon.global.common.code.ErrorCode;
 import racconworld.raccon.global.exception.CustomExceptionHandler;
 
@@ -23,13 +24,13 @@ public class QuestionServiceImpl implements QuestionService {
 
     private final QuestionRepository questionRepository;
     private final TestRepository testRepository;
+    private final VisitRepository visitRepository;
 
 
     @Transactional
     @Override
     public DetailScoreQuizResDto showDetailScoreQuiz(Long testId ) {
-        Test testEntity = testRepository.findById(testId)
-                .orElseThrow(() -> new CustomExceptionHandler(ErrorCode.BAD_REQUEST,"해당 Test가 없습니다."));
+        Test testEntity = getTestEntityByIdAndUpdateTestAndVisit(testId);
 
         List<Question> detailQuizList = questionRepository.findQuestionsWithChoicesByTestId(testId);
 
@@ -41,14 +42,25 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Transactional
     @Override
-    public DetailPersonalityQuizResDto showDetailPersonalityQuiz(Long testId) throws Exception {
-        Test testEntity = testRepository.findById(testId)
-                .orElseThrow(() -> new CustomExceptionHandler(ErrorCode.BAD_REQUEST,"해당 Test가 없습니다."));
-
+    public DetailPersonalityQuizResDto showDetailPersonalityQuiz(Long testId)  {
+        Test testEntity = getTestEntityByIdAndUpdateTestAndVisit(testId);
         List<Question> detailQuizList = questionRepository.findQuestionsWithChoicesByTestId(testId);
 
         return DetailPersonalityQuizResDto.toDto(testEntity , detailQuizList);
 
 
     };
+
+    private Test getTestEntityByIdAndUpdateTestAndVisit(Long testId) {
+
+        Test testEntity = testRepository.findById(testId)
+                .orElseThrow(() -> new CustomExceptionHandler(ErrorCode.TEST_NOT_FOUND));
+        testRepository.updateTestByView(testId);
+        //위에서 찾은 Test 갹체를 넘기려고했는데 이렇게 하면 JPA가 특정 필드가 아닌 전체를 넘기려고함
+        //그래서 차라리 쿼리문안에 정적으로 고정시킴
+        visitRepository.incrementVisitCount();
+
+        return testEntity;
+    }
+
 }

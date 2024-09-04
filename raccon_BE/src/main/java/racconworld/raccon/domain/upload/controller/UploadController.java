@@ -36,7 +36,7 @@ public class UploadController {
         log.info("uploadTestScoreReqDto : {} ", testImage);
         log.info("uploadTestScoreReqDto : {} ", resultImages);
 
-        return BaseResponse.success(SuccessCode.SELECT_SUCCESS ,
+        return BaseResponse.success(SuccessCode.UPLOAD_SUCCESS ,
                 uploadService.uploadTestTypeScore(uploadTestScoreReqDto, testImage, resultImages)
         );
 
@@ -53,7 +53,7 @@ public class UploadController {
         log.info("resultImage : {} ", resultImages.stream().map(MultipartFile::getOriginalFilename).toList());
 
 
-        return BaseResponse.success(SuccessCode.SELECT_SUCCESS ,
+        return BaseResponse.success(SuccessCode.UPLOAD_SUCCESS ,
                 uploadService.uploadTestTypePersonality(uploadTestPersonalityReqDto, testImage, resultImages)
                 );
 

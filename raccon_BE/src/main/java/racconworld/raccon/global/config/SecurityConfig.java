@@ -37,7 +37,7 @@ public class SecurityConfig {
     private static final String[] URL_WHITE_LIST = {
             "/login", "/favicon.ico",
             "/swagger-resources/**", "/swagger-ui.html", "/swagger-ui/**",
-            "/test/*" , "/quiz/*" , "/api/*/",
+            "/test/**" , "/quiz/**" , "/api/**",
 
     };
 

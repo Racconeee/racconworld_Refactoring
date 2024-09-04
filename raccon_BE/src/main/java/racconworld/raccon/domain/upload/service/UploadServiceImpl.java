@@ -95,7 +95,7 @@ public class UploadServiceImpl implements UploadService {
     public Test createTest(String TestName , TestType TestType , MultipartFile testImage) throws IOException {
 
         testRepository.findByTestName(TestName).ifPresent(test -> {
-            throw new CustomExceptionHandler(ErrorCode.NOT_FOUND, "같은 이름의 테스트가 존재합니다.");
+            throw new CustomExceptionHandler(ErrorCode.EXIST_SAME_TEST, "같은 이름의 테스트가 존재합니다.");
         });
 
         Test testEntity = testRepository.save(new Test(TestName , 0L , TestType ));

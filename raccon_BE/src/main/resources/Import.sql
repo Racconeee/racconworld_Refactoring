@@ -58,3 +58,9 @@ INSERT INTO user (username, password, refresh_token) VALUES ('1', '1', 'refreshT
 -- Assuming user_id for 'user1' is 1 and for 'admin1' is 2
 INSERT INTO user_role (user_id, role) VALUES (1, 'USER');
 INSERT INTO user_role (user_id, role) VALUES (2, 'ADMIN');
+
+--삭제하지 말길 .. .기억하길  --
+-- !! 무조건 있어야하는거임 배포 할때 필수 !! --
+INSERT INTO visit (visit_id,visit_count ) VALUES ("total_count", 0);
+
+

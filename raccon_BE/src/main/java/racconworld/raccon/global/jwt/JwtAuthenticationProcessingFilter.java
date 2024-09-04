@@ -2,10 +2,6 @@ package racconworld.raccon.global.jwt;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.UnsupportedJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,13 +19,11 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import racconworld.raccon.domain.user.entity.User;
 import racconworld.raccon.domain.user.repository.UserRepository;
 import racconworld.raccon.global.Security.userdetails.CustomUserDetails;
-import racconworld.raccon.global.common.ErrorResponse;
 import racconworld.raccon.global.common.code.ErrorCode;
 import racconworld.raccon.global.exception.CustomExceptionHandler;
 import racconworld.raccon.global.jwt.service.JwtService;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Collection;
 
 
@@ -58,15 +52,20 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         log.info(" 토큰이 들어 왔습니다. 시작합니다");
-        log.info("request.getHeader(AccessToken) : {}" , request.getHeader("AccessToken"));
-        log.info("request.getHeader(refreshHeader) : {}" , request.getHeader("RefreshToken"));
 
 
 
+        log.info("들어온 url : {} " , request.getRequestURI());
         if(PatternMatchUtils.simpleMatch(URL_WHITE_LIST ,request.getRequestURI())){
+            log.info("통과합니다 url : {} " , request.getRequestURI());
+
             filterChain.doFilter(request ,response);
             return;
         }
+        log.info("권한이 필요한 url : {} " , request.getRequestURI());
+        log.info("request.getHeader(AccessToken) : {}" , request.getHeader("AccessToken"));
+        log.info("request.getHeader(refreshHeader) : {}" , request.getHeader("RefreshToken"));
+
         String refreshToken = jwtService.extractRefreshToken(request)
                 .filter(jwtService::isTokenValid)
                 .orElse(null);
@@ -82,7 +81,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
     }
     //refresh 토큰 보고 ac , rf 토큰 재발행
     public void checkRefreshTokenAndReIssueAccessToken(HttpServletResponse response, String refreshToken) {
-        User userEntity = userRepository.findByRefreshToken(refreshToken).orElseThrow( () -> new CustomExceptionHandler(ErrorCode.TMP,"회원의 refreshToken 값이 존재 하지 않습니다."));
+        User userEntity = userRepository.findByRefreshToken(refreshToken).orElseThrow( () -> new CustomExceptionHandler(ErrorCode.TOKEN_NOT_FOUND));
         String reIssuedRefreshToken = reIssueRefreshToken(userEntity);
         jwtService.sendAccessAndRefreshToken(response, jwtService.createAccessToken(userEntity.getUsername()), reIssuedRefreshToken);
     }

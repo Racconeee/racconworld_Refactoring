@@ -16,7 +16,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/test")
-@CrossOrigin("*")
 public class TestController {
 
     private final TestService testService;
@@ -24,7 +23,7 @@ public class TestController {
 
     //필터링과 같은 건 RequestParam이 조건 전달하기나 복수의 조건 전달할떄는 명료하게 볼 수 잇어서 채택
     @GetMapping("/list")
-    public ResponseEntity<BaseResponse<showTestResDto>> getTestList(@RequestParam(defaultValue = "0") int pageNumber) {
+    public ResponseEntity<BaseResponse<showTestResDto>> getTestList(@RequestParam(name = "pageNumber" ,defaultValue = "0") int pageNumber) {
         showTestResDto testList = testService.getTestListByPage(pageNumber);
 
         return BaseResponse.success(

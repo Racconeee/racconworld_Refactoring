@@ -24,7 +24,7 @@ public class AdminController {
     @DeleteMapping("/test/delete/{testId}")
     public ResponseEntity<BaseResponse<String>> deleteTest(@PathVariable Long testId){
         return BaseResponse.success(
-                SuccessCode.SELECT_SUCCESS,
+                SuccessCode.DELETE_SUCCESS,
                 adminService.deleteTest(testId)
         );
     }
@@ -35,7 +35,7 @@ public class AdminController {
         log.info("username : {} " , idPwTokenReqDto.getUsername());
         log.info("password : {} " , idPwTokenReqDto.getPassword());
         return BaseResponse.success(
-                SuccessCode.SELECT_SUCCESS,
+                SuccessCode.SIGNUP_SUCCESS,
                 userService.signUpAdmin(idPwTokenReqDto.getUsername(), idPwTokenReqDto.getPassword())
         );
 

@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 import racconworld.raccon.domain.user.repository.UserRepository;
+import racconworld.raccon.global.common.code.ErrorCode;
+import racconworld.raccon.global.common.code.SuccessCode;
 import racconworld.raccon.global.jwt.service.JwtService;
 
 import java.io.IOException;
@@ -60,6 +62,11 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         log.info("login_Success");
         log.info("AccessToken : {} " , accessToken);
         log.info("RefreshToken : {} " , refreshToken);
+        SuccessCode successCode = SuccessCode.LOGIN_SUCCESS;
 
+        response.setStatus(successCode.getStatus());
+        response.setContentType("application/json");
+        response.getWriter().write(String.format("{\"errorCode\": \"%s\", \"message\": \"%s\"}", successCode.getCode(), successCode.getMessage()));
     }
+
 }

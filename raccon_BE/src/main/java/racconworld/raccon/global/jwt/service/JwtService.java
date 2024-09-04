@@ -17,7 +17,6 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import racconworld.raccon.domain.user.entity.User;
-import racconworld.raccon.domain.user.repository.UserRepository;
 import racconworld.raccon.global.Security.userdetails.CustomUserDetails;
 import racconworld.raccon.global.common.code.ErrorCode;
 import racconworld.raccon.global.exception.CustomExceptionHandler;
@@ -34,7 +33,6 @@ import java.util.Optional;
 public class JwtService {
 
 
-    private final UserRepository userRepository;
 
     private static final String TOKEN_PREFIX = "Bearer ";
 
@@ -57,7 +55,7 @@ public class JwtService {
 
 
     public Authentication authenticateAccessToken(HttpServletRequest request) {
-        String accessToken = extractAccessToken(request).orElseThrow(() -> new CustomExceptionHandler(ErrorCode.NONEXTRACT_ACCESS_TOKEN_EXCEPTION, "같은 이름의 테스트가 존재합니다."));
+        String accessToken = extractAccessToken(request).orElseThrow(() -> new CustomExceptionHandler(ErrorCode.MISSING_ACCESS_TOKEN));
         Claims claims = verifyJwtToken(accessToken);
 
         UserDetails userDetails = CustomUserDetails.builder()
@@ -107,7 +105,7 @@ public class JwtService {
 
     public Optional<String> extractUsername(String accessToken) {
         try {
-            return Optional.ofNullable(JWT.require(Algorithm.HMAC512(secretKey))
+            return Optional.ofNullable(JWT.require(Algorithm.HMAC256(secretKey))
                     .build()
                     .verify(accessToken)
                     .getClaim(USERNAME_CLAIM)
@@ -133,20 +131,14 @@ public class JwtService {
                 .filter(refreshToken -> refreshToken.startsWith(BEARER))
                 .map(refreshToken -> refreshToken.replace(BEARER, ""));
     }
+
     public Optional<String> extractAccessToken(HttpServletRequest request) {
         return Optional.ofNullable(request.getHeader(accessHeader))
                 .filter(refreshToken -> refreshToken.startsWith(BEARER))
                 .map(refreshToken -> refreshToken.replace(BEARER, ""));
     }
+
     public Claims verifyJwtToken(String accessToken) {
-
-        log.info("verify : {} " , Jwts.parserBuilder()
-                .setSigningKey(secretKey)
-                .build()
-                .parseClaimsJws(accessToken)
-                .getBody());
-
-        log.info("accessToken : {}" ,accessToken);
 
         try {
             return Jwts.parserBuilder()
@@ -156,12 +148,8 @@ public class JwtService {
                     .getBody();
         } catch (Exception e) {
             log.error("JWT Token 검증 실패: {}", e.getMessage());
-            throw new CustomExceptionHandler(ErrorCode.TMP, "유효하지 않은 JWT 토큰입니다.");
+            throw new CustomExceptionHandler(ErrorCode.INVALID_ACCESS_TOKEN_SIGNATURE);
         }
-    }
-
-    protected Collection<? extends GrantedAuthority> getAuthorities(User user) {
-        return AuthorityUtils.createAuthorityList(user.getRole().stream().map(Enum::name).toList());
     }
 
 }
