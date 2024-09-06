@@ -28,6 +28,9 @@ public interface TestRepository extends JpaRepository<Test, Long> {
     @Query("update Test t set t.view = t.view + 1 where t.id = :testId")
     void updateTestByView(@Param("testId") Long testId);
 
+    @Query("SELECT sum(t.view) FROM Test t")
+    Long findAllByView();
+
 
 
     //

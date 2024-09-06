@@ -4,18 +4,10 @@ package racconworld.raccon.global.log;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.Builder;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 import racconworld.raccon.domain.log.entity.Log;
-import racconworld.raccon.domain.log.repository.LogRepository;
 import racconworld.raccon.domain.log.service.LogService;
-
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 @Slf4j
@@ -36,14 +28,10 @@ public class ApiLogFilter implements Filter  {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
-
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
-
-
 
         String requestUrl = httpServletRequest.getRequestURI();
         String logUuid = UUID.randomUUID().toString();
-
 
         Log logEntity = Log.builder()
                 .requestUrl(requestUrl)
@@ -57,7 +45,6 @@ public class ApiLogFilter implements Filter  {
         log.info("@@@@@@@@@@@@@@@@@");
         filterChain.doFilter(servletRequest, servletResponse);
     }
-
 
     @Override
     public void destroy() {

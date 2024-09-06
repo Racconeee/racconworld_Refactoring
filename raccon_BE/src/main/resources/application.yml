@@ -31,12 +31,16 @@ spring:
     database-platform: org.hibernate.dialect.MySQLDialect
     open-in-view: false
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     properties:
       hibernate:
         format_sql: true
         show_sql: true
         default_batch_fetch_size: 1000
+
+  redis :
+    host : localhost
+    port : 6379
 
 signup:
   Token : 7ae3c-cbf8f101ae-76a8becfb0-4002811a9c-5139f71893-80cdf25359-3073f96-a0da5eb6a35bd2-9638944694c19cc2a-178637ca9e8b227d-95374de6af-8d3447a452-58089826d4-b0ef3

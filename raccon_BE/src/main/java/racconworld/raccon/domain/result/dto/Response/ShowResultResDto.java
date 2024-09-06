@@ -1,6 +1,5 @@
 package racconworld.raccon.domain.result.dto.Response;
 
-
 import lombok.Data;
 
 @Data
