@@ -7,7 +7,6 @@ import racconworld.raccon.domain.question.entity.Question;
 import java.util.ArrayList;
 import java.util.List;
 
-@ToString
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter

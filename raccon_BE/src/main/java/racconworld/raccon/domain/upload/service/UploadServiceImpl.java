@@ -27,6 +27,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -69,6 +70,8 @@ public class UploadServiceImpl implements UploadService {
     }
 
 
+    //성격 유형은 score로 안하고 타입이 달라서 personality로 했었는데 그렇게 되면
+    //FE에서 코드를 많이 짜야함 그냥 프론트에서 dto 통일(score) 시켜서 받아서 처리하자 줄떄는 생성자로 하면 personality로 알아서 잘 들어감
     @Override
     @Transactional
     public String uploadTestTypePersonality(UploadTestPersonalityReqDto dto, MultipartFile testImage, List<MultipartFile> resultImages) throws IOException {
@@ -80,7 +83,7 @@ public class UploadServiceImpl implements UploadService {
             questionRepository.save(questionEntity);
 
             for (UploadTestPersonalityReqDto.uploadChoicesPersonalityReqDto choice : question.getChoices()) {
-                PersonalityChoice personalityChoice = new PersonalityChoice(questionEntity , choice.getChoiceText() ,choice.getPersonality());
+                PersonalityChoice personalityChoice = new PersonalityChoice(questionEntity , choice.getChoiceText() ,choice.getScore());
                 choiceRepository.save(personalityChoice);
             }
         }
@@ -94,16 +97,27 @@ public class UploadServiceImpl implements UploadService {
     @Override
     public Test createTest(String TestName , TestType TestType , MultipartFile testImage) throws IOException {
 
-        testRepository.findByTestName(TestName).ifPresent(test -> {
+//        왜 안되냐 이거
+//        안될수가ㅣ 없는데 무조건 되는 문법인데 ?
+//        testRepository.findByTestName(TestName).ifPresent( t ->
+//                throw new CustomExceptionHandler(ErrorCode.NOT_FOUND , "같은 이름의 테스트가 존재합니다."));
+
+//                새벽 2시까지 고민하다 잔 문제
+//        {}뺴먹어서 안됐던거라니 하하하하
+        testRepository.findByTestName(TestName).ifPresent(t -> {
             throw new CustomExceptionHandler(ErrorCode.NOT_FOUND, "같은 이름의 테스트가 존재합니다.");
         });
+
+//                ifPresent(test -> {
+//            throw new CustomExceptionHandler(ErrorCode.NOT_FOUND, "같은 이름의 테스트가 존재합니다.");
+//        });
 
         Test testEntity = testRepository.save(new Test(TestName , 0L , TestType ));
         String filepath = testFileDir + testEntity.getId() + "/main";
         testEntity.uploadFilePath(filepath);
 
         createDir(filepath);
-        saveFile(testImage,"main", filepath);
+        saveFile(testImage,"main.png", filepath);
         //파일 까지 생성하고 저장하기
         testRepository.save(testEntity);
 
@@ -142,10 +156,10 @@ public class UploadServiceImpl implements UploadService {
 
         for (MultipartFile file : fileList) {
             String score = file.getOriginalFilename();
-            String filePath = resultFileDir + testEntity.getId() + "/" + score;
+            String filePath = resultFileDir + testEntity.getId();
             String fileName = testEntity.getId() + "/" + score;
 
-            createDir(filePath);
+//            createDir(filePath); Test 사진 넣으면 서 이미 넣었으니 우선 주석으로 테스트 해보자
             saveFile(file, score, filePath);
 
             resultRepository.save(new Result(testEntity ,fileName ,filePath, score ));

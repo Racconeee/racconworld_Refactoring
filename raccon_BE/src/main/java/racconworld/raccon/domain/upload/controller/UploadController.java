@@ -43,12 +43,12 @@ public class UploadController {
     }
 
     @PostMapping("/personality")
-    public ResponseEntity<BaseResponse<String>> uploadTestTypeScore( @RequestPart UploadTestPersonalityReqDto uploadTestPersonalityReqDto,
+    public ResponseEntity<BaseResponse<String>> uploadTestTypePersonality( @RequestPart UploadTestPersonalityReqDto uploadTestPersonalityReqDto,
                                                                      @RequestPart MultipartFile testImage,
                                                                      @RequestPart List<MultipartFile> resultImages) throws IOException {
 
 
-        log.info("uploadTestScoreReqDto : {} ", uploadTestPersonalityReqDto);
+        log.info("uploadTestPersonalityReqDto : {} ", uploadTestPersonalityReqDto);
         log.info("testImage : {} ", testImage.getOriginalFilename());
         log.info("resultImage : {} ", resultImages.stream().map(MultipartFile::getOriginalFilename).toList());
 
