@@ -4,9 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import racconworld.raccon.domain.test.entity.Test;
 
-
 @ToString
-
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter

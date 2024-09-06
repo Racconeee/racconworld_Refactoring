@@ -21,7 +21,7 @@ public class ResultServiceImpl implements ResultService {
     @Override
     public ShowResultResDto showResult( Long testId ,String score) {
         Result result = repository.findResultByTestIdAndScore(testId , score).orElseThrow(() ->
-                new CustomExceptionHandler(ErrorCode.NOT_FOUND , "해당하는 결과가 존재하지 않습니다."));
+                new CustomExceptionHandler(ErrorCode.RESULT_NOT_FOUND));
 
         ShowResultResDto showRsultResDto = new ShowResultResDto(result.getFileName() , result.getFilePath());
 

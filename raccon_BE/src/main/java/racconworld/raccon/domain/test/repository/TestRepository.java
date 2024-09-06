@@ -1,5 +1,7 @@
 package racconworld.raccon.domain.test.repository;
 
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.repository.query.Param;
 import racconworld.raccon.domain.test.entity.Test;
 
 import org.springframework.data.domain.Pageable;
@@ -16,11 +18,19 @@ public interface TestRepository extends JpaRepository<Test, Long> {
 
 
 
-    @Query("SELECT t FROM Test t ORDER BY t.view ASC")
-    Slice<Test> findAllOrderByViewAsc(Pageable pageable);
+    @Query("SELECT t FROM Test t ORDER BY t.view DESC")
+    Slice<Test> findAllOrderByViewDesc(Pageable pageable);
 
 //    @Query("SELECT t FROM Test t WHERE t.testName = :testName")
     Optional<Test> findByTestName(String testName);
+
+    @Modifying
+    @Query("update Test t set t.view = t.view + 1 where t.id = :testId")
+    void updateTestByView(@Param("testId") Long testId);
+
+    @Query("SELECT sum(t.view) FROM Test t")
+    Long findAllByView();
+
 
 
     //

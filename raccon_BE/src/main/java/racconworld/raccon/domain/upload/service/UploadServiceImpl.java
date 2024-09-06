@@ -97,15 +97,8 @@ public class UploadServiceImpl implements UploadService {
     @Override
     public Test createTest(String TestName , TestType TestType , MultipartFile testImage) throws IOException {
 
-//        왜 안되냐 이거
-//        안될수가ㅣ 없는데 무조건 되는 문법인데 ?
-//        testRepository.findByTestName(TestName).ifPresent( t ->
-//                throw new CustomExceptionHandler(ErrorCode.NOT_FOUND , "같은 이름의 테스트가 존재합니다."));
-
-//                새벽 2시까지 고민하다 잔 문제
-//        {}뺴먹어서 안됐던거라니 하하하하
-        testRepository.findByTestName(TestName).ifPresent(t -> {
-            throw new CustomExceptionHandler(ErrorCode.NOT_FOUND, "같은 이름의 테스트가 존재합니다.");
+        testRepository.findByTestName(TestName).ifPresent(test -> {
+            throw new CustomExceptionHandler(ErrorCode.EXIST_SAME_TEST, "같은 이름의 테스트가 존재합니다.");
         });
 
 //                ifPresent(test -> {

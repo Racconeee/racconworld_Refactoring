@@ -51,3 +51,16 @@ INSERT INTO choice (question_id, choice_text, score, dtype, personality) VALUES(
 INSERT INTO choice (question_id, choice_text, score, dtype, personality) VALUES(@question_id1, 'Choice 1', FLOOR(RAND() * 11) * 10, 'Score', NULL),(@question_id1, 'Choice 2', FLOOR(RAND() * 11) * 10, 'Score', NULL),(@question_id2, 'Choice 1', FLOOR(RAND() * 11) * 10, 'Score', NULL),(@question_id2, 'Choice 2', FLOOR(RAND() * 11) * 10, 'Score', NULL),(@question_id3, 'Choice 1', FLOOR(RAND() * 11) * 10, 'Score', NULL),(@question_id3, 'Choice 2', FLOOR(RAND() * 11) * 10, 'Score', NULL),(@question_id4, 'Choice 1', FLOOR(RAND() * 11) * 10, 'Score', NULL),(@question_id4, 'Choice 2', FLOOR(RAND() * 11) * 10, 'Score', NULL);
 
 INSERT INTO result (test_id, file_path, file_name, score) VALUES(@test_id1, '/path/to/result/file1', 'result file Name 1', '85'),(@test_id2, '/path/to/result/file2', 'result file Name 2', '90');
+
+INSERT INTO user (username, password, refresh_token) VALUES ('2', '2', 'refreshToken1');
+INSERT INTO user (username, password, refresh_token) VALUES ('1', '1', 'refreshToken2');
+
+-- Assuming user_id for 'user1' is 1 and for 'admin1' is 2
+INSERT INTO user_role (user_id, role) VALUES (1, 'USER');
+INSERT INTO user_role (user_id, role) VALUES (2, 'ADMIN');
+
+--삭제하지 말길 .. .기억하길  --
+-- !! 무조건 있어야하는거임 배포 할때 필수 !! --
+INSERT INTO visit (visit_id,visit_count ) VALUES ("total_count", 0);
+
+

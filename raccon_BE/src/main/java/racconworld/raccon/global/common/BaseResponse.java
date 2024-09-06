@@ -36,6 +36,4 @@ public class BaseResponse<T> {
                 ));
     }
 
-    public static class ErrorResponse {
-    }
 }

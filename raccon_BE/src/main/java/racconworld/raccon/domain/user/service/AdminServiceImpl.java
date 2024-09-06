@@ -4,8 +4,6 @@ package racconworld.raccon.domain.user.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import racconworld.raccon.domain.test.repository.TestRepository;
-import racconworld.raccon.global.common.code.ErrorCode;
-import racconworld.raccon.global.exception.CustomExceptionHandler;
 
 
 /*

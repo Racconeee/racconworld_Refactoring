@@ -1,30 +1,32 @@
 package racconworld.raccon.domain.test.dto.Response;
 
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
 @Data
 @Getter
-public class showTestResDto {
+@RequiredArgsConstructor
+public class ShowTestResDto {
 
 
 
     private boolean hasNext;
-    private List<showTestListDto> showTestListDtos;
+    private List<ShowTestListDto> showTestListDtos;
 
     @Data
-    public static class showTestListDto {
+    @RequiredArgsConstructor
+    public static class ShowTestListDto {
         private Long testId;
         private String testName;
         private Long view;
         private String fileName;
         private String filePath;
 
-        public showTestListDto(Long testId, String testName, Long view, String fileName, String filePath) {
+        public ShowTestListDto(Long testId, String testName, Long view, String fileName, String filePath) {
             this.testId = testId;
             this.testName = testName;
             this.view = view;
@@ -33,7 +35,7 @@ public class showTestResDto {
         }
     }
 
-    public showTestResDto(boolean hasNext, List<showTestListDto> showTestListDtos) {
+    public ShowTestResDto(boolean hasNext, List<ShowTestListDto> showTestListDtos) {
         this.hasNext = hasNext;
         this.showTestListDtos = showTestListDtos;
     }

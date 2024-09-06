@@ -23,12 +23,6 @@ public class Log {
     private String logUuid;
 
     @Column
-    private LocalDateTime startTimestamp;
-
-    @Column
-    private LocalDateTime completeTimestamp;
-
-    @Column
     private LocalDateTime viewTimestamp;
 
 
@@ -39,12 +33,9 @@ public class Log {
 
 
     @Builder
-
-    public Log(String requestUrl, String logUuid, LocalDateTime startTimestamp, LocalDateTime completeTimestamp, LocalDateTime viewTimestamp) {
+    public Log(String requestUrl, String logUuid, LocalDateTime viewTimestamp) {
         this.requestUrl = requestUrl;
         this.logUuid = logUuid;
-        this.startTimestamp = startTimestamp;
-        this.completeTimestamp = completeTimestamp;
         this.viewTimestamp = viewTimestamp;
     }
 }

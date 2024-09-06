@@ -1,16 +1,17 @@
 package racconworld.raccon.domain.test.service;
 
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import racconworld.raccon.domain.test.dto.Response.showTestResDto;
+import racconworld.raccon.domain.test.dto.Response.ShowTestResDto;
 import racconworld.raccon.domain.test.entity.Test;
 import racconworld.raccon.domain.test.repository.TestRepository;
+import racconworld.raccon.domain.upload.dto.Response.TestTotalVisitResDto;
 
 import java.util.List;
 
@@ -21,16 +22,21 @@ public class TestServiceImpl implements TestService {
 
     private final TestRepository testRepository;
 
-    @Transactional
+    @Override
+    @Cacheable(cacheNames = "getTestList", key = "'pageNumber:' + #p0", cacheManager = "cacheManager")
+    public ShowTestResDto getTestListByPage(int pageNumber) {
 
-    public showTestResDto getTestListByPage(int pageNumber) {
+        PageRequest pageRequest = PageRequest.of(pageNumber, 6, Sort.by(Sort.Direction.ASC, "view"));
+        Slice<Test> page = testRepository.findAllOrderByViewDesc(pageRequest);
+        List<ShowTestResDto.ShowTestListDto> showTestListDtos = page.map(t -> new ShowTestResDto.ShowTestListDto(t.getId() , t.getTestName() ,t.getView(), t.getFileName() , t.getFilePath())).stream().toList();
 
-        PageRequest pageRequest = PageRequest.of(pageNumber, 9, Sort.by(Sort.Direction.ASC, "id"));
-        Slice<Test> page = testRepository.findAllOrderByViewAsc(pageRequest);
-        List<showTestResDto.showTestListDto> showTestListDtos = page.map( t -> new showTestResDto.showTestListDto(t.getId() , t.getTestName() ,t.getView(), t.getFileName() , t.getFilePath())).stream().toList();
-
-        return new showTestResDto(page.hasNext(), showTestListDtos);
+        return new ShowTestResDto(page.hasNext(), showTestListDtos);
     }
 
 
+    @Override
+    @Cacheable(cacheNames = "getTestTotalVisit", key = "'TestTotalVisit'", cacheManager = "cacheManager")
+    public TestTotalVisitResDto getTestTotalVisit() {
+        return new TestTotalVisitResDto(testRepository.findAllByView());
+    }
 }
