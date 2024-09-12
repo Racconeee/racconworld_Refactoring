@@ -1,5 +1,5 @@
 server:
-  port: 8443
+  port: 8080
   servlet:
     context-path: /
     encoding:
@@ -14,7 +14,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/test_ddl
+    url: jdbc:mysql://database:3306/test_ddl
     username: root
     password: 1234
     mvc:
@@ -39,7 +39,7 @@ spring:
         default_batch_fetch_size: 1000
 
   redis :
-    host : localhost
+    host : cache-server
     port : 6379
 
 signup:
@@ -63,7 +63,6 @@ jwt:
 imagePath:
   test:
     dir: /Users/raccon/Documents/racconworld_data/
-    # dir: /racconworld_data/
   result:
     dir: /Users/raccon/Documents/racconworld_data/
 
@@ -71,6 +70,3 @@ imagePath:
 redirectUrl:
   login:
     success: /admin/home
-
-#    dir: file:///Users/raccon/study/project/Spring/racconworld_data/img/
-    # dir: /quiz/result/
