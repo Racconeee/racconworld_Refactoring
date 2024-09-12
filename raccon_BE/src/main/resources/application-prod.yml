@@ -12,10 +12,10 @@ server:
 
 spring:
   profiles:
-    default: local
+    active: prod
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/test_ddl
+    url: jdbc:mysql://host.docker.internal:3306/test_ddl
     username: root
     password: 1234
     mvc:
@@ -31,15 +31,15 @@ spring:
     database-platform: org.hibernate.dialect.MySQLDialect
     open-in-view: false
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: validate
     properties:
       hibernate:
-        format_sql: true
-        show_sql: true
+        format_sql: false
+        show_sql: false
         default_batch_fetch_size: 1000
 
   redis:
-    host: localhost
+    host: redis
     port: 6379
 
 signup:
@@ -47,7 +47,7 @@ signup:
 
 logging:
   level:
-    org.hibernate.sql: INFO
+    org.hibernate.sql: TRACE
 
 jwt:
   secretKey: 12ASDGKWE41246AS21ASD2412FSDSD1421PWQEIDVN213
