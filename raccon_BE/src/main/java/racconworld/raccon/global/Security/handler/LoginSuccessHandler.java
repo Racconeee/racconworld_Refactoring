@@ -66,7 +66,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
         response.setStatus(successCode.getStatus());
         response.setContentType("application/json");
-        response.getWriter().write(String.format("{\"errorCode\": \"%s\", \"message\": \"%s\"}", successCode.getCode(), successCode.getMessage()));
+        response.getWriter().write(String.format("{\"SuccessCode\": \"%s\", \"message\": \"%s\"}", successCode.getCode(), successCode.getMessage()));
     }
 
 }

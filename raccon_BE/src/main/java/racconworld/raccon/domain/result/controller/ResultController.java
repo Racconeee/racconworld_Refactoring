@@ -10,7 +10,7 @@ import racconworld.raccon.global.common.code.SuccessCode;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/result")
+@RequestMapping("/api/result")
 public class ResultController {
 
     private final ResultService resultService;

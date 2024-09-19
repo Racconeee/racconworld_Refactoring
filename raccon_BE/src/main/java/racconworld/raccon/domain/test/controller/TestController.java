@@ -14,7 +14,7 @@ import racconworld.raccon.global.common.code.SuccessCode;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/test")
+@RequestMapping("/api/test")
 public class TestController {
 
     private final TestService testService;

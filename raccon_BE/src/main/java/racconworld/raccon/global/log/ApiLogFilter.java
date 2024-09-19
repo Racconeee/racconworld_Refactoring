@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import racconworld.raccon.domain.log.entity.Log;
 import racconworld.raccon.domain.log.service.LogService;
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.UUID;
 
 @Slf4j
@@ -30,6 +31,7 @@ public class ApiLogFilter implements Filter  {
 
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
 
+
         String requestUrl = httpServletRequest.getRequestURI();
         String logUuid = UUID.randomUUID().toString();
 
@@ -41,9 +43,17 @@ public class ApiLogFilter implements Filter  {
         logService.saveLog(logEntity);
 
         log.info("@@@@@@@@@@@@@@@@@");
-        log.info("request info URL : {} " , httpServletRequest.getRequestURI());
-        log.info("@@@@@@@@@@@@@@@@@");
+        log.info("request info URL : {} ", httpServletRequest.getRequestURI());
+
+        Enumeration<String> parameterNames = httpServletRequest.getParameterNames();
+        while (parameterNames.hasMoreElements()) {
+            String paramName = parameterNames.nextElement();
+            String paramValue = httpServletRequest.getParameter(paramName);
+            System.out.println(paramName + " = " + paramValue);
+            log.info("@@@@@@@@@@@@@@@@@");
+        }
         filterChain.doFilter(servletRequest, servletResponse);
+
     }
 
     @Override

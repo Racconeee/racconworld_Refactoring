@@ -16,9 +16,8 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/upload")
+@RequestMapping("/api/upload")
 @RequiredArgsConstructor
-@CrossOrigin("*")
 @Slf4j
 public class UploadController {
 
@@ -27,7 +26,7 @@ public class UploadController {
 
     //데이터 dto  , 사진들 따로 받아서 처리
 
-    @PostMapping("/score")
+    @PostMapping("/admin/score")
     public ResponseEntity<BaseResponse<String>> uploadTestTypeScore( @RequestPart UploadTestScoreReqDto uploadTestScoreReqDto,
                                                                      @RequestPart MultipartFile testImage,
                                                                      @RequestPart List<MultipartFile> resultImages) throws IOException {
@@ -42,7 +41,7 @@ public class UploadController {
 
     }
 
-    @PostMapping("/personality")
+    @PostMapping("/admin/personality")
     public ResponseEntity<BaseResponse<String>> uploadTestTypePersonality( @RequestPart UploadTestPersonalityReqDto uploadTestPersonalityReqDto,
                                                                      @RequestPart MultipartFile testImage,
                                                                      @RequestPart List<MultipartFile> resultImages) throws IOException {

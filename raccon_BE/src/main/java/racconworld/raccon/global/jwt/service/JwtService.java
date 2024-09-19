@@ -96,8 +96,13 @@ public class JwtService {
         response.setHeader(refreshHeader , refreshToken);
     }
 
+    //custom header라서 작성해줘야
+    //FE에서 해당 토큰 값에 접근이 가능하다
     public void sendAccessAndRefreshToken(HttpServletResponse response, String accessToken, String refreshToken) {
+        response.setHeader("Access-Control-Expose-Headers", "AccessToken, RefreshToken");
         response.setStatus(HttpServletResponse.SC_OK);
+        log.info(" setAccessToken : {}"  ,accessToken);
+        log.info(" setRefreshToken : {}"  ,refreshToken);
 
         setAccessTokenHeader(response,BEARER + accessToken);
         setRefreshTokenHeader(response,BEARER + refreshToken);
