@@ -6,8 +6,6 @@ import { useRouter } from "vue-router";
 const VITE_SERVER_API_URL = import.meta.env.VITE_SERVER_API_URL;
 
 export const useAuthStore = defineStore("auth", () => {
-  const router = useRouter();
-
   const isLoginValue = ref(false);
   const accessToken = ref(localStorage.getItem("AccessToken") || null);
   const refreshToken = ref(localStorage.getItem("RefreshToken") || null);
@@ -25,24 +23,30 @@ export const useAuthStore = defineStore("auth", () => {
         "Content-Type": "application/json",
       },
       data: loginData,
-    }).then((res) => {
-      console.log("res 입니다");
-      console.log(res.headers["AccessToken"]);
-      if (res.headers["AccessToken"]) {
-        isLoginValue.value = true;
-        localStorage.setItem("AccessToken", res.headers["AccessToken"]);
-        localStorage.setItem("RefreshToken", res.headers["RefreshToken"]);
-        console.log("로그인 성공");
-
-        return true;
-      } else {
-        return false;
-      }
-    });
+    })
+      .then((res) => {
+        console.log("res 입니다");
+        console.log(res.headers["accesstoken"]);
+        console.log(res.headers["refreshtoken"]);
+        if (res.headers["accesstoken"]) {
+          isLoginValue.value = true;
+          localStorage.setItem("AccessToken", res.headers["accesstoken"]);
+          localStorage.setItem("RefreshToken", res.headers["refreshtoken"]);
+          console.log("로그인 성공");
+        } else {
+          isLoginValue.value = false;
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   // api 에서 사용하게 설정 해놓음 pinia에 토큰이 있다면 반환 하고 없다면 설정하고
   // 없다면 localStorage에서 값 가져오기 그래도 없다면 로그인 시키게 하기
+  // 이런식으로 명시적으로 토큰의 값을 초기화 ? 최신화 시킬 수도 있지만.
+  // 새로고침 하게 되도 accessToken = ref(localStorage.getItem("AccessToken") || null);
+  // 이 부분에서 값을 가져오기에 굳이 getAccessToken 함수를 만들 필요가 없다.
   const getAccessToken = () => {
     if (accessToken.value) {
       return accessToken.value;
@@ -85,10 +89,38 @@ export const useAuthStore = defineStore("auth", () => {
 
   const setRefreshToken = (token) => {
     if (token) {
-      localStorage.setItem("refreshToken");
+      localStorage.setItem("refreshToken", token);
     } else {
       return false;
     }
+  };
+
+  const validateAccessToken = async (accessToken_value) => {
+    console.log("검증하는 accessToken의 값은 : ", accessToken_value);
+    const AccessTokenDto = {
+      accessToken: accessToken_value,
+    };
+
+    console.log("AccessTokenDto", accessToken_value);
+
+    await axios({
+      method: "post",
+      url: `${VITE_SERVER_API_URL}/validate/token`,
+      data: AccessTokenDto,
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          isLoginValue.value = true;
+        } else {
+          isLoginValue.value = fas;
+        }
+
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+        isLoginValue.value = false;
+      });
   };
 
   return {
@@ -100,5 +132,6 @@ export const useAuthStore = defineStore("auth", () => {
     setAccessToken,
     getRefreshToken,
     setRefreshToken,
+    validateAccessToken,
   };
 });

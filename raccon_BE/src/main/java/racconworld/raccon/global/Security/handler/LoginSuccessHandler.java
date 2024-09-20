@@ -33,9 +33,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     }
 
 
-    @Value("${redirectUrl.login.success}")
-    private String REDIRECT_URI_SUCCESS;
-
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 

@@ -20,6 +20,7 @@ export const useTestStore = defineStore("test", () => {
   //전체 테스트 조회
   const testList = ref([]);
   const testListhasNext = ref(true);
+  const getTestError = ref(false);
   const getTestList = async function (params = { pageNumber: 0 }) {
     console.log("params : ", params);
     console.log("params : ", params.value);
@@ -37,6 +38,7 @@ export const useTestStore = defineStore("test", () => {
         testListhasNext.value = res.data.result.hasNext;
       })
       .catch((err) => {
+        getTestError.value = true;
         console.log(err);
       });
   };
@@ -90,6 +92,7 @@ export const useTestStore = defineStore("test", () => {
     testList,
     testListhasNext,
     getTestList,
+    getTestError,
     quizList,
     getQuizList,
     resultList,

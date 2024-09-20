@@ -17,8 +17,9 @@ public enum SuccessCode {
     DELETE_SUCCESS(200, "DELETE_SUCCESS", "DELETE SUCCESS"),
     SIGNUP_SUCCESS(201, "SIGNUP_SUCCESS", "SIGNUP SUCCESS"),
     UPLOAD_SUCCESS(201, "UPLOAD_SUCCESS", "UPLOAD SUCCESS"),
-    LOGIN_SUCCESS(200, "LOGIN_SUCCESS", "로그인에 성공했습니다.");
+    LOGIN_SUCCESS(200, "LOGIN_SUCCESS", "로그인에 성공했습니다."),
 
+    VALID_ACCESS_TOKEN_SIGNATURE(200, "TOKEN_SUCCESS", "토큰 검증에 성공했습니다.");
 
     private final int status;
     private final String code;

@@ -139,9 +139,14 @@ public class JwtService {
 
     public Optional<String> extractAccessToken(HttpServletRequest request) {
         return Optional.ofNullable(request.getHeader(accessHeader))
-                .filter(refreshToken -> refreshToken.startsWith(BEARER))
-                .map(refreshToken -> refreshToken.replace(BEARER, ""));
+                .filter(AccessToken -> AccessToken.startsWith(BEARER))
+                .map(AccessToken -> AccessToken.replace(BEARER, ""));
     }
+    //위에는 해더에서 꺼내기 이거는 토큰 BEARER 짤라주기
+    public String bodyExtractAccessToken(String token) {
+            return token.replace(BEARER, "").trim();
+    }
+
 
     public Claims verifyJwtToken(String accessToken) {
 

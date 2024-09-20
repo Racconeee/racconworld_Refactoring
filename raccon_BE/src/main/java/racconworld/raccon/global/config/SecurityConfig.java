@@ -37,7 +37,7 @@ public class SecurityConfig {
     private static final String[] URL_WHITE_LIST = {
             "/login", "/favicon.ico",
             "/swagger-resources/**", "/swagger-ui.html", "/swagger-ui/**",
-            "/test/**" , "/quiz/**" , "/api/**",
+            "/test/**" , "/quiz/**" , "/api/**" , "/validate/**",
 
     };
 
@@ -58,8 +58,7 @@ public class SecurityConfig {
                         request  -> request
                                 .requestMatchers(URL_WHITE_LIST).permitAll()
 //                                .requestMatchers("*").permitAll() //Test 단계에서 일시적으로
-                                .requestMatchers("/admin/**").hasAnyRole("ADMIN")
-//                                .requestMatchers(URL_WHITE_LIST).permitAll()
+                                .requestMatchers("/admin/**" , "/api/upload/**").hasAnyRole("ADMIN")
                                 .anyRequest().authenticated())
                 .addFilterAfter(customUsernamePasswordAuthenticationFilter(), LogoutFilter.class)
                 .addFilterBefore(JwtAuthenticationProcessingFilter(), UsernamePasswordAuthenticationFilter.class);

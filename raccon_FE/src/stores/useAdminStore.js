@@ -23,9 +23,9 @@ export const useAdminStore = defineStore("admin", () => {
     });
 
     try {
-      const res = await axios({
+      const res = await authAxios({
         method: "post",
-        url: `${VITE_SERVER_API_URL}/upload/personality`,
+        url: `${VITE_SERVER_API_URL}/upload/admin/personality`,
         data: formData,
       });
       return res.data; // 응답 데이터 반환
@@ -42,6 +42,17 @@ export const useAdminStore = defineStore("admin", () => {
     testImage,
     resultImages
   ) {
+    console.log("uploadTestScore 실행");
+    console.log("uploadTestScore 실행");
+    console.log("uploadTestScore 실행");
+    console.log("uploadTestScore 실행");
+    console.log("uploadTestScore 실행");
+    console.log("uploadTestScore 실행");
+    console.log("uploadTestScore 실행");
+    console.log("uploadTestScore 실행");
+    console.log("uploadTestScore 실행");
+    console.log("uploadTestScore 실행");
+
     const formData = new FormData();
     const json = JSON.stringify({ testName, testType, questions });
     const blob = new Blob([json], { type: "application/json" });
@@ -51,17 +62,31 @@ export const useAdminStore = defineStore("admin", () => {
       formData.append("resultImages", file);
     });
 
-    try {
-      const res = await axios({
-        method: "post",
-        url: `${VITE_SERVER_API_URL}/upload/score`,
-        data: formData,
+    const to = {
+      accessToken: localStorage.getItem("AccessToken") || null,
+    };
+
+    await authAxios({
+      method: "post",
+      url: `${VITE_SERVER_API_URL}/upload/admin/score`,
+      headers: to,
+      data: formData,
+    })
+      .then((res) => {
+        console.log(res);
+        console.log(res);
+        console.log(res);
+        console.log(res);
+        console.log(res);
+        console.log(res);
+        console.log(res);
+        console.log(res);
+        console.log(res);
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
       });
-      return res.data; // 응답 데이터 반환
-    } catch (err) {
-      console.error(err);
-      throw err; // 에러를 상위 호출로 전달
-    }
   };
 
   // -------------------------------------------------------------------------------------

@@ -104,6 +104,8 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
                         .ifPresent(username -> userRepository.findByUsername(username)
                                 .ifPresent(this::saveAuthentication)));
 
+        log.info("검증 완료 이상 없음.");
+
         filterChain.doFilter(request, response);
     }
 

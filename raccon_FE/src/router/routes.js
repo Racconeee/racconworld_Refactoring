@@ -1,3 +1,5 @@
+import { useAuthStore } from "src/stores/useAuthStore";
+
 const routes = [
   {
     path: "/",
@@ -49,17 +51,39 @@ const routes = [
     component: () => import("layouts/AdminLayouts.vue"),
     meta: { requiresAuth: true },
     //엑세스 토큰을 서버에 인증하고 인증 되면 보내기
-    // beforeEnter: (to, from, next) => {
-    //   const token = 1;
+    //엑세스 토큰 인증 만들기
+    beforeEnter: (to, from, next) => {
+      const authStore = useAuthStore();
 
-    //   if (token == 1) {
-    //     console.log(to, "->", from, " 이동");
-    //     next(); // 정상적으로 이동
-    //   } else {
-    //     console.log(to, "->", from, " 이동불가");
-    //     next("/login"); // 이동 중단
-    //   }
-    // },
+      const token = 1;
+
+      console.log("routes.js 에서 찍힌 로그 ", authStore.accessToken);
+      console.log(
+        "routes.js 에서 찍힌 로그 ",
+        authStore.validateAccessToken(authStore.accessToken)
+      );
+
+      //isLoginValue를 사용해보자 이를 통해서 관리자의 로그인 성공여부를 저장
+      //isLoginValue 이 true로 변하는순간은 2가지
+      // 1. 로그인을 성공 했을떄
+      // 2. 새로고침해도 엑세스토큰은 로컬스토리지에 남아있으니 그것을 토대로 확인하기
+
+      //만약 isLoginValue값이 true이면 정상적으로 이동
+      console.log("authStore.isLoginValue", authStore.isLoginValue);
+
+      if (authStore.isLoginValue) {
+        console.log(to, "->", from, " 이동");
+        next(); // 정상적으로 이동
+      } else {
+        next("/login"); // 이동 중단
+      }
+
+      // authStore.validateAccessToken(authStore.isLoginValue);
+      // if (token == 1) {
+      // } else {
+      //   console.log(to, "->", from, " 이동불가");
+      // }
+    },
     children: [
       {
         path: "",

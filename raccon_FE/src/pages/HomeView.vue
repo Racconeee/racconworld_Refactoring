@@ -13,6 +13,10 @@
             <p>No more items</p>
           </div>
         </template>
+
+        <div v-if="testStore.getTestError">
+          <p>서버에 연결할 수 없습니다. 다시 시도해 주세요.</p>
+        </div>
       </q-infinite-scroll>
     </div>
   </div>
@@ -37,6 +41,11 @@ const onLoadRef = (index, done) => {
   console.log(pageNumber.value);
   console.log(testStore.testListhasNext);
 
+  if (testStore.getTestError) {
+    console.log("서버와의 연결이 안됨");
+
+    return;
+  }
   if (!testStore.testListhasNext) {
     console.log("더이상 데이터가 없음");
     return;
