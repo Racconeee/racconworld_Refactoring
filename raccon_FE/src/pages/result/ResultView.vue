@@ -35,14 +35,46 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { store } from "quasar/wrappers";
+import { useTestStore } from "src/stores/useTestStore";
+import { onMounted, ref } from "vue";
+const teststore = useTestStore();
+
+const goToRacconWorld = () => {
+  window.location.href = "https://www.naver.com";
+};
+
+// teststore.resultFilePath -> 이거를 파일path로 이미지로 하기
 
 const imageFilter = ref("blur(10px) sepia()");
-const showButton = ref(true);
+
+const showButton = ref(!teststore.resultLink);
 const clearBlur = () => {
   imageFilter.value = ""; // 블러와 세피아 필터를 제거
-  showButton.value = "";
+  showButton.value = false;
+
+  teststore.setResultLink(false); // false로 설정
+  goToRacconWorld();
 };
+
+onMounted(async () => {
+  console.log("resultLink 의 값 ", teststore.resultLink);
+
+  console.log("teststore.currentTestId:", teststore.currentTestId);
+  console.log("teststore.resultScore:", teststore.resultScore.value);
+  await teststore.getResultList(
+    teststore.currentTestId,
+    teststore.resultScore.value
+  );
+  console.log(teststore.resultLink);
+  console.log(teststore.resultLink);
+  console.log(teststore.resultLink);
+
+  if (teststore.resultLink) {
+    imageFilter.value = ""; // 블러와 세피아 필터를 제거
+    showButton.value = false;
+  }
+});
 </script>
 
 <style lang="scss" scoped>

@@ -35,9 +35,9 @@ import java.util.List;
 public class SecurityConfig {
 
     private static final String[] URL_WHITE_LIST = {
-            "/login", "/favicon.ico",
+            "/api/login", "/favicon.ico",
             "/swagger-resources/**", "/swagger-ui.html", "/swagger-ui/**",
-            "/test/**" , "/quiz/**" , "/api/**" , "/validate/**",
+            "/api/test/**" , "/api/quiz/**", "/api/result/**" , "/api/admin/signup", "/api/validate/token",
 
     };
 
@@ -58,7 +58,7 @@ public class SecurityConfig {
                         request  -> request
                                 .requestMatchers(URL_WHITE_LIST).permitAll()
 //                                .requestMatchers("*").permitAll() //Test 단계에서 일시적으로
-                                .requestMatchers("/admin/**" , "/api/upload/**").hasAnyRole("ADMIN")
+                                .requestMatchers("/admin/*" , "/api/admin/**" ,"/api/validate/a" ).authenticated()
                                 .anyRequest().authenticated())
                 .addFilterAfter(customUsernamePasswordAuthenticationFilter(), LogoutFilter.class)
                 .addFilterBefore(JwtAuthenticationProcessingFilter(), UsernamePasswordAuthenticationFilter.class);

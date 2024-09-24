@@ -13,10 +13,8 @@ import org.springframework.beans.factory.annotation.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import racconworld.raccon.domain.user.entity.User;
 import racconworld.raccon.global.Security.userdetails.CustomUserDetails;
 import racconworld.raccon.global.common.code.ErrorCode;
 import racconworld.raccon.global.exception.CustomExceptionHandler;
@@ -68,13 +66,20 @@ public class JwtService {
     }
 
 
-    public String createAccessToken(String username) {
+    public String createAccessToken(String username, Collection<? extends GrantedAuthority> authorities) {
 
+        System.out.println(authorities);
+        System.out.println(authorities);
+        System.out.println(authorities);
+        System.out.println(authorities);
         System.out.println(System.currentTimeMillis() + accessExpiration);
         return JWT.create()
                 .withSubject(ACCESS_TOKEN_SUBJECT)
                 .withExpiresAt(new Date(System.currentTimeMillis() + accessExpiration))
                 .withClaim(USERNAME_CLAIM, username)
+                .withArrayClaim("authorities", authorities.stream()
+                        .map(GrantedAuthority::getAuthority)
+                        .toArray(String[]::new))
                 .sign(Algorithm.HMAC256(secretKey));
     }
 

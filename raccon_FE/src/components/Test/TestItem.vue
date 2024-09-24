@@ -31,8 +31,9 @@ const testStore = useTestStore();
 const setStoreTestId = () => {
   console.log(props.testId);
 
+  //로컬 말고 pinia 사용하자
   testStore.setCurrentTestId(props.testId);
-  localStorage.setItem("testId", props.testId);
+  // localStorage.setItem("testId", props.testId);
   console.log("데이터를 저장합니다.");
 
   router.push({ name: "quizpage" }); // 페이지 이동

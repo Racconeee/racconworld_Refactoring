@@ -8,9 +8,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @Getter
 @RequiredArgsConstructor
-public class AccessTokenReqDto {
+public class RefreshTokenReqDto {
 
-    private String AccessToken;
-
-
+    private String RefreshToken;
 }

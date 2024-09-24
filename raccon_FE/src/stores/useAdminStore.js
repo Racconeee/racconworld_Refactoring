@@ -25,7 +25,7 @@ export const useAdminStore = defineStore("admin", () => {
     try {
       const res = await authAxios({
         method: "post",
-        url: `${VITE_SERVER_API_URL}/upload/admin/personality`,
+        url: `${VITE_SERVER_API_URL}/admin/upload/personality`,
         data: formData,
       });
       return res.data; // 응답 데이터 반환
@@ -44,44 +44,22 @@ export const useAdminStore = defineStore("admin", () => {
   ) {
     console.log("uploadTestScore 실행");
     console.log("uploadTestScore 실행");
-    console.log("uploadTestScore 실행");
-    console.log("uploadTestScore 실행");
-    console.log("uploadTestScore 실행");
-    console.log("uploadTestScore 실행");
-    console.log("uploadTestScore 실행");
-    console.log("uploadTestScore 실행");
-    console.log("uploadTestScore 실행");
-    console.log("uploadTestScore 실행");
 
     const formData = new FormData();
     const json = JSON.stringify({ testName, testType, questions });
     const blob = new Blob([json], { type: "application/json" });
-    formData.append("UploadTestScoreReqDto", blob);
+    formData.append("uploadTestScoreReqDto", blob);
     formData.append("testImage", testImage);
     resultImages.forEach((file) => {
       formData.append("resultImages", file);
     });
 
-    const to = {
-      accessToken: localStorage.getItem("AccessToken") || null,
-    };
-
     await authAxios({
       method: "post",
-      url: `${VITE_SERVER_API_URL}/upload/admin/score`,
-      headers: to,
+      url: `${VITE_SERVER_API_URL}/admin/upload/score`,
       data: formData,
     })
       .then((res) => {
-        console.log(res);
-        console.log(res);
-        console.log(res);
-        console.log(res);
-        console.log(res);
-        console.log(res);
-        console.log(res);
-        console.log(res);
-        console.log(res);
         console.log(res);
       })
       .catch((err) => {

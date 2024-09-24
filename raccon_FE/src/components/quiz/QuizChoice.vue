@@ -1,6 +1,8 @@
 <template>
   <div v-if="TotalQuizList.questions && TotalQuizList.questions.length > 0">
-    <div class="flex flex-center text-h4 q-pa-lg q-mb-xl">3/12</div>
+    <div class="flex flex-center text-h4 q-pa-lg q-mb-xl">
+      {{ currentPage }}/{{ TotalQuizList.questions.length }}
+    </div>
     <section class="flex flex-center">
       <q-card :style="{ width: '80vw' }">
         <q-card-section>
@@ -60,14 +62,9 @@ const incrementCurrentPage = (choice) => {
       TotalQuizList.value.testType
     );
 
-    testStore.getresultList(
-      localStorage.getItem("testId"),
-      QuizCommon.quizScoreCalculate(
-        choiceScoreList,
-        TotalQuizList.value.testType
-      )
-    );
+    testStore.setresultScore(quizResult);
     router.push({ name: "resultpage" }); // 페이지 이동
+    return;
   }
   currentPage.value++;
 };

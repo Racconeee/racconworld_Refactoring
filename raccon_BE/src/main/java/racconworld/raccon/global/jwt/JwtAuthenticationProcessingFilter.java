@@ -14,6 +14,7 @@ import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMap
 import org.springframework.security.core.authority.mapping.NullAuthoritiesMapper;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.PatternMatchUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 import racconworld.raccon.domain.user.entity.User;
@@ -83,7 +84,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
     public void checkRefreshTokenAndReIssueAccessToken(HttpServletResponse response, String refreshToken) {
         User userEntity = userRepository.findByRefreshToken(refreshToken).orElseThrow( () -> new CustomExceptionHandler(ErrorCode.TOKEN_NOT_FOUND));
         String reIssuedRefreshToken = reIssueRefreshToken(userEntity);
-        jwtService.sendAccessAndRefreshToken(response, jwtService.createAccessToken(userEntity.getUsername()), reIssuedRefreshToken);
+        jwtService.sendAccessAndRefreshToken(response, jwtService.createAccessToken(userEntity.getUsername() ,getAuthorities(userEntity)), reIssuedRefreshToken);
     }
 
 
@@ -110,6 +111,11 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
     }
 
     public void saveAuthentication(User user) {
+
+
+        log.info("로그인 성공 : {}" , user.getUsername());
+        log.info("User ID : {}" , user.getUsername());
+        log.info("User ID : {}" , user.getRole());
 
 
          CustomUserDetails customUserDetails = CustomUserDetails.builder()

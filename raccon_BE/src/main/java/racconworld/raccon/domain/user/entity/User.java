@@ -2,6 +2,7 @@ package racconworld.raccon.domain.user.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -24,7 +25,8 @@ public class User {
 
     private String refreshToken;
 
-    @ElementCollection(fetch = FetchType.LAZY)
+    @Getter
+    @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"))
@@ -38,10 +40,6 @@ public class User {
         this.role = Collections.singletonList(role);
     }
 
-
-    public List<Role> getRole() {
-        return role;
-    }
 
     public void updateRefreshToken(String refreshToken){
         this.refreshToken = refreshToken;

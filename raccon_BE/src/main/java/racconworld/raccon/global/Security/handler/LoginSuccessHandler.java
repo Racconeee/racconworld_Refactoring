@@ -42,7 +42,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String username = userDetails.getUsername();
 
-        String accessToken = jwtService.createAccessToken(username);
+        String accessToken = jwtService.createAccessToken(username ,userDetails.getAuthorities());
         String refreshToken = jwtService.createRefreshToken();
 
         jwtService.sendAccessAndRefreshToken(response , accessToken, refreshToken);

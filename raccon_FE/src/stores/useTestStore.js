@@ -58,8 +58,6 @@ export const useTestStore = defineStore("test", () => {
     })
       .then((res) => {
         console.log(res.data.result);
-        console.log(res.data.result);
-        console.log(res.data.result);
 
         quizList.value = res.data.result;
       })
@@ -70,7 +68,10 @@ export const useTestStore = defineStore("test", () => {
 
   //resultList
   const resultList = ref([]);
-  const getresultList = async function (testId, score) {
+  const resultScore = ref();
+
+  const resultFilePath = ref();
+  const getResultList = async function (testId, score) {
     await axios({
       method: "get",
       url: `${VITE_SERVER_API_URL}/result/show`,
@@ -82,22 +83,42 @@ export const useTestStore = defineStore("test", () => {
       .then((res) => {
         console.log(res);
         resultList.value = res.data;
+        // resultFilePath.value = res.data.file 여기에 파일 path넣기
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
+  const setresultScore = (Score) => {
+    resultScore.value = Score;
+  };
+
+  //링크 봤는지 안봤는지
+  //true가 나옴
+  //이거 로컬로 넣어야됨
+  const resultLink = ref(localStorage.getItem("resultLink") === "false");
+
+  // setResultLink 함수 수정
+  const setResultLink = (linkValue) => {
+    localStorage.setItem("resultLink", linkValue);
+  };
+
   return {
+    resultLink,
+    setResultLink,
     testList,
     testListhasNext,
     getTestList,
     getTestError,
     quizList,
     getQuizList,
+    resultScore,
     resultList,
+    setresultScore,
     currentTestId,
     setCurrentTestId,
-    getresultList,
+    resultFilePath,
+    getResultList,
   };
 });

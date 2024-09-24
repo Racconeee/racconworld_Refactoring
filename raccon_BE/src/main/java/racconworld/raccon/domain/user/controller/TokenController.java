@@ -4,8 +4,10 @@ package racconworld.raccon.domain.user.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import racconworld.raccon.domain.user.dto.Request.AccessTokenReqDto;
+import racconworld.raccon.domain.user.dto.Request.RefreshTokenReqDto;
 import racconworld.raccon.global.common.BaseResponse;
 import racconworld.raccon.global.common.code.ErrorCode;
 import racconworld.raccon.global.common.code.SuccessCode;
@@ -40,6 +42,29 @@ public class TokenController {
         } else {
             return BaseResponse.error(ErrorCode.INVALID_ACCESS_TOKEN_SIGNATURE ,"토큰 값이 유효하지 않습니다.");
         }
-
     }
+//
+//    @PostMapping("/token")
+//    public ResponseEntity<BaseResponse<String>> reissueRefreshToken(@RequestBody RefreshTokenReqDto refreshTokenReqDto ) {
+//
+//        log.info("RefreshToken :");
+//        log.info("검증에 들어온 RefreshToken :{} " , refreshTokenReqDto.getRefreshToken());
+//
+//        String accessToken = jwtService.bodyExtractAccessToken(refreshTokenReqDto.getRefreshToken());
+//        boolean TokenValidResult = jwtService.isTokenValid(accessToken);
+//        if(TokenValidResult) {
+//            return BaseResponse.success(SuccessCode.VALID_ACCESS_TOKEN_SIGNATURE , "인증이 완료 되었습니다.");
+//        } else {
+//            return BaseResponse.error(ErrorCode.INVALID_ACCESS_TOKEN_SIGNATURE ,"토큰 값이 유효하지 않습니다.");
+//        }
+//    }
+//
+
+    @GetMapping("/a")
+    public String validateAccessToken() {
+
+        log.info("a 호출 ADMIN");
+        return "admin 권한 획득";
+    }
+
 }
