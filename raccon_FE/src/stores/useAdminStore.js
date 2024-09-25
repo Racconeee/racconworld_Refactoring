@@ -69,16 +69,16 @@ export const useAdminStore = defineStore("admin", () => {
 
   // -------------------------------------------------------------------------------------
 
-  const deleteTest = async function (params = {}) {
-    await axios({
+  const deleteTestId = ref(0);
+  const deletTeststate = ref(0);
+  const deleteTest = async function (testId) {
+    await authAxios({
       method: "delete",
-      url: `${VITE_SERVER_API_URL}/api/admin/test/delete/{testId}`,
-      params: params,
+      url: `${VITE_SERVER_API_URL}/admin/test/delete/${testId}`,
     })
       .then((res) => {
         console.log(res);
-
-        testList.value = res.data;
+        deletTeststate.value = res.data.status;
       })
       .catch((err) => {
         console.log(err);
@@ -89,5 +89,7 @@ export const useAdminStore = defineStore("admin", () => {
     uploadTestPersonality,
     uploadTestScore,
     deleteTest,
+    deleteTestId,
+    deletTeststate,
   };
 });

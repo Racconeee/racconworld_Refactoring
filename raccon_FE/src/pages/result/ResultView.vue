@@ -68,7 +68,6 @@ onMounted(async () => {
   );
   console.log(teststore.resultLink);
   console.log(teststore.resultLink);
-  console.log(teststore.resultLink);
 
   if (teststore.resultLink) {
     imageFilter.value = ""; // 블러와 세피아 필터를 제거

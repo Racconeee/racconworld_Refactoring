@@ -13,17 +13,45 @@
         class="q-ma-sm"
         label="삭제하기 "
         unelebated
+        @click="deleteTest"
         color="primary"
       ></q-btn>
     </div>
-    <section class="q-gutter-y-sm q-mt-lg">
-      <q-card v-for="id in 10" :key="id">
-        <q-card-section>{{ id }} 번째 게시글 </q-card-section>
-      </q-card>
-    </section>
+    <TestInfoList></TestInfoList>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import TestInfoList from "src/components/admin/TestInfoList.vue";
+import { useAdminStore } from "src/stores/useAdminStore";
+
+const adminstore = useAdminStore();
+
+const deleteTest = async () => {
+  console.log(adminstore.deleteTestId);
+  console.log(adminstore.deleteTestId);
+  console.log(adminstore.deleteTestId);
+  console.log(adminstore.deleteTestId);
+  console.log(adminstore.deleteTestId);
+
+  if (adminstore.deleteTestId === 0) {
+    alert("Test를 선택하세요.");
+    return;
+  }
+
+  await adminstore.deleteTest(adminstore.deleteTestId);
+
+  if (adminstore.deletTeststate === 200) {
+    alert("TEST가 정상적으로 삭제되었습니다.");
+    window.location.reload();
+  } else {
+    alert("오류가 발생하였습니다.");
+  }
+};
+
+// onMounted(()=> {
+//   teststore.
+// })
+</script>
 
 <style lang="scss" scoped></style>
