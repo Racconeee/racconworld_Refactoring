@@ -81,6 +81,8 @@ authAxios.interceptors.response.use(
         originalRequest.headers["AccessToken"] = `Bearer ${data.accessToken}`;
         return api(originalRequest); // 새로운 토큰으로 요청 재실행
       } catch (err) {
+        console.log("err -> " + err);
+
         console.log("리프레시 토큰도 만료되었습니다.");
         // 로그아웃 처리나 로그인 페이지로 이동
         return Promise.reject(error);

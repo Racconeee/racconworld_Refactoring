@@ -43,7 +43,7 @@ const currentPage = ref(0);
 //지금까지의 점수 저장
 const choiceScoreList = ref([]);
 //결과 값 저장
-const quizResult = ref();
+let quizResult = "";
 
 //라우터 설정 해주기
 const router = useRouter();
@@ -57,12 +57,13 @@ const incrementCurrentPage = (choice) => {
   if (TotalQuizList.value.questions.length - 1 <= currentPage.value) {
     console.log("더이상의 데이터는 존재하지않습니다. 계산 ㄱㄱ ");
     //문제를 모두 풀엇으면 QuizCommon파일로 지금까지의 답변과 TestType 보내서 계산해서 받음
-    quizResult.value = QuizCommon.quizScoreCalculate(
+    quizResult = QuizCommon.quizScoreCalculate(
       choiceScoreList,
       TotalQuizList.value.testType
     );
 
     testStore.setresultScore(quizResult);
+    console.log("testStore.resultScore : -> ", testStore.resultScore.value);
     router.push({ name: "resultpage" }); // 페이지 이동
     return;
   }

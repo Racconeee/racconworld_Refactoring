@@ -33,6 +33,8 @@ export const useAuthStore = defineStore("auth", () => {
           localStorage.setItem("AccessToken", res.headers["accesstoken"]);
           localStorage.setItem("RefreshToken", res.headers["refreshtoken"]);
           console.log("로그인 성공");
+          accessToken.value = res.headers["accesstoken"];
+          refreshToken.value = res.headers["refreshtoken"];
         } else {
           isLoginValue.value = false;
         }
@@ -94,14 +96,18 @@ export const useAuthStore = defineStore("auth", () => {
       return false;
     }
   };
-
+  //토큰 정리하기 내일
+  //이부분 해야됨
+  //AC토큰 인증하기
+  //토큰을 인증하는데 만약 401 토큰이 만료되었다고 하게 되면 리프레쉬 토큰을 통해서 재발급 받기
   const validateAccessToken = async (accessToken_value) => {
-    console.log("검증하는 accessToken의 값은 : ", accessToken_value);
+    console.log(
+      "검증하는 validateAccessToken-accessToken의 값은 : ",
+      accessToken_value
+    );
     const AccessTokenDto = {
       accessToken: accessToken_value,
     };
-
-    console.log("AccessTokenDto", accessToken_value);
 
     await axios({
       method: "post",
@@ -109,16 +115,57 @@ export const useAuthStore = defineStore("auth", () => {
       data: AccessTokenDto,
     })
       .then((res) => {
+        console.log(res);
         if (res.status === 200) {
           isLoginValue.value = true;
         } else {
-          isLoginValue.value = fas;
+          isLoginValue.value = false;
         }
+      })
+      .catch(async (err) => {
+        console.log(err);
 
-        console.log(res);
+        if (err.response.status === 401) {
+          // 수정: err.response.status로 변경
+          console.log("AccessToken이 만료되었습니다.");
+          console.log("토큰을 재발급 받습니다.");
+
+          if (refreshToken.value) {
+            console.log("refreshToken 값이 존재하니 시작합니다.");
+            await validateRefreshToken(refreshToken.value);
+            return;
+          }
+        }
+        isLoginValue.value = false;
+      });
+  };
+
+  const validateRefreshToken = async (refreshToken_value) => {
+    await axios({
+      method: "post",
+      url: `${VITE_SERVER_API_URL}/validate/refreshtoken`,
+      headers: {
+        RefreshToken: refreshToken_value, // Authorization 헤더 추가
+      },
+    })
+      .then((res) => {
+        isLoginValue.value = true;
+        console.log("res 입니다");
+        console.log(res.headers["accesstoken"]);
+        console.log(res.headers["refreshtoken"]);
+        if (res.headers["accesstoken"]) {
+          isLoginValue.value = true;
+          localStorage.setItem("AccessToken", res.headers["accesstoken"]);
+          localStorage.setItem("RefreshToken", res.headers["refreshtoken"]);
+          console.log("재발급 성공");
+          accessToken.value = res.headers["accesstoken"];
+          refreshToken.value = res.headers["refreshtoken"];
+        } else {
+          isLoginValue.value = false;
+        }
       })
       .catch((err) => {
-        console.log(err);
+        console.log("RF를 통한 토큰 재발급 요청을 실패하였습니다.");
         isLoginValue.value = false;
       });
   };

@@ -51,8 +51,12 @@ const router = useRouter();
 // 로그인함
 const submitLoginInfo = async () => {
   console.log(username, password);
-  console.log(username, password);
   await authStore.adminLogin(username.value, password.value);
+
+  console.log("authStore.isLoginValue : ->" + authStore.isLoginValue);
+  console.log(
+    " submitLoginInfo : authStore.acctoken : ->" + authStore.accessToken
+  );
 
   if (authStore.isLoginValue) {
     console.log("admin page로 이동");
@@ -73,11 +77,16 @@ onMounted(async () => {
   console.log("LoginView 에서 찍힌 로그 ");
   console.log(authStore.isLoginValue);
 
+  console.log(authStore.accessToken);
+  console.log(localStorage.getItem("AccessToken"));
+
   if (authStore.isLoginValue) {
     alert("이미 로그인을 하셨기 때문에 다시 안하셔도 됩니다");
     router.push({ name: "adminhome" });
   } else if (authStore.accessToken) {
     await authStore.validateAccessToken(authStore.accessToken);
+    console.log("현재 존재하는 토큰 값 : " + authStore.accessToken);
+
     if (authStore.isLoginValue) {
       alert("이미 로그인을 하셨기 때문에 다시 안하셔도 됩니다");
       router.push({ name: "adminhome" });

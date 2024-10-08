@@ -3,6 +3,7 @@ package racconworld.raccon.domain.test.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import racconworld.raccon.domain.question.entity.Question;
+import racconworld.raccon.domain.result.entity.Result;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,9 @@ public class Test {
 
     @OneToMany(mappedBy = "questionToTest", cascade = CascadeType.ALL)
     private List<Question> questions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "resultToTest", cascade = CascadeType.ALL)
+    private List<Result> results = new ArrayList<>();
 
     private String testName;
     private Long view;

@@ -1,22 +1,17 @@
 <template>
   <div class="container">
+    <TestMainViewApiError v-if="testStore.getTestError"></TestMainViewApiError>
+
     <div class="scroll-container" ref="scrollTargetRef">
       <q-infinite-scroll
         @load="onLoadRef"
         :offset="20"
         :scroll-target="scrollTargetRef"
+        :disable="!testStore.testListhasNext"
       >
         <TestList :items="testStore.testList"></TestList>
 
-        <template v-slot:no-more>
-          <div class="q-mt-md">
-            <p>No more items</p>
-          </div>
-        </template>
-
-        <div v-if="testStore.getTestError">
-          <p>서버에 연결할 수 없습니다. 다시 시도해 주세요.</p>
-        </div>
+        <TestMainTestEnd v-if="!testStore.testListhasNext"></TestMainTestEnd>
       </q-infinite-scroll>
     </div>
   </div>
@@ -26,6 +21,8 @@
 import TestList from "src/components/Test/TestList.vue";
 import { ref } from "vue";
 import { useTestStore } from "@/stores/useTestStore";
+import TestMainTestEnd from "./TestMainTestEnd.vue";
+import TestMainViewApiError from "./TestMainViewApiError.vue";
 
 const testStore = useTestStore();
 
@@ -36,6 +33,8 @@ const pageNumber = ref(0);
 
 //done()을 호출하게 된다면 무한 스크롤이 더이상 실해되지않다
 //testListhasNext (true : 다음 데이터가 더 있다 false : 더이상 없다 )
+
+//done () ->완전 한 끝이 아니고 한번의 로딩이 끝났다는 의미
 const onLoadRef = (index, done) => {
   console.log("onLoadRef : 실행");
   console.log(pageNumber.value);
@@ -46,10 +45,10 @@ const onLoadRef = (index, done) => {
 
     return;
   }
-  if (!testStore.testListhasNext) {
-    console.log("더이상 데이터가 없음");
-    return;
-  }
+  // if (!testStore.testListhasNext) {
+  //   console.log("더이상 데이터가 없음");
+  //   return;
+  // }
 
   testStore.getTestList({ pageNumber: pageNumber.value }).then(() => {
     done();

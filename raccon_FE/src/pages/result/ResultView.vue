@@ -9,12 +9,11 @@
       class="image-container"
       :src="`/images/Thumbnail.png`"
       alt="Thumbnail"
-      :fit="cover"
       width="80vw"
       height="90vh"
       :style="{ filter: imageFilter }"
     />
-
+    <!-- 안봤으면 나오게 -->
     <div v-if="showButton" class="image-button" :class="`shadow-${19}`">
       <q-card class="card-container text-h6 flex">
         <q-card-section flat dense no-border>
@@ -35,14 +34,13 @@
 </template>
 
 <script setup>
-import { store } from "quasar/wrappers";
 import { useTestStore } from "src/stores/useTestStore";
 import { onMounted, ref } from "vue";
 const teststore = useTestStore();
 
-const goToRacconWorld = () => {
-  window.location.href = "https://www.naver.com";
-};
+// const goToRacconWorld = () => {
+//   window.location.href = "https://www.naver.com";
+// };
 
 // teststore.resultFilePath -> 이거를 파일path로 이미지로 하기
 
@@ -53,23 +51,20 @@ const clearBlur = () => {
   imageFilter.value = ""; // 블러와 세피아 필터를 제거
   showButton.value = false;
 
-  teststore.setResultLink(false); // false로 설정
-  goToRacconWorld();
+  teststore.setResultLink(true); // false로 설정
+  // goToRacconWorld();
 };
 
 onMounted(async () => {
-  console.log("resultLink 의 값 ", teststore.resultLink);
-
-  console.log("teststore.currentTestId:", teststore.currentTestId);
-  console.log("teststore.resultScore:", teststore.resultScore.value);
-  await teststore.getResultList(
-    teststore.currentTestId,
-    teststore.resultScore.value
-  );
-  console.log(teststore.resultLink);
-  console.log(teststore.resultLink);
+  await teststore.getResultList(teststore.currentTestId, teststore.resultScore);
+  console.log("teststore.resultLink 의 값 : -> " + teststore.resultLink);
+  console.log("teststore.currentTestId 의 값 : -> " + teststore.currentTestId);
+  console.log("teststore.currentTestId 의 값 : -> " + teststore.currentTestId);
+  console.log("teststore.resultScore 의 값 : -> " + teststore.resultScore);
 
   if (teststore.resultLink) {
+    console.log("if문 실행 안됨");
+
     imageFilter.value = ""; // 블러와 세피아 필터를 제거
     showButton.value = false;
   }

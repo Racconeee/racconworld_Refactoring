@@ -51,27 +51,27 @@ const quizScoreCalculate = (choiceScoreList, testType) => {
     ).length;
 
     if (extraversionCount > introversionCount) {
-      personaltiyTypeResult = +"extraversionCount";
+      personaltiyTypeResult = +"Extraversion";
     } else {
-      personaltiyTypeResult = +"introversionCount";
+      personaltiyTypeResult = +"Introversion";
     }
 
     if (sensingCount > intuitionCount) {
-      personaltiyTypeResult = +"sensingCount";
+      personaltiyTypeResult = +"Sensing";
     } else {
-      personaltiyTypeResult = +"intuitionCount";
+      personaltiyTypeResult = +"Intuition";
     }
 
     if (thinkingCount > feelingCount) {
-      personaltiyTypeResult = +"thinkingCount";
+      personaltiyTypeResult = +"Thinking";
     } else {
-      personaltiyTypeResult = +"feelingCount";
+      personaltiyTypeResult = +"Feeling";
     }
 
     if (judgingCount > perceivingCount) {
-      personaltiyTypeResult = +"judgingCount";
+      personaltiyTypeResult = +"Extraversion";
     } else {
-      personaltiyTypeResult = +"perceivingCount";
+      personaltiyTypeResult = +"Introversion";
     }
     return personaltiyTypeResult;
   }

@@ -66,6 +66,8 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
         log.info("권한이 필요한 url : {} " , request.getRequestURI());
         log.info("request.getHeader(AccessToken) : {}" , request.getHeader("AccessToken"));
         log.info("request.getHeader(refreshHeader) : {}" , request.getHeader("RefreshToken"));
+        log.info("소문자로 들어올수도 ?(refreshHeader) : {}" , request.getHeader("refreshToken"));
+
 
         String refreshToken = jwtService.extractRefreshToken(request)
                 .filter(jwtService::isTokenValid)
@@ -82,7 +84,18 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
     }
     //refresh 토큰 보고 ac , rf 토큰 재발행
     public void checkRefreshTokenAndReIssueAccessToken(HttpServletResponse response, String refreshToken) {
+        log.info("들어온 토큰 refresh : {} " ,refreshToken);
         User userEntity = userRepository.findByRefreshToken(refreshToken).orElseThrow( () -> new CustomExceptionHandler(ErrorCode.TOKEN_NOT_FOUND));
+
+        //토큰자체 검증
+        //만료되지않는 토큰인지 확인 메소드 안에서 예외처리함
+        jwtService.isTokenValid(refreshToken);
+//        // 만료 여부 검증 (토큰이 만료되었는지 확인)
+//        if (jwtService.isTokenValid(refreshToken)) {
+//            throw new CustomExceptionHandler(ErrorCode.REFRESH_TOKEN_EXPIRED);
+//        }
+
+        log.info("인증된 사용자 user : {} " ,userEntity);
         String reIssuedRefreshToken = reIssueRefreshToken(userEntity);
         jwtService.sendAccessAndRefreshToken(response, jwtService.createAccessToken(userEntity.getUsername() ,getAuthorities(userEntity)), reIssuedRefreshToken);
     }

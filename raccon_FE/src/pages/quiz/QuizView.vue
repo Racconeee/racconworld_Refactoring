@@ -8,7 +8,7 @@
 
 <script setup>
 import QuizChoice from "@/components/quiz/QuizChoice.vue";
-import { computed, onMounted } from "vue";
+import { onMounted } from "vue";
 import { useTestStore } from "@/stores/useTestStore";
 import { useRouter } from "vue-router";
 

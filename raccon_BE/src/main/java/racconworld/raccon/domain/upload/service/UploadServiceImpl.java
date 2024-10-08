@@ -59,8 +59,8 @@ public class UploadServiceImpl implements UploadService {
 
             for (UploadTestScoreReqDto.uploadChoicesScoreReqDto choice : question.getChoices()) {
 
-                ScoreChoice scorechoiceEntity = new ScoreChoice(questionEntity , choice.getChoiceText() ,choice.getScore());
-                choiceRepository.save(scorechoiceEntity);
+                ScoreChoice scoreChoiceEntity = new ScoreChoice(questionEntity , choice.getChoiceText() ,choice.getScore());
+                choiceRepository.save(scoreChoiceEntity);
             }
         }
         uploadResult( resultImages, testEntity);
@@ -97,9 +97,11 @@ public class UploadServiceImpl implements UploadService {
     @Override
     public Test createTest(String TestName , TestType TestType , MultipartFile testImage) throws IOException {
 
+
         testRepository.findByTestName(TestName).ifPresent(test -> {
             throw new CustomExceptionHandler(ErrorCode.EXIST_SAME_TEST, "같은 이름의 테스트가 존재합니다.");
         });
+
 
 //                ifPresent(test -> {
 //            throw new CustomExceptionHandler(ErrorCode.NOT_FOUND, "같은 이름의 테스트가 존재합니다.");

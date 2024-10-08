@@ -6,65 +6,57 @@ import authAxios from "src/util/http-commons"; // 해당 api 로 추가 설정�
 const VITE_SERVER_API_URL = import.meta.env.VITE_SERVER_API_URL;
 
 export const useAdminStore = defineStore("admin", () => {
-  const uploadTestPersonality = async function (
-    testName,
-    testType,
-    questions,
-    testImage,
-    resultImages
-  ) {
-    const formData = new FormData();
-    const json = JSON.stringify({ testName, testType, questions });
-    const blob = new Blob([json], { type: "application/json" });
-    formData.append("uploadTestPersonalityReqDto", blob);
-    formData.append("testImage", testImage);
-    resultImages.forEach((file) => {
-      formData.append("resultImages", file);
-    });
-
-    try {
-      const res = await authAxios({
-        method: "post",
-        url: `${VITE_SERVER_API_URL}/admin/upload/personality`,
-        data: formData,
+  const uploadTestRes = ref("");
+  const uploadTestPersonality = async function (formData) {
+    await authAxios({
+      method: "post",
+      url: `${VITE_SERVER_API_URL}/admin/upload/personality`,
+      data: formData,
+    })
+      .then((res) => {
+        uploadTestRes.value = res.data;
+        console.log(res);
+      })
+      .catch((err) => {
+        uploadTestRes.value = err.response.data;
       });
-      return res.data; // 응답 데이터 반환
-    } catch (err) {
-      console.error(err);
-      throw err; // 에러를 상위 호출로 전달
-    }
   };
 
-  const uploadTestScore = async function (
-    testName,
-    testType,
-    questions,
-    testImage,
-    resultImages
-  ) {
-    console.log("uploadTestScore 실행");
-    console.log("uploadTestScore 실행");
+  // -------------------------------------------------------------------------------------
 
-    const formData = new FormData();
-    const json = JSON.stringify({ testName, testType, questions });
-    const blob = new Blob([json], { type: "application/json" });
-    formData.append("uploadTestScoreReqDto", blob);
-    formData.append("testImage", testImage);
-    resultImages.forEach((file) => {
-      formData.append("resultImages", file);
-    });
-
+  const uploadTestScore = async function (formData) {
     await authAxios({
       method: "post",
       url: `${VITE_SERVER_API_URL}/admin/upload/score`,
       data: formData,
     })
       .then((res) => {
+        uploadTestRes.value = res.data;
         console.log(res);
       })
       .catch((err) => {
-        console.log(err);
+        uploadTestRes.value = err.response.data;
       });
+  };
+
+  // -------------------------------------------------------------------------------------
+
+  //테스트 생성후 확인 버튼 누르면 있었던
+  //테스트 결과 Res 초기화
+  const clearUploadTestRes = function () {
+    uploadTestRes.value = "";
+  };
+
+  // -------------------------------------------------------------------------------------
+  //Test업로드 할 떄 값 입력안된거 확인하는 것
+
+  const emptyInputValue = ref("");
+  const emptyInputCheck = function (emptyInput) {
+    emptyInputValue.value += emptyInput;
+  };
+  //확인 하고 창 닫았을 떄 emptyInputValue값 초기화
+  const clearCmptyInput = function () {
+    emptyInputValue.value = "";
   };
 
   // -------------------------------------------------------------------------------------
@@ -81,6 +73,8 @@ export const useAdminStore = defineStore("admin", () => {
         deletTeststate.value = res.data.status;
       })
       .catch((err) => {
+        deletTeststate.value = err.response.data;
+
         console.log(err);
       });
   };
@@ -91,5 +85,10 @@ export const useAdminStore = defineStore("admin", () => {
     deleteTest,
     deleteTestId,
     deletTeststate,
+    uploadTestRes,
+    clearUploadTestRes,
+    emptyInputValue,
+    emptyInputCheck,
+    clearCmptyInput,
   };
 });

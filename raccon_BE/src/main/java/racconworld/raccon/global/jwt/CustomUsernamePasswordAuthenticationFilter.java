@@ -1,6 +1,7 @@
 package racconworld.raccon.global.jwt;
 
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -53,8 +54,12 @@ public class CustomUsernamePasswordAuthenticationFilter extends AbstractAuthenti
 
         String messageBody = StreamUtils.copyToString(request.getInputStream() , StandardCharsets.UTF_8);
         log.info("messageBody : {}" , messageBody);
+        //제네릭 타입 명시해야함 안하면 오류 발생
+//        Note: D:\0920\racconworld_Refactoring\raccon_BE\src\main\java\racconworld\raccon\global\jwt\CustomUsernamePasswordAuthenticationFilter.java uses unchecked or unsafe operations.
+//        Note: Recompile with -Xlint:unchecked for details.
+//        Map<String , String> usernamePasswordMap = objectMapper.readValue(messageBody , Map.class);
+        Map<String, String> usernamePasswordMap = objectMapper.readValue(messageBody, new TypeReference<Map<String, String>>() {});
 
-        Map<String , String> usernamePasswordMap = objectMapper.readValue(messageBody , Map.class);
         log.info("usernamePasswordMap : {}" ,usernamePasswordMap);
         String username = usernamePasswordMap.get(USERNAME_KEY);
         String password = usernamePasswordMap.get(PASSWORD_KEY);

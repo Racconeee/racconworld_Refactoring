@@ -45,6 +45,8 @@ public class ApiLogFilter implements Filter  {
         log.info("@@@@@@@@@@@@@@@@@");
         log.info("request info URL : {} ", httpServletRequest.getRequestURI());
 
+
+
         Enumeration<String> parameterNames = httpServletRequest.getParameterNames();
         while (parameterNames.hasMoreElements()) {
             String paramName = parameterNames.nextElement();

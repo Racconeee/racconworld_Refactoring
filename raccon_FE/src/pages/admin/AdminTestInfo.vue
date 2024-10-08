@@ -2,10 +2,11 @@
   <div>
     <div class="text-h4">테스트 관리 Page</div>
 
-    <div class="justify-end flex row">
+    <div class="justify-end flex row q-mb-lg">
       <q-btn
         class="q-ma-sm"
         label="생성하기 "
+        @click="goTestCreatePage"
         unelebated
         color="primary"
       ></q-btn>
@@ -17,23 +18,19 @@
         color="primary"
       ></q-btn>
     </div>
-    <TestInfoList></TestInfoList>
+    <TestInfoList style="height: 70vh"></TestInfoList>
   </div>
 </template>
 
 <script setup>
 import TestInfoList from "src/components/admin/TestInfoList.vue";
 import { useAdminStore } from "src/stores/useAdminStore";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const adminstore = useAdminStore();
 
 const deleteTest = async () => {
-  console.log(adminstore.deleteTestId);
-  console.log(adminstore.deleteTestId);
-  console.log(adminstore.deleteTestId);
-  console.log(adminstore.deleteTestId);
-  console.log(adminstore.deleteTestId);
-
   if (adminstore.deleteTestId === 0) {
     alert("Test를 선택하세요.");
     return;
@@ -47,6 +44,10 @@ const deleteTest = async () => {
   } else {
     alert("오류가 발생하였습니다.");
   }
+};
+
+const goTestCreatePage = () => {
+  router.push({ name: "create" });
 };
 
 // onMounted(()=> {

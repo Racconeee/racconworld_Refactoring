@@ -7,7 +7,7 @@ const VITE_SERVER_API_URL = import.meta.env.VITE_SERVER_API_URL;
 
 export const useTestStore = defineStore("test", () => {
   // etc ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-  const currentTestId = ref();
+  const currentTestId = ref(0);
 
   // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡPㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
@@ -68,7 +68,7 @@ export const useTestStore = defineStore("test", () => {
 
   //resultList
   const resultList = ref([]);
-  const resultScore = ref();
+  const resultScore = ref(0);
 
   const resultFilePath = ref();
   const getResultList = async function (testId, score) {
@@ -97,7 +97,8 @@ export const useTestStore = defineStore("test", () => {
   //링크 봤는지 안봤는지
   //true가 나옴
   //이거 로컬로 넣어야됨
-  const resultLink = ref(localStorage.getItem("resultLink") === "false");
+  // const resultLink = ref(localStorage.getItem("resultLink") || "false");
+  const resultLink = ref(false);
 
   // setResultLink 함수 수정
   const setResultLink = (linkValue) => {

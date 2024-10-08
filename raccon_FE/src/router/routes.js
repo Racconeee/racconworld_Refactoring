@@ -62,7 +62,13 @@ const routes = [
 
       //만약 isLoginValue값이 true이면 정상적으로 이동
       console.log("authStore.isLoginValue", authStore.isLoginValue);
+      console.log("routes : -> ACToken", authStore.accessToken);
+      console.log("routes : -> ACToken", authStore.getAccessToken);
 
+      if (authStore.isLoginValue) {
+        console.log(to, "->", from, " 이동");
+        next(); // 토큰이 유효하면 이동 허용
+      }
       if (authStore.accessToken) {
         console.log("authStore.accessToken : ", authStore.accessToken);
 

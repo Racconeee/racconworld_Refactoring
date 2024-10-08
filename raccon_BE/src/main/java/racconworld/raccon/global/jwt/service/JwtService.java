@@ -3,19 +3,15 @@ package racconworld.raccon.global.jwt.service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.security.core.Authentication;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import racconworld.raccon.global.Security.userdetails.CustomUserDetails;
 import racconworld.raccon.global.common.code.ErrorCode;
 import racconworld.raccon.global.exception.CustomExceptionHandler;
 
@@ -51,19 +47,19 @@ public class JwtService {
     private static final String USERNAME_CLAIM = "username";
     private static final String BEARER = "Bearer ";
 
-
-    public Authentication authenticateAccessToken(HttpServletRequest request) {
-        String accessToken = extractAccessToken(request).orElseThrow(() -> new CustomExceptionHandler(ErrorCode.MISSING_ACCESS_TOKEN));
-        Claims claims = verifyJwtToken(accessToken);
-
-        UserDetails userDetails = CustomUserDetails.builder()
-                .username((String) claims.get("username"))
-                .authorities(JwtClaimsParser.getROLE(claims))
-                .build();
-
-        return new UsernamePasswordAuthenticationToken(userDetails, null,
-                userDetails.getAuthorities());
-    }
+//
+//    public Authentication authenticateAccessToken(HttpServletRequest request) {
+//        String accessToken = extractAccessToken(request).orElseThrow(() -> new CustomExceptionHandler(ErrorCode.MISSING_ACCESS_TOKEN));
+//        Claims claims = verifyJwtToken(accessToken);
+//
+//        UserDetails userDetails = CustomUserDetails.builder()
+//                .username((String) claims.get("username"))
+//                .authorities(JwtClaimsParser.getROLE(claims))
+//                .build();
+//
+//        return new UsernamePasswordAuthenticationToken(userDetails, null,
+//                userDetails.getAuthorities());
+//    }
 
 
     public String createAccessToken(String username, Collection<? extends GrantedAuthority> authorities) {
@@ -130,9 +126,14 @@ public class JwtService {
         try {
             JWT.require(Algorithm.HMAC256(secretKey)).build().verify(token);
             return true;
-        } catch (Exception e) {
-            log.error("유효하지 않은 토큰입니다. {}", e.getMessage());
-            return false;
+        }catch (TokenExpiredException e) {
+            // 토큰이 만료된 경우 처리
+            log.error("토큰이 만료되었습니다: {}", e.getMessage());
+            throw new CustomExceptionHandler(ErrorCode.TOKEN_EXPIRED);
+        } catch (JWTVerificationException e) {
+            // 서명이 유효하지 않거나, 기타 검증 실패
+            log.error("유효하지 않은 토큰입니다: {}", e.getMessage());
+            throw new CustomExceptionHandler(ErrorCode.INVALID_TOKEN_SIGNATURE);
         }
     }
 
@@ -152,19 +153,20 @@ public class JwtService {
             return token.replace(BEARER, "").trim();
     }
 
-
-    public Claims verifyJwtToken(String accessToken) {
-
-        try {
-            return Jwts.parserBuilder()
-                    .setSigningKey(secretKey)
-                    .build()
-                    .parseClaimsJws(accessToken)
-                    .getBody();
-        } catch (Exception e) {
-            log.error("JWT Token 검증 실패: {}", e.getMessage());
-            throw new CustomExceptionHandler(ErrorCode.INVALID_ACCESS_TOKEN_SIGNATURE);
-        }
-    }
+//
+//    public boolean verifyJwtToken(String token) {
+//
+//        try {
+//                Jwts.parserBuilder()
+//                    .setSigningKey(secretKey)
+//                    .build()
+//                    .parseClaimsJws(token)
+//                    .getBody();
+//                return true;
+//        } catch (Exception e) {
+//            log.error("JWT Token 검증 실패: {}", e.getMessage());
+//            throw new CustomExceptionHandler(ErrorCode.INVALID_ACCESS_TOKEN_SIGNATURE);
+//        }
+//    }
 
 }
