@@ -59,7 +59,7 @@ const submitLoginInfo = async () => {
   );
 
   if (authStore.isLoginValue) {
-    console.log("admin page로 이동");
+    alert("로그인 성공! 환영합니다.");
     router.push({ name: "adminhome" });
   } else {
     alert("로그인 실패");

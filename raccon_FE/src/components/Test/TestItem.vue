@@ -9,6 +9,7 @@
       class="flex flex-column items-center justify-center text-center"
     >
       <q-img
+        loading="lazy"
         :src="`/images/Thumbnail.png`"
         alt="Thumbnail"
         height="150px"

@@ -8,6 +8,7 @@
     <q-img
       class="image-container"
       :src="`/images/Thumbnail.png`"
+      loading="lazy"
       alt="Thumbnail"
       width="80vw"
       height="90vh"
@@ -57,14 +58,8 @@ const clearBlur = () => {
 
 onMounted(async () => {
   await teststore.getResultList(teststore.currentTestId, teststore.resultScore);
-  console.log("teststore.resultLink 의 값 : -> " + teststore.resultLink);
-  console.log("teststore.currentTestId 의 값 : -> " + teststore.currentTestId);
-  console.log("teststore.currentTestId 의 값 : -> " + teststore.currentTestId);
-  console.log("teststore.resultScore 의 값 : -> " + teststore.resultScore);
-
   if (teststore.resultLink) {
     console.log("if문 실행 안됨");
-
     imageFilter.value = ""; // 블러와 세피아 필터를 제거
     showButton.value = false;
   }

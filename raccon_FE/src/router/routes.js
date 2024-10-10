@@ -6,7 +6,6 @@ const routes = [
     alias: "/home",
     name: "home",
     component: () => import("layouts/HomeLayouts.vue"),
-
     children: [
       {
         path: "",
@@ -16,12 +15,16 @@ const routes = [
     ],
   },
   {
-    path: "/test/top",
-    component: () => import("pages/TestTopView.vue"),
-  },
-  {
     path: "/about",
-    component: () => import("pages/AboutView.vue"),
+    name: "about",
+    component: () => import("layouts/HomeLayouts.vue"),
+    children: [
+      {
+        path: "",
+        name: "basicabout",
+        component: () => import("pages/AboutView.vue"),
+      },
+    ],
   },
   {
     path: "/quiz",
@@ -30,12 +33,12 @@ const routes = [
       {
         path: "",
         name: "quizpage",
-        component: () => import("pages/Quiz/QuizView.vue"),
+        component: () => import("pages/quiz/QuizView.vue"),
       },
       {
         path: "result",
         name: "resultpage",
-        component: () => import("pages/Result/ResultView.vue"),
+        component: () => import("pages/result/ResultView.vue"),
       },
     ],
   },
@@ -68,8 +71,7 @@ const routes = [
       if (authStore.isLoginValue) {
         console.log(to, "->", from, " 이동");
         next(); // 토큰이 유효하면 이동 허용
-      }
-      if (authStore.accessToken) {
+      } else if (authStore.accessToken) {
         console.log("authStore.accessToken : ", authStore.accessToken);
 
         // validateAccessToken이 비동기 함수라면 await 사용

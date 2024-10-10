@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="hhh lpr fff" style="" class="bg-grey-2">
+  <q-layout view="hHh lpR fff" class="bg-grey-2">
     <q-header bordered class="bg-white text-grey-9">
       <q-toolbar>
         <q-btn flat dense to="/home">
@@ -13,24 +13,22 @@
       </q-toolbar>
 
       <q-separator color="orange" inset />
-      <template class="flex justify-between">
+      <div class="row items-centers">
         <q-btn
-          class="text-weight-bolder"
+          class="text-weight-bolder col-6"
           stretch
           flat
-          label="Top"
-          to="/test/top"
+          label="home"
+          to="/home"
         />
-        <q-btn class="text-weight-bolder" stretch flat label="??" to="/home" />
-        <q-btn class="text-weight-bolder" stretch flat label="??" to="/test" />
         <q-btn
-          class="text-weight-bolder"
+          class="text-weight-bolder col-6"
           stretch
           flat
           label="About"
-          to="/home"
+          to="/about"
         />
-      </template>
+      </div>
     </q-header>
 
     <q-page-container :style="pageContainerStyles" class="bg-teal-2">
