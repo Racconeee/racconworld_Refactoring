@@ -1,6 +1,6 @@
 <template>
   <div class="row justify-between">
-    <div class="col-5 q-mb-md" v-for="item in items" :key="item.id">
+    <div class="col-6 q-mb-md" v-for="item in items" :key="item.id">
       <TestItem v-bind="item"></TestItem>
     </div>
   </div>

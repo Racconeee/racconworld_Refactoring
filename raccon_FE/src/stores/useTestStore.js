@@ -45,7 +45,7 @@ export const useTestStore = defineStore("test", () => {
 
   //:id 테스트 질문들 조회하기
   //quizList 를 선언해서 받을 수도 있지만 굳이 싶기는 하다 이렇게해서 장점이 뭘까 ? 그냥 코드를 한번 더
-  //반복적으로 사용하는게 아닐까 ? 만약 ts를 도입후 interface의 기능을 활용하면 유지보수는ㄴ 올릴수 있을 것 같다고
+  //반복적으로 사용하는게 아닐까 ? 만약 ts를 도입후 interface의 기능을 활용하면 유지보수는 올릴수 있을 것 같다고
   //생각이 들지만 현재에 있어서는 좀 반복적인 코드를 사용하는 것 같다.
   const quizList = ref([]);
   const getQuizList = async function (testId) {
@@ -67,7 +67,7 @@ export const useTestStore = defineStore("test", () => {
   };
 
   //resultList
-  const resultList = ref([]);
+  const resultList = ref();
   const resultScore = ref(0);
 
   const resultFilePath = ref();
@@ -94,20 +94,7 @@ export const useTestStore = defineStore("test", () => {
     resultScore.value = Score;
   };
 
-  //링크 봤는지 안봤는지
-  //true가 나옴
-  //이거 로컬로 넣어야됨
-  // const resultLink = ref(localStorage.getItem("resultLink") || "false");
-  const resultLink = ref(false);
-
-  // setResultLink 함수 수정
-  const setResultLink = (linkValue) => {
-    localStorage.setItem("resultLink", linkValue);
-  };
-
   return {
-    resultLink,
-    setResultLink,
     testList,
     testListhasNext,
     getTestList,

@@ -12,8 +12,8 @@
         loading="lazy"
         :src="`/images/Thumbnail.png`"
         alt="Thumbnail"
-        height="150px"
-        width="150px"
+        height="170px"
+        width="170px"
         fit="cover"
       />
       <div>{{ testName }}</div>

@@ -10,12 +10,13 @@
       :src="`/images/Thumbnail.png`"
       loading="lazy"
       alt="Thumbnail"
-      width="80vw"
-      height="90vh"
+      fit="fill"
+      width="350px"
+      height="750px"
       :style="{ filter: imageFilter }"
     />
     <!-- 안봤으면 나오게 -->
-    <div v-if="showButton" class="image-button" :class="`shadow-${19}`">
+    <div v-if="!resultboolean" class="image-button" :class="`shadow-${19}`">
       <q-card class="card-container text-h6 flex">
         <q-card-section flat dense no-border>
           adsa shadow-2aasdasd asdasdafw
@@ -37,31 +38,30 @@
 <script setup>
 import { useTestStore } from "src/stores/useTestStore";
 import { onMounted, ref } from "vue";
+
+const VITE_COUPANG_URL_LINK = import.meta.env.VITE_COUPANG_URL_LINK;
+
 const teststore = useTestStore();
 
-// const goToRacconWorld = () => {
-//   window.location.href = "https://www.naver.com";
-// };
-
-// teststore.resultFilePath -> 이거를 파일path로 이미지로 하기
+const openLink = () => {
+  window.open(VITE_COUPANG_URL_LINK, "_blank").focus();
+};
 
 const imageFilter = ref("blur(10px) sepia()");
 
-const showButton = ref(!teststore.resultLink);
 const clearBlur = () => {
   imageFilter.value = ""; // 블러와 세피아 필터를 제거
-  showButton.value = false;
-
-  teststore.setResultLink(true); // false로 설정
-  // goToRacconWorld();
+  sessionStorage.setItem("resultLink", true);
+  resultboolean.value = true;
+  openLink();
 };
+const resultboolean = ref(sessionStorage.getItem("resultLink") || false);
 
 onMounted(async () => {
   await teststore.getResultList(teststore.currentTestId, teststore.resultScore);
-  if (teststore.resultLink) {
-    console.log("if문 실행 안됨");
+
+  if (resultboolean.value) {
     imageFilter.value = ""; // 블러와 세피아 필터를 제거
-    showButton.value = false;
   }
 });
 </script>
@@ -75,7 +75,7 @@ onMounted(async () => {
 }
 
 .image-container {
-  transition: filter 0.3s ease; /* 필터 변경 시 부드러운 애니메이션 효과 */
+  transition: filter 0.3s ease;
   position: relative;
 }
 .image-button {
