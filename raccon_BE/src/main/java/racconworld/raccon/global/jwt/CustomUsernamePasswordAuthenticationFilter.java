@@ -1,6 +1,7 @@
 package racconworld.raccon.global.jwt;
 
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,7 +26,7 @@ import java.util.Map;
 public class CustomUsernamePasswordAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
     //Security 기본 경로가 /login 인데 변경 안하고 그대로 사용함
-    private static final String DEFAULT_LOGIN_REQUEST_URL = "/login"; // "/login"으로 오는 요청을 처리
+    private static final String DEFAULT_LOGIN_REQUEST_URL = "/api/login"; // "/login"으로 오는 요청을 처리
     private static final String HTTP_METHOD = "POST"; // 로그인 HTTP 메소드는 POST
     private static final String CONTENT_TYPE = "application/json"; // JSON 타입의 데이터로 오는 로그인 요청만 처리
     private static final String USERNAME_KEY = "username"; // 회원 로그인 시 이메일 요청 JSON Key : "username"
@@ -53,8 +54,12 @@ public class CustomUsernamePasswordAuthenticationFilter extends AbstractAuthenti
 
         String messageBody = StreamUtils.copyToString(request.getInputStream() , StandardCharsets.UTF_8);
         log.info("messageBody : {}" , messageBody);
+        //제네릭 타입 명시해야함 안하면 오류 발생
+//        Note: D:\0920\racconworld_Refactoring\raccon_BE\src\main\java\racconworld\raccon\global\jwt\CustomUsernamePasswordAuthenticationFilter.java uses unchecked or unsafe operations.
+//        Note: Recompile with -Xlint:unchecked for details.
+//        Map<String , String> usernamePasswordMap = objectMapper.readValue(messageBody , Map.class);
+        Map<String, String> usernamePasswordMap = objectMapper.readValue(messageBody, new TypeReference<Map<String, String>>() {});
 
-        Map<String , String> usernamePasswordMap = objectMapper.readValue(messageBody , Map.class);
         log.info("usernamePasswordMap : {}" ,usernamePasswordMap);
         String username = usernamePasswordMap.get(USERNAME_KEY);
         String password = usernamePasswordMap.get(PASSWORD_KEY);

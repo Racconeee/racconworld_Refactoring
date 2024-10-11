@@ -16,18 +16,16 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/upload")
+@RequestMapping("/api/admin")
 @RequiredArgsConstructor
-@CrossOrigin("*")
 @Slf4j
 public class UploadController {
-
 
     private final UploadService uploadService;
 
     //데이터 dto  , 사진들 따로 받아서 처리
 
-    @PostMapping("/score")
+    @PostMapping("/upload/score")
     public ResponseEntity<BaseResponse<String>> uploadTestTypeScore( @RequestPart UploadTestScoreReqDto uploadTestScoreReqDto,
                                                                      @RequestPart MultipartFile testImage,
                                                                      @RequestPart List<MultipartFile> resultImages) throws IOException {
@@ -42,13 +40,13 @@ public class UploadController {
 
     }
 
-    @PostMapping("/personality")
-    public ResponseEntity<BaseResponse<String>> uploadTestTypeScore( @RequestPart UploadTestPersonalityReqDto uploadTestPersonalityReqDto,
+    @PostMapping("/upload/personality")
+    public ResponseEntity<BaseResponse<String>> uploadTestTypePersonality( @RequestPart UploadTestPersonalityReqDto uploadTestPersonalityReqDto,
                                                                      @RequestPart MultipartFile testImage,
                                                                      @RequestPart List<MultipartFile> resultImages) throws IOException {
 
 
-        log.info("uploadTestScoreReqDto : {} ", uploadTestPersonalityReqDto);
+        log.info("uploadTestPersonalityReqDto : {} ", uploadTestPersonalityReqDto);
         log.info("testImage : {} ", testImage.getOriginalFilename());
         log.info("resultImage : {} ", resultImages.stream().map(MultipartFile::getOriginalFilename).toList());
 

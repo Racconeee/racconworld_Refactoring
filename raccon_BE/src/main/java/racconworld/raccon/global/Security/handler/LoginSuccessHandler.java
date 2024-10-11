@@ -33,9 +33,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     }
 
 
-    @Value("${redirectUrl.login.success}")
-    private String REDIRECT_URI_SUCCESS;
-
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
@@ -45,7 +42,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String username = userDetails.getUsername();
 
-        String accessToken = jwtService.createAccessToken(username);
+        String accessToken = jwtService.createAccessToken(username ,userDetails.getAuthorities());
         String refreshToken = jwtService.createRefreshToken();
 
         jwtService.sendAccessAndRefreshToken(response , accessToken, refreshToken);
@@ -66,7 +63,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
         response.setStatus(successCode.getStatus());
         response.setContentType("application/json");
-        response.getWriter().write(String.format("{\"errorCode\": \"%s\", \"message\": \"%s\"}", successCode.getCode(), successCode.getMessage()));
+        response.getWriter().write(String.format("{\"SuccessCode\": \"%s\", \"message\": \"%s\"}", successCode.getCode(), successCode.getMessage()));
     }
 
 }

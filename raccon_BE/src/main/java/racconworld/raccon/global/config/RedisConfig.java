@@ -14,24 +14,25 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 public class RedisConfig {
 
     @Value("${spring.redis.host}")
-    private String redisHost;
+    private String Host;
 
     @Value("${spring.redis.port}")
-    private int redisPort;
+    private int Port;
 
     @Bean
     public RedisConnectionFactory redisConnectionFactory(){
-        return new LettuceConnectionFactory(redisHost,redisPort);
+        return new LettuceConnectionFactory(Host,Port);
     }
 
     //직접적으로 가지는 않을거여서 필요는 없지만 이렇게 구현한다.
     //모든 타입 가능
     @Bean
-    public RedisTemplate<?,?> redisTemplate(){
-        RedisTemplate<byte[], byte[]> redisTemplate=new RedisTemplate<>();
+    public RedisTemplate<String , Object> redisTemplate(){
+        RedisTemplate<String , Object> redisTemplate=new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory());
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setValueSerializer(new StringRedisSerializer());
+        redisTemplate.setHashValueSerializer(new StringRedisSerializer());
         return redisTemplate;
     }
     //문자열만 가능

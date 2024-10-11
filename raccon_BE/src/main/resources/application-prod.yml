@@ -64,6 +64,3 @@ imagePath:
   result:
     dir: /Users/raccon/Documents/racconworld_data/
 
-redirectUrl:
-  login:
-    success: /admin/home

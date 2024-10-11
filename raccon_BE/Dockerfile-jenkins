@@ -1,0 +1,19 @@
+version: "3.1"
+services:
+  jenkins:
+    container_name: jenkins
+    build:
+      context: .
+      dockerfile: Dockerfile-jenkins
+    restart: unless-stopped
+    user: root
+    ports:
+      - 18661:8080
+      - 50000:50000
+    volumes:
+      - /home/raccon/jenkins:/var/jenkins_home
+      - /home/raccon/.ssh:/root/.ssh
+
+networks:
+  racconworld_world:
+    external : true

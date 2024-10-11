@@ -33,7 +33,6 @@ public interface TestRepository extends JpaRepository<Test, Long> {
 
 
 
-    //
 //
 //    @Query("SELECT t FROM Test t JOIN FETCH t.questions WHERE t.id = :id")
 ////    @Query("SELECT t FROM Test t JOIN FETCH t.questions q JOIN FETCH q.choices WHERE t.id = :id")

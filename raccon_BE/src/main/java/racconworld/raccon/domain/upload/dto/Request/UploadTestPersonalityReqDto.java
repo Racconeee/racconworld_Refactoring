@@ -25,7 +25,7 @@ public class UploadTestPersonalityReqDto {
     @Builder
     public static class uploadChoicesPersonalityReqDto {
         private String choiceText;
-        private String personality;
+        private String score;
     }
 
 
