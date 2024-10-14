@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8443
   servlet:
     context-path: /
     encoding:
@@ -60,8 +60,10 @@ jwt:
 
 imagePath:
   test:
-    dir: /Users/raccon/Documents/racconworld_data/
+#    dir: /Users/raccon/Documents/racconworld_data/
+    dir : D:/image
   result:
-    dir: /Users/raccon/Documents/racconworld_data/
+    dir : D:/image
+#    dir: /Users/raccon/Documents/racconworld_data/
 
 
