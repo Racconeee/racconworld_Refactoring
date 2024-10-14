@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8443
   servlet:
     context-path: /
     encoding:
@@ -11,11 +11,9 @@ server:
       max-request-size: 20MB
 
 spring:
-  profiles:
-    active: prod
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://host.docker.internal:3306/test_ddl
+    url: jdbc:mysql://mysql:3306/test_ddl
     username: root
     password: 1234
     mvc:
