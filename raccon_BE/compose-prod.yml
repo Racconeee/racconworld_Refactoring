@@ -8,7 +8,8 @@ services:
     platform: linux/amd64
     restart: always
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql_db:3306/test_ddl?useSSL=true&verifyServerCertificate=true&requireSSL=true
+#      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/test_ddl?useSSL=true&verifyServerCertificate=true&requireSSL=true
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/test_ddl?useSSL=false
       SPRING_DATASOURCE_USERNAME: "root"
       SPRING_DATASOURCE_PASSWORD: "1234"
     ports:
@@ -18,7 +19,7 @@ services:
       - database
     container_name: spring
     networks:
-      - racconworld_world
+      - raccon_world
 
   cache-server:
     image: redis
@@ -26,7 +27,7 @@ services:
       - "18663:6379"
     container_name: redis
     networks:
-      - racconworld_world
+      - raccon_world
 
   database:
     image: mysql:8.0.36
@@ -38,7 +39,7 @@ services:
       - "18665:3306"
     container_name: mysql
     networks:
-      - racconworld_world
+      - raccon_world
 
   nginx:
     build:
@@ -50,11 +51,11 @@ services:
     depends_on:
       - api-server
     volumes:
-      - /etc/letsencrypt:/etc/letsencrypt  # 인증서 파일을 저장할 경로
-      - /var/lib/letsencrypt:/var/lib/letsencrypt
+#      - /etc/letsencrypt:/etc/letsencrypt  # 인증서 파일을 저장할 경로
+#      - /var/lib/letsencrypt:/var/lib/letsencrypt
     container_name: nginx
     networks:
-      - racconworld_world
+      - raccon_world
 
 #  certbot:
 #    image: certbot/certbot
@@ -67,7 +68,7 @@ services:
 #      - racconworld_world
 
 networks:
-  racconworld_world:
-    name: racconworld_world
+  raccon_world:
+    name: raccon_world
     driver: bridge
     external: false

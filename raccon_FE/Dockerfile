@@ -1,3 +1,4 @@
+
 # 1단계: Vue 애플리케이션 빌드 (Node.js 환경에서)
 FROM node:16 AS build-stage
 
@@ -18,10 +19,11 @@ RUN npm run build
 
 # 2단계: Nginx로 빌드된 정적 파일을 서빙 (Nginx 환경)
 FROM nginx:stable-alpine AS production-stage
-
+RUN rm -rf /etc/nginx/nginx.conf
 # Nginx 설정 파일을 기본 설정과 덮어씌움 (Optional)
-COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
+COPY /app/nginx/nginx.conf /etc/nginx/nginx.conf
 
+RUN rm -rf /usr/share/nginx/html/*
 # 빌드된 Vue 파일을 Nginx의 기본 경로로 복사
 COPY --from=build-stage /app/dist /usr/share/nginx/html
 
