@@ -52,13 +52,13 @@ services:
       - "443:443"  # HTTPS 포트도 열기
     depends_on:
       - api-server
-    volumes:
+#    volumes:
 #      - /etc/letsencrypt:/etc/letsencrypt  # 인증서 파일을 저장할 경로
 #      - /var/lib/letsencrypt:/var/lib/letsencrypt
     networks:
       - raccon_world
     env_file:
-      - .env.production
+      - ../raccon_FE/.env.production
 
 #  certbot:
 #    image: certbot/certbot
