@@ -45,6 +45,10 @@ module.exports = configure(function (/* ctx */) {
         browser: ["es2019", "edge88", "firefox78", "chrome87", "safari13.1"],
         node: "node20",
       },
+      env: {
+        VITE_SERVER_API_URL: process.env.VITE_SERVER_API_URL,
+        VITE_COUPANG_URL_LINK: process.env.VITE_COUPANG_URL_LINK,
+      },
       vueRouterMode: "history", // available values: 'hash', 'history'
       // vueRouterBase,
       // vueDevtools,
