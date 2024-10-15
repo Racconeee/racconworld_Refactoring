@@ -58,7 +58,7 @@ jwt:
 
 imagePath:
   test:
-    dir: /Users/raccon/Documents/racconworld_data/
+    dir: /racconworld_data/img
   result:
-    dir: /Users/raccon/Documents/racconworld_data/
+    dir: /racconworld_data/img
 

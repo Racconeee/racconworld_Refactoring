@@ -17,6 +17,8 @@ services:
     depends_on:
       - cache-server
       - database
+    volumes:
+      - /home/raccon/racconworld_data/img:/racconworld_data/img
     networks:
       - raccon_world
 
@@ -78,3 +80,4 @@ networks:
     name: raccon_world
     driver: bridge
     external: false
+
