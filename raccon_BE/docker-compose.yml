@@ -1,4 +1,3 @@
-version: '3'
 
 services:
   api-server:
@@ -6,38 +5,40 @@ services:
       context: .
       dockerfile: ./Dockerfile-prod
     platform: linux/amd64
+    container_name: spring
     restart: always
-    environment:
+#    environment:
 #      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/test_ddl?useSSL=true&verifyServerCertificate=true&requireSSL=true
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/test_ddl?useSSL=false
-      SPRING_DATASOURCE_USERNAME: "root"
-      SPRING_DATASOURCE_PASSWORD: "1234"
+#      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/test_ddl?useSSL=false
+#      SPRING_DATASOURCE_USERNAME: "root"
+#      SPRING_DATASOURCE_PASSWORD: "1234"
     ports:
       - "18666:8443"
     depends_on:
       - cache-server
       - database
-    container_name: spring
     networks:
       - raccon_world
 
   cache-server:
     image: redis
+    container_name: redis
     ports:
       - "18663:6379"
-    container_name: redis
     networks:
       - raccon_world
 
   database:
     image: mysql:8.0.36
+    container_name: mysql
     environment:
       MYSQL_DATABASE: test_ddl
       MYSQL_ROOT_HOST: '%'
       MYSQL_ROOT_PASSWORD: 1234
     ports:
       - "18665:3306"
-    container_name: mysql
+    volumes:
+      - mysql_data:/var/lib/mysql
     networks:
       - raccon_world
 
@@ -45,6 +46,7 @@ services:
     build:
       context: ../raccon_FE
       dockerfile: ./Dockerfile  # 위에서 만든 Dockerfile로 빌드
+    container_name: nginx
     ports:
       - "80:80"
       - "443:443"  # HTTPS 포트도 열기
@@ -53,7 +55,6 @@ services:
     volumes:
 #      - /etc/letsencrypt:/etc/letsencrypt  # 인증서 파일을 저장할 경로
 #      - /var/lib/letsencrypt:/var/lib/letsencrypt
-    container_name: nginx
     networks:
       - raccon_world
 
