@@ -21,7 +21,7 @@ RUN npm run build
 FROM nginx:stable-alpine AS production-stage
 RUN rm -rf /etc/nginx/nginx.conf
 # Nginx 설정 파일을 기본 설정과 덮어씌움 (Optional)
-COPY /app/nginx/nginx.conf /etc/nginx/nginx.conf
+COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 
 RUN rm -rf /usr/share/nginx/html/*
 # 빌드된 Vue 파일을 Nginx의 기본 경로로 복사

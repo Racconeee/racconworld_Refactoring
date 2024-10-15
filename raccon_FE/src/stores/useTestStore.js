@@ -24,6 +24,9 @@ export const useTestStore = defineStore("test", () => {
   const getTestList = async function (params = { pageNumber: 0 }) {
     console.log("params : ", params);
     console.log("params : ", params.value);
+    console.log("VITE_SERVER_API_URL : => " + VITE_SERVER_API_URL);
+    console.log("VITE_SERVER_API_URL : => " + VITE_SERVER_API_URL);
+    console.log("VITE_SERVER_API_URL : => " + VITE_SERVER_API_URL);
 
     await axios({
       method: "get",
