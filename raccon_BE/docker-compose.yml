@@ -57,6 +57,8 @@ services:
 #      - /var/lib/letsencrypt:/var/lib/letsencrypt
     networks:
       - raccon_world
+    env_file:
+      - .env.production
 
 #  certbot:
 #    image: certbot/certbot
