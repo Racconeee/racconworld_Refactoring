@@ -68,6 +68,9 @@ services:
 #    networks:
 #      - racconworld_world
 
+volumes:
+  mysql_data:
+
 networks:
   raccon_world:
     name: raccon_world
