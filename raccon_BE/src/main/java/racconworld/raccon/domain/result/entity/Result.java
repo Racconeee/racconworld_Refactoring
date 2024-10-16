@@ -33,4 +33,10 @@ public class Result {
         this.filePath = filePath;
         this.score = score;
     }
+
+    public Result(Test resultToTest,String fileName,  String score) {
+        this.resultToTest = resultToTest;
+        this.fileName = fileName;
+        this.score = score;
+    }
 }

@@ -108,11 +108,11 @@ public class UploadServiceImpl implements UploadService {
 //        });
 
         Test testEntity = testRepository.save(new Test(TestName , 0L , TestType ));
-        String filepath = testFileDir + testEntity.getId() + "/main";
+        String filepath = testFileDir + testEntity.getId() ;
         testEntity.uploadFilePath(filepath);
 
         createDir(filepath);
-        saveFile(testImage,"main.png", filepath);
+        saveFile(testImage,"main", filepath);
         //파일 까지 생성하고 저장하기
         testRepository.save(testEntity);
 
