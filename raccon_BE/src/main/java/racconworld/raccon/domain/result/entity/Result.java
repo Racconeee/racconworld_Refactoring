@@ -34,9 +34,10 @@ public class Result {
         this.score = score;
     }
 
-    public Result(Test resultToTest,String fileName,  String score) {
+    public Result(Test resultToTest,String filePath,  String score) {
         this.resultToTest = resultToTest;
-        this.fileName = fileName;
+        this.filePath = filePath;
+        this.score = score;
         this.score = score;
     }
 }

@@ -4,6 +4,7 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 
 const VITE_SERVER_API_URL = import.meta.env.VITE_SERVER_API_URL;
+const VITE_NGINX_IMG_URL = import.meta.env.VITE_NGINX_IMG_URL;
 
 export const useTestStore = defineStore("test", () => {
   // etc ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
@@ -34,10 +35,15 @@ export const useTestStore = defineStore("test", () => {
       params: params,
     })
       .then((res) => {
-        testList.value = [
-          ...testList.value,
-          ...res.data.result.showTestListDtos,
-        ];
+        const updatedTestList = res.data.result.showTestListDtos.map((test) => {
+          return {
+            ...test,
+            filePath: `${VITE_NGINX_IMG_URL}${test.filePath}`, // filePath에 URL 추가
+          };
+        });
+
+        testList.value = [...testList.value, ...updatedTestList];
+
         testListhasNext.value = res.data.result.hasNext;
       })
       .catch((err) => {

@@ -19,7 +19,7 @@
 
       <q-img
         loading="lazy"
-        :src="`http://192.168.31.131/racconworld/files/3/main`"
+        :src="filePath"
         alt="Thumbnail"
         height="170px"
         width="170px"

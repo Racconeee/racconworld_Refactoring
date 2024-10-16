@@ -108,7 +108,8 @@ public class UploadServiceImpl implements UploadService {
 
         Test testEntity = testRepository.save(new Test(TestName , 0L , TestType ));
         String filepath = testFileDir + testEntity.getId() + "/main";
-        testEntity.uploadFilePath(filepath);
+        String saveFilePath = "/" + testEntity.getId() + "/main";
+        testEntity.uploadFilePath(saveFilePath);
 
         createDir(filepath);
         saveFile(testImage, filepath);
@@ -151,12 +152,13 @@ public class UploadServiceImpl implements UploadService {
         for (MultipartFile file : fileList) {
             String score = file.getOriginalFilename();
             String filePath = resultFileDir + testEntity.getId()+ "/" + score;
+            String saveFilePath = "/" + testEntity.getId() + score ;
 //            String fileName = testEntity.getId() + "/" + score;
 
 //            createDir(filePath); Test 사진 넣으면 서 이미 넣었으니 우선 주석으로 테스트 해보자
             saveFile(file, filePath);
 
-            resultRepository.save(new Result(testEntity  ,filePath, score ));
+            resultRepository.save(new Result(testEntity  ,saveFilePath, score ));
 
             //문제가 없다면 파일 생성
         }
