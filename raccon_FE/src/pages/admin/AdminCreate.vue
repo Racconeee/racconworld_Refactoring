@@ -239,6 +239,8 @@ const openCreateDialog = async () => {
 
     createDialog.value = true;
   } catch (error) {
+    createDialog.value = true;
+
     console.error(error);
   }
 };

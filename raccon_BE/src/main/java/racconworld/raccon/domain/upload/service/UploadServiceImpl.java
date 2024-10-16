@@ -146,13 +146,12 @@ public class UploadServiceImpl implements UploadService {
      * 1.이미 이미지가 존재하는 경우
      * 2.Test가 존재하지 않는경우
      * */
-
     public void uploadResult(List<MultipartFile> fileList, Test testEntity) throws IOException {
 
         for (MultipartFile file : fileList) {
             String score = file.getOriginalFilename();
             String filePath = resultFileDir + testEntity.getId()+ "/" + score;
-            String saveFilePath = "/" + testEntity.getId() + score ;
+            String saveFilePath = "/" + testEntity.getId() + "/" + score ;
 //            String fileName = testEntity.getId() + "/" + score;
 
 //            createDir(filePath); Test 사진 넣으면 서 이미 넣었으니 우선 주석으로 테스트 해보자

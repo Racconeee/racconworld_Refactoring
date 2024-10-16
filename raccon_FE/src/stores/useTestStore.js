@@ -91,10 +91,12 @@ export const useTestStore = defineStore("test", () => {
     })
       .then((res) => {
         console.log(res);
-        resultList.value = res.data;
+        resultList.value = VITE_NGINX_IMG_URL + res.data;
         // resultFilePath.value = res.data.file 여기에 파일 path넣기
       })
       .catch((err) => {
+        resultList.value =
+          VITE_NGINX_IMG_URL + "/13/스크린샷 2024-10-16 132546.png";
         console.log(err);
       });
   };

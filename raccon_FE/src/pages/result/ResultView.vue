@@ -15,6 +15,16 @@
       height="750px"
       :style="{ filter: imageFilter }"
     />
+    <q-img
+      class="image-container"
+      :src="teststore.resultList"
+      loading="lazy"
+      alt="Thumbnail"
+      fit="fill"
+      width="350px"
+      height="750px"
+      :style="{ filter: imageFilter }"
+    />
     <!-- 안봤으면 나오게 -->
     <div v-if="!resultboolean" class="image-button" :class="`shadow-${19}`">
       <q-card class="card-container text-h6 flex">
@@ -63,6 +73,7 @@ onMounted(async () => {
   if (resultboolean.value) {
     imageFilter.value = ""; // 블러와 세피아 필터를 제거
   }
+  console.log("resultList => " + teststore.resultList);
 });
 </script>
 
