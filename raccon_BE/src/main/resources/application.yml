@@ -17,7 +17,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/test_ddl
     username: root
-    password: 1234
+    password: 12345678
     mvc:
       view:
         prefix: /static/
@@ -31,7 +31,7 @@ spring:
     database-platform: org.hibernate.dialect.MySQLDialect
     open-in-view: false
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
@@ -60,11 +60,11 @@ jwt:
 
 imagePath:
   test:
-#    dir: /Users/raccon/Documents/racconworld_data/
-    dir : D:/image/ex/
+    dir: /Users/raccon/Documents/racconworld_data/
+#    dir : D:/image/ex/
 
   result:
-    dir : D:/image/ex/
-#    dir: /Users/raccon/Documents/racconworld_data/
+#    dir : D:/image/ex/
+    dir: /Users/raccon/Documents/racconworld_data/
 
 

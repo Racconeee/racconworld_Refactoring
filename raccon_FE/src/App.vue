@@ -9,3 +9,7 @@ defineOptions({
   name: "App",
 });
 </script>
+
+<style lang="scss" scoped>
+@import "./assets/styles.css"; /* 전역 스타일 파일 import */
+</style>

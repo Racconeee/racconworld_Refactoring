@@ -1,0 +1,15 @@
+@font-face {
+  font-family: "raccon_font"; /* 사용자 정의 폰트 이름 */
+  src: url("@/assets/font/Title_Bold.woff") format("woff");
+}
+* {
+  font-family: "raccon_font", Roboto; /* 모든 요소에 폰트 적용 */
+  margin: 0; /* 기본 여백 제거 (선택적) */
+  padding: 0; /* 기본 패딩 제거 (선택적) */
+}
+
+/* 추가적으로 HTML, body에 폰트 설정 (선택적) */
+html,
+body {
+  font-family: "raccon_font", Roboto; /* HTML, body에 폰트 적용 */
+}
