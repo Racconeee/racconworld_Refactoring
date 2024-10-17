@@ -34,7 +34,7 @@
       </div>
     </q-header>
 
-    <q-page-container :style="pageContainerStyles" class="bg-teal-2">
+    <q-page-container class="bg-teal-2">
       <router-view />
     </q-page-container>
 

@@ -1,8 +1,8 @@
 {
-  "name": "study-fe",
+  "name": "raccon_FE",
   "version": "0.0.1",
-  "description": "Board",
-  "productName": "Study FE App",
+  "description": "Racconeee",
+  "productName": "raccon_FE App",
   "author": "Racconeee <117073015+Racconeee@users.noreply.github.com>",
   "private": true,
   "scripts": {
@@ -18,11 +18,12 @@
     "axios": "^1.7.5",
     "pinia": "^2.1.3",
     "quasar": "^2.12.0",
+    "sass": "^1.43.4",
     "vue": "^3.3.4",
     "vue-router": "^4.2.2"
   },
   "devDependencies": {
-    "@quasar/app-vite": "^1.4.3",
+    "@quasar/app-vite": "^1.10.0",
     "autoprefixer": "^10.4.14",
     "eslint": "^8.42.0",
     "eslint-config-prettier": "^8.8.0",
