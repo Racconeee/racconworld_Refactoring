@@ -27,7 +27,7 @@
 </template>
 
 <script setup>
-import { defineEmits, computed } from "vue";
+import { computed } from "vue";
 import { useAdminStore } from "src/stores/useAdminStore";
 
 const adminStore = useAdminStore();

@@ -12,8 +12,8 @@
         loading="lazy"
         :src="filePath"
         alt="Thumbnail"
-        height="170px"
-        width="170px"
+        height="270px"
+        width="270px"
         fit="cover"
         :style="{ borderRadius: '5px' }"
       />
@@ -50,9 +50,6 @@ const props = defineProps({
     default: 0,
   },
   testName: {
-    type: String,
-  },
-  fileName: {
     type: String,
   },
   filePath: {

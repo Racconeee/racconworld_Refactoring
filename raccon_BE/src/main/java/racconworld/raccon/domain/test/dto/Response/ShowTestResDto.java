@@ -23,14 +23,12 @@ public class ShowTestResDto {
         private Long testId;
         private String testName;
         private Long view;
-        private String fileName;
         private String filePath;
 
-        public ShowTestListDto(Long testId, String testName, Long view, String fileName, String filePath) {
+        public ShowTestListDto(Long testId, String testName, Long view,  String filePath) {
             this.testId = testId;
             this.testName = testName;
             this.view = view;
-            this.fileName = fileName;
             this.filePath = filePath;
         }
     }

@@ -60,12 +60,12 @@ const onLoadRef = (index, done) => {
 
 <style lang="scss" scoped>
 .scroll-container {
-  flex: 1;
-  overflow: auto;
-  height: 100vh;
+  // flex: 1;
+  // overflow: auto;
+  // height: 80vh;
 }
 .container {
-  height: 100vh;
+  // height: 100vh;
   display: flex;
   flex-direction: column;
 }

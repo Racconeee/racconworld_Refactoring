@@ -23,7 +23,7 @@ public class ResultServiceImpl implements ResultService {
         Result result = repository.findResultByTestIdAndScore(testId , score).orElseThrow(() ->
                 new CustomExceptionHandler(ErrorCode.RESULT_NOT_FOUND));
 
-        ShowResultResDto showRsultResDto = new ShowResultResDto(result.getFileName() , result.getFilePath());
+        ShowResultResDto showRsultResDto = new ShowResultResDto( result.getFilePath());
 
         return showRsultResDto;
     }

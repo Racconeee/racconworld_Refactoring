@@ -5,7 +5,7 @@
       class="bg-white text-grey-9"
       style="max-width: 800px; margin: 0 auto"
     >
-      <q-toolbar>
+      <q-toolbar class="flex">
         <q-btn flat dense to="/home">
           <q-avatar rounded class="q-ma-sm q-mr-md">
             <img src="/images/logo.png" />
@@ -14,6 +14,11 @@
             Racconworld
           </q-toolbar-title>
         </q-btn>
+        <q-space />
+        <div class="items-center justify-center">
+          <div>총방문자수</div>
+          <div>18161</div>
+        </div>
       </q-toolbar>
       <div class="row items-center">
         <q-btn
@@ -40,24 +45,16 @@
 
     <q-footer
       elevated
-      class="bg-teal-6 text-gray row items-center justify-center"
+      class="bg-teal-6 text-gray items-center justify-center q-pa-xs"
     >
-      <div class="q-mt-sm">
-        <q-btn
-          flat
-          label="개인정보취급방침"
-          to="/privacy-policy"
-          class="q-ml-md"
-        />
-        <q-btn
-          flat
-          label="서비스 이용약관"
-          to="/terms-of-service"
-          class="q-ml-md"
-        />
+      <div class="q-mt-xs text-center">
+        © 2024 Raccoonworld. All rights reserved.
       </div>
-      <div>© 2024 Raccoonworld. All rights reserved.</div>
-      <div class="q-mt-sm">문의하기 : racconworld@gmail.com</div>
+      <div class="q-mt-xs text-center">문의하기 : racconworld@gmail.com</div>
+      <div class="q-mt-xs row justify-around">
+        <q-btn flat label="개인정보취급방침" to="/privacy-policy" />
+        <q-btn flat label="서비스 이용약관" to="/terms-of-service" />
+      </div>
     </q-footer>
   </q-layout>
 </template>

@@ -20,24 +20,16 @@ public class Result {
     private Test resultToTest;
 
     @Column
-    private String fileName;
-    @Column
     private String filePath;
     @Column
     private String score;
 
     @Builder
-    public Result(Test resultToTest, String fileName, String filePath, String score) {
+    public Result(Test resultToTest,  String filePath, String score) {
         this.resultToTest = resultToTest;
-        this.fileName = fileName;
         this.filePath = filePath;
         this.score = score;
     }
 
-    public Result(Test resultToTest,String filePath,  String score) {
-        this.resultToTest = resultToTest;
-        this.filePath = filePath;
-        this.score = score;
-        this.score = score;
-    }
+
 }

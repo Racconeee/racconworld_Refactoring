@@ -27,7 +27,6 @@
 </template>
 
 <script setup>
-import { defineEmits } from "vue";
 import { useAdminStore } from "src/stores/useAdminStore";
 import { useRouter } from "vue-router";
 

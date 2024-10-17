@@ -20,16 +20,14 @@ public class DetailQuizResDto {
     private TestType testType;
     private Long view;
     private String filePath;
-    private String fileName;
     private List<DetailQuestionListResDto> questions; // List<DetailQuestionListResDto> 타입으로 정의합니다.
 
     @Builder
-    public DetailQuizResDto(String testName, TestType testType, Long view, String filePath, String fileName, List<DetailQuestionListResDto> questions) {
+    public DetailQuizResDto(String testName, TestType testType, Long view, String filePath,  List<DetailQuestionListResDto> questions) {
         this.testName = testName;
         this.testType = testType;
         this.view = view;
         this.filePath = filePath;
-        this.fileName = fileName;
         this.questions = questions;
     }
 
@@ -52,7 +50,6 @@ public class DetailQuizResDto {
                 .testType(test.getTestType())
                 .view(test.getView())
                 .filePath(test.getFilePath())
-                .fileName(test.getFileName())
                 .questions(questionDtos)
                 .build();
 

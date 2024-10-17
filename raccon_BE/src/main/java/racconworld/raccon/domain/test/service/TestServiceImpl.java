@@ -29,7 +29,7 @@ public class TestServiceImpl implements TestService {
 
         PageRequest pageRequest = PageRequest.of(pageNumber, 6, Sort.by(Sort.Direction.DESC, "view"));
         Slice<Test> page = testRepository.findAll(pageRequest);
-        List<ShowTestResDto.ShowTestListDto> showTestListDtos = page.map(t -> new ShowTestResDto.ShowTestListDto(t.getId() , t.getTestName() ,t.getView(), t.getFileName() , t.getFilePath())).stream().toList();
+        List<ShowTestResDto.ShowTestListDto> showTestListDtos = page.map(t -> new ShowTestResDto.ShowTestListDto(t.getId() , t.getTestName() ,t.getView(), t.getFilePath())).stream().toList();
 
         return new ShowTestResDto(page.hasNext(), showTestListDtos);
     }
