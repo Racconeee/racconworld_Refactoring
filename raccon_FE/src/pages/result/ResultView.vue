@@ -1,20 +1,10 @@
 <template>
   <div class="container">
     <div class="text-h5 text-center text-weight-bold q-mb-xl q-mt-xl q-mp-none">
-      결과지
+      나의 결과는 !!
     </div>
     <div class="blank-space"></div>
 
-    <q-img
-      class="image-container"
-      :src="`/images/Thumbnail.png`"
-      loading="lazy"
-      alt="Thumbnail"
-      fit="fill"
-      width="350px"
-      height="750px"
-      :style="{ filter: imageFilter }"
-    />
     <q-img
       class="image-container"
       :src="teststore.resultList"
@@ -23,25 +13,31 @@
       fit="fill"
       width="350px"
       height="750px"
-      :style="{ filter: imageFilter }"
+      :style="{ filter: imageFilter, borderRadius: '5px' }"
     />
     <!-- 안봤으면 나오게 -->
     <div v-if="!resultboolean" class="image-button" :class="`shadow-${19}`">
-      <q-card class="card-container text-h6 flex">
-        <q-card-section flat dense no-border>
-          adsa shadow-2aasdasd asdasdafw
+      <q-card class="card-container text-h6 flex" :style="{ opacity: 1 }">
+        <q-card-section flat>
+          쿠팡 방문은 Racconworld 개발자에게 많은 힘이 됩니다.
         </q-card-section>
 
         <q-btn
           @click="clearBlur"
-          class="bg-black text-h5 text-white q-ma-sm"
+          class="bg-blue text-h6 text-white q-ma-sm"
           :size="xl"
-          label="Clear Blur"
+          label="버튼 누르고 결과 보기"
+          :style="{ borderRadius: '5px' }"
         ></q-btn>
       </q-card>
     </div>
     <div class="blank-space"></div>
-    <div class="text-h4">끝</div>
+
+    <div>
+      이 포스팅은 쿠팡 파트너스 활동의 일환으로
+      <br />
+      이에 따른 일정액의 수수료를 제공받습니다.
+    </div>
   </div>
 </template>
 

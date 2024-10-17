@@ -1,10 +1,20 @@
 <template>
   <div v-if="TotalQuizList.questions && TotalQuizList.questions.length > 0">
-    <div class="flex flex-center text-h4 q-pa-lg q-mb-xl">
-      {{ currentPage }}/{{ TotalQuizList.questions.length }}
-    </div>
+    <!-- <div class="flex flex-center text-h4 q-pa-lg q-mb-xl">
+      {{ currentPage + 1 }}/{{ TotalQuizList.questions.length }}
+    </div> -->
+
     <section class="flex flex-center">
-      <q-card :style="{ width: '80vw' }">
+      <q-linear-progress
+        :value="(currentPage + 1) / TotalQuizList.questions.length"
+        color="primary"
+        track-color="grey-4"
+        size="10px"
+        class="q-mb-xl q-mt-xl responsive-card"
+        rounded
+      />
+
+      <q-card class="responsive-card">
         <q-card-section>
           {{ TotalQuizList.questions[currentPage].questionText }}
         </q-card-section>
@@ -17,11 +27,8 @@
         :key="choice.id"
       >
         <q-btn
-          align="around"
-          class="btn-fixed-width"
           color="brown-5"
           :label="choice.choiceText"
-          icon="lightbulb_outline"
           @click="incrementCurrentPage(choice)"
         />
       </div>
@@ -71,4 +78,14 @@ const incrementCurrentPage = (choice) => {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.responsive-card {
+  width: 80vw;
+}
+
+@media (min-width: 1000px) {
+  .responsive-card {
+    width: 600px;
+  }
+}
+</style>

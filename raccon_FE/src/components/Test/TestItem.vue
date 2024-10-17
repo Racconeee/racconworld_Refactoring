@@ -10,24 +10,15 @@
     >
       <q-img
         loading="lazy"
-        :src="`/images/Thumbnail.png`"
-        alt="Thumbnail"
-        height="170px"
-        width="170px"
-        fit="cover"
-      />
-
-      <q-img
-        loading="lazy"
         :src="filePath"
         alt="Thumbnail"
         height="170px"
         width="170px"
         fit="cover"
+        :style="{ borderRadius: '5px' }"
       />
       <div>{{ testName }}</div>
-      <div>{{ filePath }}</div>
-      <div>조회수 : {{ view }}</div>
+      <div><q-icon name="pets" /> {{ view }}</div>
     </q-item-section>
   </q-item>
 </template>
