@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
@@ -34,11 +35,11 @@ public class RedisCacheConfig {
         // ObjectMapper 설정
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.activateDefaultTyping(typeValidator, ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
-
-        // Jackson2JsonRedisSerializer 설정
+//
+//        // Jackson2JsonRedisSerializer 설정
         Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(Object.class);
         jackson2JsonRedisSerializer.setObjectMapper(objectMapper);
-
+//
         // RedisCacheConfiguration 설정
         RedisCacheConfiguration redisCacheConfig = RedisCacheConfiguration.defaultCacheConfig()
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
@@ -46,11 +47,15 @@ public class RedisCacheConfig {
                 .disableCachingNullValues() // null 값 캐싱 비활성화
                 .entryTtl(Duration.ofMinutes(10L));  // TTL 설정
 
-        // RedisCacheManager 반환
+
+
+
+//         RedisCacheManager 반환
         return RedisCacheManager
                 .RedisCacheManagerBuilder
                 .fromConnectionFactory(redisConnectionFactory)
                 .cacheDefaults(redisCacheConfig)
                 .build();
+
     }
 }

@@ -5,11 +5,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import racconworld.raccon.domain.test.dto.Response.ShowTestViewListResDto;
 import racconworld.raccon.domain.test.dto.Response.ShowTestResDto;
 import racconworld.raccon.domain.test.service.TestService;
-import racconworld.raccon.domain.upload.dto.Response.TestTotalVisitResDto;
+import racconworld.raccon.domain.test.dto.Response.TestTotalVisitResDto;
 import racconworld.raccon.global.common.BaseResponse;
 import racconworld.raccon.global.common.code.SuccessCode;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,13 +27,25 @@ public class TestController {
     @GetMapping("/list")
     public ResponseEntity<BaseResponse<ShowTestResDto>> getTestList(@RequestParam(name = "pageNumber" ,defaultValue = "0") int pageNumber) {
 
-        ShowTestResDto testList = testService.getTestListByPage(pageNumber);
 
         return BaseResponse.success(
                 SuccessCode.SELECT_SUCCESS,
-                testList
+                testService.getTestListByPage(pageNumber)
         );
     }
+
+    //testId가 DB에서는 Long 타입일 수 있지만, Redis에서의 키는 **문자열(String)**로 처리됩니다
+    @GetMapping("/list/view")
+    public ResponseEntity<BaseResponse<List<ShowTestViewListResDto>>> getViewCounts(@RequestParam("testIds") List<Long> testIds) {
+        // TestService를 호출하여 Redis 조회수 정보를 가져옴
+
+        return BaseResponse.success(
+                SuccessCode.SELECT_SUCCESS,
+                testService.getTestViewList(testIds)
+        );
+
+    }
+
 
 
     @GetMapping("/total/visit")

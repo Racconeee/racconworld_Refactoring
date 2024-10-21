@@ -28,32 +28,32 @@ public class ApiLogFilter implements Filter  {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-
-        HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
-
-
-        String requestUrl = httpServletRequest.getRequestURI();
-        String logUuid = UUID.randomUUID().toString();
-
-        Log logEntity = Log.builder()
-                .requestUrl(requestUrl)
-                .logUuid(logUuid)
-                .build();
-
-        logService.saveLog(logEntity);
-
-        log.info("@@@@@@@@@@@@@@@@@");
-        log.info("request info URL : {} ", httpServletRequest.getRequestURI());
-
-
-
-        Enumeration<String> parameterNames = httpServletRequest.getParameterNames();
-        while (parameterNames.hasMoreElements()) {
-            String paramName = parameterNames.nextElement();
-            String paramValue = httpServletRequest.getParameter(paramName);
-            System.out.println(paramName + " = " + paramValue);
-            log.info("@@@@@@@@@@@@@@@@@");
-        }
+//
+//        HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
+//
+//
+//        String requestUrl = httpServletRequest.getRequestURI();
+//        String logUuid = UUID.randomUUID().toString();
+//
+//        Log logEntity = Log.builder()
+//                .requestUrl(requestUrl)
+//                .logUuid(logUuid)
+//                .build();
+//
+//        logService.saveLog(logEntity);
+//
+//        log.info("@@@@@@@@@@@@@@@@@");
+//        log.info("request info URL : {} ", httpServletRequest.getRequestURI());
+//
+//
+//
+//        Enumeration<String> parameterNames = httpServletRequest.getParameterNames();
+//        while (parameterNames.hasMoreElements()) {
+//            String paramName = parameterNames.nextElement();
+//            String paramValue = httpServletRequest.getParameter(paramName);
+//            System.out.println(paramName + " = " + paramValue);
+//            log.info("@@@@@@@@@@@@@@@@@");
+//        }
         filterChain.doFilter(servletRequest, servletResponse);
 
     }

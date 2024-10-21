@@ -1,5 +1,5 @@
 <template>
-  <div style="max-width: 800px; margin: 0 auto">
+  <div style="max-width: 800px; min-width: 340px; margin: 0 auto">
     <router-view />
   </div>
 </template>

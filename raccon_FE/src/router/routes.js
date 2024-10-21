@@ -12,6 +12,11 @@ const routes = [
         name: "basichome",
         component: () => import("pages/HomeView.vue"),
       },
+      {
+        path: "/quiz/ready/:id",
+        name: "quizReady",
+        component: () => import("pages/quiz/QuizReady.vue"),
+      },
     ],
   },
   {

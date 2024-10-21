@@ -213,17 +213,4 @@
 ---- Insert into result table for fish personality types
 --INSERT INTO result (test_id, file_path, file_name, score) VALUES (@test_id, '/path/to/result/shark', '상어', 'ExtraversionIntuitionThinkingJudging'),(@test_id, '/path/to/result/clownfish', '클라운피쉬', 'ExtraversionFeelingSensingJudging'),(@test_id, '/path/to/result/piranha', '피라냐', 'ExtraversionThinkingJudging'),(@test_id, '/path/to/result/coral', '산호초', 'IntroversionFeelingSensingJudging'),(@test_id, '/path/to/result/whale', '고래', 'ExtraversionFeelingJudging'),(@test_id, '/path/to/result/fugu', '복어', 'IntroversionFeelingPerceiving'),(@test_id, '/path/to/result/octopus', '문어', 'IntroversionThinkingPerceiving'),(@test_id, '/path/to/result/goldfish', '금붕어', 'IntroversionFeelingPerceiving'),(@test_id, '/path/to/result/bluefish', '전갱이', 'ExtraversionIntuitionPerceiving'),(@test_id, '/path/to/result/sea_horse', '해마', 'IntroversionFeelingPerceiving'),(@test_id, '/path/to/result/parrotfish', '파랑돔', 'ExtraversionSensingPerceiving'),(@test_id, '/path/to/result/clam', '조개', 'IntroversionFeelingSensingJudging'),(@test_id, '/path/to/result/seal', '물범', 'ExtraversionFeelingPerceiving'),(@test_id, '/path/to/result/jellyfish', '해파리', 'IntroversionIntuitionJudging'),(@test_id, '/path/to/result/turtle', '거북이', 'IntroversionThinkingJudging'),(@test_id, '/path/to/result/dolphin', '돌고래', 'ExtraversionIntuitionFeelingPerceiving');
 --
---
---
---
---
---
---
---
---
---
---
---
---
---
---
+--INSERT INTO visit (visit_id, visit_count)  VALUES (vi)

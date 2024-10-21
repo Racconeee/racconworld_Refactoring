@@ -6,13 +6,13 @@ import lombok.RequiredArgsConstructor;
 
 @Data
 @RequiredArgsConstructor
-public class ShowTestListViewResDto {
+public class ShowTestViewListResDto {
 
     private Long testId;
     private Long view;
 
 
-    public ShowTestListViewResDto(Long testId, Long view) {
+    public ShowTestViewListResDto(Long testId, Long view) {
         this.testId = testId;
         this.view = view;
     }

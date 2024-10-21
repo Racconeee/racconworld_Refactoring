@@ -43,6 +43,11 @@ export const useTestStore = defineStore("test", () => {
         });
 
         testList.value = [...testList.value, ...updatedTestList];
+        const testIds = testList.value.map((test) => test.testId);
+
+        console.log("TestIds => " + testIds);
+
+        getTestIds(testIds);
 
         testListhasNext.value = res.data.result.hasNext;
       })
@@ -51,6 +56,59 @@ export const useTestStore = defineStore("test", () => {
         console.log(err);
       });
   };
+
+  //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+  const getTestIds = async function (testIds) {
+    console.log("url : ", `${VITE_SERVER_API_URL}/test/list/view`);
+
+    const testIdsString = testIds.join(",");
+
+    await axios({
+      method: "get",
+      url: `${VITE_SERVER_API_URL}/test/list/view`,
+      params: { testIds: testIdsString },
+    })
+      .then((res) => {
+        // res.data.result 배열을 { testId: view } 형태의 맵으로 변환
+        const viewMap = res.data.result.reduce((map, test) => {
+          map[test.testId] = test.view;
+          return map;
+        }, {});
+
+        // testList의 각 항목에 조회수를 매핑
+        testList.value = testList.value.map((test) => {
+          test.view = viewMap[test.testId] || 0; // 조회수가 없으면 0으로 설정
+          return test;
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+  //전체방문자수
+  const totalVisited = ref(0);
+  const getTotalVisited = async function (testId) {
+    console.log("url : ", `${VITE_SERVER_API_URL}/test/total/visit`);
+    console.log(testId);
+
+    await axios({
+      method: "get",
+      url: `${VITE_SERVER_API_URL}/test/total/visit`,
+    })
+      .then((res) => {
+        console.log(res.data.result);
+
+        totalVisited.value = res.data.result.testTotalVisit;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
   //:id 테스트 질문들 조회하기
   //quizList 를 선언해서 받을 수도 있지만 굳이 싶기는 하다 이렇게해서 장점이 뭘까 ? 그냥 코드를 한번 더
@@ -110,6 +168,8 @@ export const useTestStore = defineStore("test", () => {
     testListhasNext,
     getTestList,
     getTestError,
+    totalVisited,
+    getTotalVisited,
     quizList,
     getQuizList,
     resultScore,
