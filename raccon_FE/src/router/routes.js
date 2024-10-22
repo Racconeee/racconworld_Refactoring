@@ -13,7 +13,7 @@ const routes = [
         component: () => import("pages/HomeView.vue"),
       },
       {
-        path: "/quiz/ready/:id",
+        path: "/quiz/ready/:testId",
         name: "quizReady",
         component: () => import("pages/quiz/QuizReady.vue"),
       },

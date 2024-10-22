@@ -63,7 +63,7 @@ export const useTestStore = defineStore("test", () => {
     console.log("url : ", `${VITE_SERVER_API_URL}/test/list/view`);
 
     const testIdsString = testIds.join(",");
-
+    const viewData = ref();
     await axios({
       method: "get",
       url: `${VITE_SERVER_API_URL}/test/list/view`,
@@ -71,14 +71,15 @@ export const useTestStore = defineStore("test", () => {
     })
       .then((res) => {
         // res.data.result 배열을 { testId: view } 형태의 맵으로 변환
-        const viewMap = res.data.result.reduce((map, test) => {
+        viewData.value = res.data.result.reduce((map, test) => {
           map[test.testId] = test.view;
           return map;
         }, {});
 
         // testList의 각 항목에 조회수를 매핑
+        // 배열이 아니고 {} 객체 ? 말고 뭐였지 기억이 안나네 할튼 이거라는걸 생각
         testList.value = testList.value.map((test) => {
-          test.view = viewMap[test.testId] || 0; // 조회수가 없으면 0으로 설정
+          test.view = viewData[test.testId] || 0; // 조회수가 없으면 0으로 설정
           return test;
         });
       })
@@ -127,6 +128,7 @@ export const useTestStore = defineStore("test", () => {
         console.log(res.data.result);
 
         quizList.value = res.data.result;
+        quizList.value.view = viewData[test.testId] || 0; // 조회수가 없으면 0으로 설정
       })
       .catch((err) => {
         console.log(err);
@@ -134,10 +136,10 @@ export const useTestStore = defineStore("test", () => {
   };
 
   //resultList
-  const resultList = ref();
+  const resultList = ref("");
   const resultScore = ref(0);
 
-  const resultFilePath = ref();
+  const resultFilePath = ref("");
   const getResultList = async function (testId, score) {
     await axios({
       method: "get",

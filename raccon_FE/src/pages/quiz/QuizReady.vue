@@ -20,8 +20,12 @@ import TestList from "src/components/Test/TestList.vue";
 import InfiniteScroll from "@/components/Test/InfiniteScroll.vue";
 import TestMainViewApiError from "@/components/Test/TestMainViewApiError.vue";
 import QuizReadyDetail from "./QuizReadyDetail.vue";
+import { useRoute } from "vue-router";
+import { onMounted } from "vue";
 
+const route = useRoute();
 const testStore = useTestStore();
+
 const pageNumber = ref(0);
 
 // 데이터 로드 함수 정의
@@ -51,6 +55,15 @@ const onLoad = async (page) => {
 
 //   pageNumber.value++;
 // };
+
+onMounted(async () => {
+  testStore.setCurrentTestId(route.params.testId);
+
+  // console.log("현재 URL에서 가져온 testId:" + testStore.setCurrentTestId);
+  console.log(testStore.currentTestId);
+
+  return await testStore.getQuizList(testStore.currentTestId);
+});
 </script>
 
 <style scoped>
