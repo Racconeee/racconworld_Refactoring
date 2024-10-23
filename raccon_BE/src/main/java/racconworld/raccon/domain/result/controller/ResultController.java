@@ -20,6 +20,8 @@ public class ResultController {
     public ResponseEntity<BaseResponse<ShowResultResDto>> showResult(@RequestParam Long testId ,
                                                                      @RequestParam String score){
 
+        resultService.incrementTestView(testId);
+
         return BaseResponse.success(
                 SuccessCode.SELECT_SUCCESS ,
                 resultService.showResult(testId, score)

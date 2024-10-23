@@ -17,7 +17,6 @@ import racconworld.raccon.global.common.code.SuccessCode;
 public class QuestionController {
 
     private final QuestionService questionService;
-    private final RedisService redisService;
 
     //기본 동작 로직 testId , testType을 받아서
     //해당하는 테스트 퀴즈 상세 조회
@@ -35,7 +34,6 @@ public class QuestionController {
         log.info("testId : {} " , testId);
         DetailQuizResDto detailScoreQuizResDto = questionService.showDetailQuiz(testId);
 
-        redisService.incrementViewCount(testId);
 
         return BaseResponse.success(
                 SuccessCode.SELECT_SUCCESS,

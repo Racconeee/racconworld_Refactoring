@@ -59,11 +59,12 @@ export const useTestStore = defineStore("test", () => {
 
   //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
+  //이름 변경해야 할듯 ? getTestIds - > getTestIdsToView
   const getTestIds = async function (testIds) {
     console.log("url : ", `${VITE_SERVER_API_URL}/test/list/view`);
 
     const testIdsString = testIds.join(",");
-    const viewData = ref();
+    const viewData = ref({});
     await axios({
       method: "get",
       url: `${VITE_SERVER_API_URL}/test/list/view`,
@@ -76,12 +77,36 @@ export const useTestStore = defineStore("test", () => {
           return map;
         }, {});
 
-        // testList의 각 항목에 조회수를 매핑
-        // 배열이 아니고 {} 객체 ? 말고 뭐였지 기억이 안나네 할튼 이거라는걸 생각
+        console.log(viewData.value); // 콘솔에 출력하여 확인
+
+        // testList 배열의 각 항목에 조회수를 매핑
         testList.value = testList.value.map((test) => {
-          test.view = viewData[test.testId] || 0; // 조회수가 없으면 0으로 설정
+          // viewData에서 testId에 해당하는 조회수를 가져옴
+          test.view = viewData.value[test.testId] || 0; // 조회수가 없으면 0으로 설정
           return test;
         });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+  //Quiz-READY 공유 받아서 온다면 testId에 값이 안들어가 있음
+  //결국 view를 얻으려면 싱글로 요청해야함
+  //단건 조회 Quiz-READY에서 사용
+  const TestIdToView = ref(0);
+  const getTestIdToView = async function (testId) {
+    await axios({
+      method: "get",
+      url: `${VITE_SERVER_API_URL}/test/list/view`,
+      params: testId,
+    })
+      .then((res) => {
+        TestIdToView.value = res.data.result.view;
+        console.log("res.data.result.view");
+        console.log(res.data.result.view);
       })
       .catch((err) => {
         console.log(err);
@@ -115,7 +140,7 @@ export const useTestStore = defineStore("test", () => {
   //quizList 를 선언해서 받을 수도 있지만 굳이 싶기는 하다 이렇게해서 장점이 뭘까 ? 그냥 코드를 한번 더
   //반복적으로 사용하는게 아닐까 ? 만약 ts를 도입후 interface의 기능을 활용하면 유지보수는 올릴수 있을 것 같다고
   //생각이 들지만 현재에 있어서는 좀 반복적인 코드를 사용하는 것 같다.
-  const quizList = ref([]);
+  const quizList = ref({});
   const getQuizList = async function (testId) {
     console.log("url : ", `${VITE_SERVER_API_URL}/quiz/detail/${testId}`);
     console.log(testId);
@@ -181,5 +206,7 @@ export const useTestStore = defineStore("test", () => {
     setCurrentTestId,
     resultFilePath,
     getResultList,
+    TestIdToView,
+    getTestIdToView,
   };
 });

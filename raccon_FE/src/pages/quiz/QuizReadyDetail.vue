@@ -22,20 +22,38 @@
         />
         <div class="q-mt-xl text-h6">참여자 수</div>
         <div class="text-h6">
-          <q-icon name="pets" />{{ testStore.quizList.view }}
+          <q-icon name="pets" />{{ selectedTest?.view || 0 }}
         </div>
       </q-item-section>
     </q-item>
     <div class="flex justify-center q-mt-xl">
-      <q-btn class="Test-select text-h6">Test 시작하기!!</q-btn>
+      <q-btn class="Test-select text-h6" @click="goToQuiz"
+        >Test 시작하기!!</q-btn
+      >
     </div>
   </div>
 </template>
 
 <script setup>
 import { useTestStore } from "src/stores/useTestStore";
+import { computed } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const testStore = useTestStore();
+const selectedTest = computed(() => {
+  return testStore.testList.find(
+    (item) => item.testId == testStore.currentTestId
+  );
+});
+
+//따로 api 만들지 말고
+//차라리 결과 볼 때 결과 줄때 view 값 increment 하자
+
+const goToQuiz = () => {
+  router.push({ name: "quizpage" });
+};
 </script>
 
 <style lang="scss" scoped>

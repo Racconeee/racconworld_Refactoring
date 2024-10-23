@@ -61,7 +61,7 @@ onMounted(async () => {
 
   // console.log("현재 URL에서 가져온 testId:" + testStore.setCurrentTestId);
   console.log(testStore.currentTestId);
-
+  // await testStore.getTestIdToView(testStore.currentTestId);
   return await testStore.getQuizList(testStore.currentTestId);
 });
 </script>

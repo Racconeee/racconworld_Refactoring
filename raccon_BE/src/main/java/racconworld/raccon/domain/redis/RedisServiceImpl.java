@@ -31,7 +31,7 @@ public class RedisServiceImpl implements RedisService {
 
     //ObjectMapper를 안하고 햇을때 문제가 발생한 이슈에 대해서 정리하자
     //그냥 하면 안되고 dto로 만들고 해야함  redis 저장 할 때 DTO 형태로 저장 했기 때문에
-    @Scheduled(fixedRate = 60000)
+    @Scheduled(fixedRate = 600000)
     @Transactional
     public void syncViewCountsToDB() {
         log.info("Redis -- 조회수 동기화 시작");

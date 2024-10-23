@@ -5,5 +5,6 @@ import racconworld.raccon.domain.result.dto.Response.ShowResultResDto;
 public interface ResultService {
 
     ShowResultResDto showResult(Long testId , String score);
+    void incrementTestView(Long testId);
 
 }
