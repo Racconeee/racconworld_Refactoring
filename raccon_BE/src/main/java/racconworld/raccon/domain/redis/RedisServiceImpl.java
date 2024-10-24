@@ -118,19 +118,77 @@ public class RedisServiceImpl implements RedisService {
     //전체 방문자 수 관련 -------------------------------------------------
 
     //없으면 동기화 안함
+    //생각을 해보니 굳이 이거를 DB에서 뒤져서 가져오는 것 보다 그냥 Redis에서 합쳐서 하는게 훨씬 나을듯 싶다.
+    //나중에 데이터가 늘어나는 것을 생각해도
+//    @Scheduled(fixedRate = 60000)
+//    @Transactional
+//    public void syncTotalTestViewCountToDB2() {
+//        log.info("Redis -- 전체 방문수 동기화 시작");
+//
+//        String redisKey = "getTestTotalVisit";
+//        String totalVisitedStr = (String) redisTemplate.opsForHash().get(redisKey, "total");
+//
+//        if (totalVisitedStr != null) {
+//            Long totalView = testRepository.findAllByView();
+//            redisTemplate.opsForHash().put(redisKey, "total", String.valueOf(totalView));
+//        }
+//
+//    }
+
+//    //수정안
+//    @Scheduled(fixedRate = 60000)
+//    @Transactional
+//    public void syncTotalTestViewCountToDB2() {
+//        log.info("Redis -- 전체 방문수 동기화 시작");
+//
+//        String redisKey = "getTestTotalVisit";
+//        String totalVisitedStr = (String) redisTemplate.opsForHash().get(redisKey, "total");
+//        if (totalVisitedStr != null) {
+//
+//            Set<String> getTestViewKeys = redisTemplate.keys("getTestView::*");
+//            Long totalViewCount = 0L;
+//
+//            if (getTestViewKeys != null) {
+//
+//                for (String key : getTestViewKeys) {
+//                    Long testId = Long.parseLong(key.split(":")[2]);  // Redis 키에서 testId 추출
+//
+//                    // Redis 해시에서 'view' 필드 값 가져오기
+//                    Object viewCountObj = redisTemplate.opsForHash().get(key, "view");
+//                    if (viewCountObj != null) {
+//                        Long viewCount = Long.parseLong(viewCountObj.toString());
+//                        totalViewCount += viewCount;
+//                }
+//            }
+//            log.info("최종적으로 변경된 TotalVisited Data Value : {} " , totalViewCount);
+//            redisTemplate.opsForHash().put(redisKey, "total", String.valueOf(totalViewCount));
+//        }
+//
+//    }
+//}
+//
+//
+//    public Long totalTestViewCount() {
+//        String redisKey = "getTestTotalVisit";
+//        String totalVisitedStr = (String) redisTemplate.opsForHash().get(redisKey, "total");
+//
+//        if(totalVisitedStr == null) {
+//            Long totalView = testRepository.findAllByView();
+//            redisTemplate.opsForHash().put(redisKey, "total", String.valueOf(totalView));
+//
+//            totalVisitedStr = (String) redisTemplate.opsForHash().get(redisKey, "total");
+//
+//        }
+//        return Long.parseLong(totalVisitedStr);
+//    }
+
     @Scheduled(fixedRate = 60000)
     @Transactional
     public void syncTotalTestViewCountToDB2() {
         log.info("Redis -- 전체 방문수 동기화 시작");
 
         String redisKey = "getTestTotalVisit";
-        String totalVisitedStr = (String) redisTemplate.opsForHash().get(redisKey, "total");
-
-        if (totalVisitedStr != null) {
-            Long totalView = testRepository.findAllByView();
-            redisTemplate.opsForHash().put(redisKey, "total", String.valueOf(totalView));
-        }
-
+        redisTemplate.delete(redisKey);
     }
 
 
@@ -139,13 +197,30 @@ public class RedisServiceImpl implements RedisService {
         String totalVisitedStr = (String) redisTemplate.opsForHash().get(redisKey, "total");
 
         if(totalVisitedStr == null) {
-            Long totalView = testRepository.findAllByView();
-            redisTemplate.opsForHash().put(redisKey, "total", String.valueOf(totalView));
 
-            totalVisitedStr = (String) redisTemplate.opsForHash().get(redisKey, "total");
+            Set<String> getTestViewKeys = redisTemplate.keys("getTestView::*");
+            Long totalViewCount = 0L;
 
+            if (getTestViewKeys != null) {
+
+                for (String key : getTestViewKeys) {
+                    Long testId = Long.parseLong(key.split(":")[2]);  // Redis 키에서 testId 추출
+
+                    // Redis 해시에서 'view' 필드 값 가져오기
+                    Object viewCountObj = redisTemplate.opsForHash().get(key, "view");
+                    if (viewCountObj != null) {
+                        Long viewCount = Long.parseLong(viewCountObj.toString());
+                        totalViewCount += viewCount;
+                    }
+                }
+                log.info("최종적으로 변경된 TotalVisited Data Value : {} " , totalViewCount);
+                redisTemplate.opsForHash().put(redisKey, "total", String.valueOf(totalViewCount));
+
+            }
+            return Long.parseLong(String.valueOf(totalViewCount));
         }
         return Long.parseLong(totalVisitedStr);
     }
+
 
 }

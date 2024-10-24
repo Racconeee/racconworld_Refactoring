@@ -52,6 +52,8 @@ const selectedTest = computed(() => {
 //차라리 결과 볼 때 결과 줄때 view 값 increment 하자
 
 const goToQuiz = () => {
+  localStorage.setItem("testId", testStore.currentTestId);
+
   router.push({ name: "quizpage" });
 };
 </script>

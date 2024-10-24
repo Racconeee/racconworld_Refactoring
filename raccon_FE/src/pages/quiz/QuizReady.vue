@@ -1,6 +1,8 @@
 <template>
   <div class="container">
     <QuizReadyDetail></QuizReadyDetail>
+    <ShareLink></ShareLink>
+
     <TestMainViewApiError v-if="testStore.getTestError"></TestMainViewApiError>
 
     <InfiniteScroll
@@ -15,11 +17,13 @@
 
 <script setup>
 import { ref } from "vue";
+import { useHead } from "@vueuse/head";
 import { useTestStore } from "@/stores/useTestStore";
 import TestList from "src/components/Test/TestList.vue";
 import InfiniteScroll from "@/components/Test/InfiniteScroll.vue";
 import TestMainViewApiError from "@/components/Test/TestMainViewApiError.vue";
 import QuizReadyDetail from "./QuizReadyDetail.vue";
+import ShareLink from "@/components/ShareLink.vue";
 import { useRoute } from "vue-router";
 import { onMounted } from "vue";
 
@@ -34,35 +38,43 @@ const onLoad = async (page) => {
   await testStore.getTestList({ pageNumber: page });
 };
 
-// const onLoadRef = (index, done) => {
-//   console.log("onLoadRef : 실행");
-//   console.log(pageNumber.value);
-//   console.log(testStore.testListhasNext);
-
-//   if (testStore.getTestError) {
-//     console.log("서버와의 연결이 안됨");
-
-//     return;
-//   }
-//   // if (!testStore.testListhasNext) {
-//   //   console.log("더이상 데이터가 없음");
-//   //   return;
-//   // }
-
-//   testStore.getTestList({ pageNumber: pageNumber.value }).then(() => {
-//     done();
-//   });
-
-//   pageNumber.value++;
-// };
-
 onMounted(async () => {
   testStore.setCurrentTestId(route.params.testId);
+
+  testStore.setShareLink(route.fullPath);
 
   // console.log("현재 URL에서 가져온 testId:" + testStore.setCurrentTestId);
   console.log(testStore.currentTestId);
   // await testStore.getTestIdToView(testStore.currentTestId);
-  return await testStore.getQuizList(testStore.currentTestId);
+  await testStore.getQuizList(testStore.currentTestId);
+
+  useHead({
+    title: `Quiz Ready - Test ${testStore.currentTestId}`,
+    meta: [
+      {
+        name: "description",
+        content: `This is the Quiz Ready page for Test ${testStore.quizList.testName}. Get ready!`,
+      },
+      {
+        property: "og:title",
+        content: `${testStore.quizList.testName}`,
+      },
+      {
+        property: "og:description",
+        content: `재미있게 즐겨보세요`,
+      },
+      {
+        property: "og:image",
+        content: `${testStore.getVITE_NGINX_IMG_URL()}/file/${
+          testStore.currentTestId
+        }/main`, // 고정된 이미지 또는 동적 이미지 경로 설정
+      },
+      {
+        property: "og:url",
+        content: window.location.href,
+      },
+    ],
+  });
 });
 </script>
 
@@ -70,5 +82,7 @@ onMounted(async () => {
 .container {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 </style>

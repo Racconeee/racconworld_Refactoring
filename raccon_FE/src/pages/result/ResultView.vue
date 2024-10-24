@@ -33,7 +33,13 @@
     </div>
     <div class="blank-space"></div>
 
-    <div>
+    <div class="flex justify-center q-mt-xl">
+      <q-btn class="Test-select text-h6" @click="goToQuiz"
+        >다른 테스트 하러가기</q-btn
+      >
+    </div>
+    <ShareLink></ShareLink>
+    <div class="q-mt-xl q-mb-l">
       이 포스팅은 쿠팡 파트너스 활동의 일환으로
       <br />
       이에 따른 일정액의 수수료를 제공받습니다.
@@ -44,14 +50,9 @@
 <script setup>
 import { useTestStore } from "src/stores/useTestStore";
 import { onMounted, ref } from "vue";
-
-const VITE_COUPANG_URL_LINK = import.meta.env.VITE_COUPANG_URL_LINK;
+import ShareLink from "src/components/ShareLink.vue";
 
 const teststore = useTestStore();
-
-const openLink = () => {
-  window.open(VITE_COUPANG_URL_LINK, "_blank").focus();
-};
 
 const imageFilter = ref("blur(10px) sepia()");
 
@@ -59,7 +60,7 @@ const clearBlur = () => {
   imageFilter.value = ""; // 블러와 세피아 필터를 제거
   sessionStorage.setItem("resultLink", true);
   resultboolean.value = true;
-  openLink();
+  window.open(teststore.getVITE_COUPANG_URL_LINK, "_blank").focus();
 };
 const resultboolean = ref(sessionStorage.getItem("resultLink") || false);
 
@@ -97,5 +98,11 @@ onMounted(async () => {
 
 .blank-space {
   height: 10vh;
+}
+
+.Test-select {
+  width: 220px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 </style>

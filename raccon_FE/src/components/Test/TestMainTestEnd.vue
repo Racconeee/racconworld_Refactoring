@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div class="flex flex-center q-mb-lg">
+    <div class="flex flex-center q-mb-lg q-mt-xl">
       <q-card class="my-card bg-secondary text-white">
         <q-card-section>
-          <div class="text-h6 flex flex-center text-black text-bold">
+          <div class="text-body1 flex flex-center text-black text-bold">
             라쿤이 준비한 테스트는
             <br />
             여기까지입니다!!

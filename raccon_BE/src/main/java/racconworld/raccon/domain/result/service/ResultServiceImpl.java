@@ -32,7 +32,7 @@ public class ResultServiceImpl implements ResultService {
         Result result = repository.findResultByTestIdAndScore(testId , score).orElseThrow(() ->
                 new CustomExceptionHandler(ErrorCode.RESULT_NOT_FOUND));
 
-        return new ShowResultResDto( result.getFilePath());
+        return new ShowResultResDto(result.getFilePath());
     }
 
     public void incrementTestView( Long testId ) {

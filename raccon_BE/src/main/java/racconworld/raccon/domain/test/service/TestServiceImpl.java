@@ -29,7 +29,7 @@ public class TestServiceImpl implements TestService {
 
     @Override
 //    @Cacheable(cacheNames = "getTestList", key = "'pageNumber:' + #p0", condition = "#page == 0", cacheManager = "cacheManager")
-    @Cacheable(cacheNames = "getTestList", key = "'pageNumber:' + #p0",  cacheManager = "cacheManager")
+    @Cacheable(cacheNames = "getTestList", key = "'pageNumber:' + #pageNumber",  cacheManager = "cacheManager")
     public ShowTestResDto getTestListByPage(int pageNumber) {
 
         PageRequest pageRequest = PageRequest.of(pageNumber, 6, Sort.by(Sort.Direction.DESC, "view"));

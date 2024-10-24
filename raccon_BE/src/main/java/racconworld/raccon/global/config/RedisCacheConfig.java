@@ -45,7 +45,7 @@ public class RedisCacheConfig {
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer))
                 .disableCachingNullValues() // null 값 캐싱 비활성화
-                .entryTtl(Duration.ofMinutes(10L));  // TTL 설정
+                .entryTtl(Duration.ofDays(1));  // TTL 설정
 
 
 

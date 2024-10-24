@@ -5,8 +5,24 @@ import { ref } from "vue";
 
 const VITE_SERVER_API_URL = import.meta.env.VITE_SERVER_API_URL;
 const VITE_NGINX_IMG_URL = import.meta.env.VITE_NGINX_IMG_URL;
+const VITE_DOMAIN_BASE_URL = import.meta.env.VITE_DOMAIN_BASE_URL;
+const VITE_COUPANG_URL_LINK = import.meta.env.VITE_COUPANG_URL_LINK;
 
 export const useTestStore = defineStore("test", () => {
+  // 설정 관련
+
+  const getVITE_COUPANG_URL_LINK = () => {
+    return VITE_COUPANG_URL_LINK;
+  };
+
+  const getVITE_DOMAIN_BASE_URL = () => {
+    return VITE_DOMAIN_BASE_URL;
+  };
+
+  const getVITE_NGINX_IMG_URL = () => {
+    return VITE_NGINX_IMG_URL;
+  };
+
   // etc ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
   const currentTestId = ref(0);
 
@@ -23,12 +39,6 @@ export const useTestStore = defineStore("test", () => {
   const testListhasNext = ref(true);
   const getTestError = ref(false);
   const getTestList = async function (params = { pageNumber: 0 }) {
-    console.log("params : ", params);
-    console.log("params : ", params.value);
-    console.log("VITE_SERVER_API_URL : => " + VITE_SERVER_API_URL);
-    console.log("VITE_SERVER_API_URL : => " + VITE_SERVER_API_URL);
-    console.log("VITE_SERVER_API_URL : => " + VITE_SERVER_API_URL);
-
     await axios({
       method: "get",
       url: `${VITE_SERVER_API_URL}/test/list`,
@@ -61,8 +71,6 @@ export const useTestStore = defineStore("test", () => {
 
   //이름 변경해야 할듯 ? getTestIds - > getTestIdsToView
   const getTestIds = async function (testIds) {
-    console.log("url : ", `${VITE_SERVER_API_URL}/test/list/view`);
-
     const testIdsString = testIds.join(",");
     const viewData = ref({});
     await axios({
@@ -190,7 +198,16 @@ export const useTestStore = defineStore("test", () => {
     resultScore.value = Score;
   };
 
+  // 공유하기 링크 url 설정
+  const ShareLink = ref();
+  const setShareLink = (url) => {
+    ShareLink.value = VITE_DOMAIN_BASE_URL + url;
+  };
+
   return {
+    getVITE_COUPANG_URL_LINK,
+    getVITE_DOMAIN_BASE_URL,
+    getVITE_NGINX_IMG_URL,
     testList,
     testListhasNext,
     getTestList,
@@ -208,5 +225,7 @@ export const useTestStore = defineStore("test", () => {
     getResultList,
     TestIdToView,
     getTestIdToView,
+    setShareLink,
+    ShareLink,
   };
 });

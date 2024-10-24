@@ -39,7 +39,7 @@
       </div>
     </q-header>
 
-    <q-page-container class="bg-teal-2">
+    <q-page-container class="bg-light-blue-2">
       <router-view />
     </q-page-container>
 
@@ -52,8 +52,8 @@
       </div>
       <div class="q-mt-xs text-center">문의하기 : racconworld@gmail.com</div>
       <div class="q-mt-xs row justify-around">
-        <q-btn flat label="개인정보취급방침" to="/privacy-policy" />
-        <q-btn flat label="서비스 이용약관" to="/terms-of-service" />
+        <q-btn flat label="개인정보취급방침" to="/about/privacy-policy" />
+        <q-btn flat label="서비스 이용약관" to="/about/terms-of-service" />
       </div>
     </q-footer>
   </q-layout>
