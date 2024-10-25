@@ -26,6 +26,8 @@ spring:
   jackson:
     serialization:
       fail-on-empty-beans: false
+  swagger:
+    enabled: false
 
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect

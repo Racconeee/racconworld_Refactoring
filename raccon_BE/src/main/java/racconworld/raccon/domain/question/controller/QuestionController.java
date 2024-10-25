@@ -1,5 +1,6 @@
 package racconworld.raccon.domain.question.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,8 @@ public class QuestionController {
     * 이미 redis 메모리안에 값이 있기 때문에 따라서
     * 그냥 컨트롤러에서 업데이터를 쳐주고 보내주자 .
     * */
+    @Operation(summary = "퀴즈 상세보기",
+            description =  "testId에 대한 퀴즈 데이터 조회")
     @GetMapping("/detail/{testId}")
     public ResponseEntity<BaseResponse<DetailQuizResDto>> showDetailQuiz(@PathVariable("testId") Long testId) throws Exception {
 

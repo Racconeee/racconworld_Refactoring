@@ -58,12 +58,7 @@ public class RedisServiceImpl implements RedisService {
                         testRepository.updateTestByView(testId, viewCount);
 
                         // Redis에서 해당 키 삭제
-                        redisTemplate.delete(key);
-
                         log.info("업데이트 완료 - 테스트 ID: " + testId + ", 조회수: " + viewCount);
-
-                        redisTemplate.opsForHash().put(key, "testId", String.valueOf(testId));
-                        redisTemplate.opsForHash().put(key, "view", String.valueOf(viewCount));
                     } catch (NumberFormatException e) {
                         log.error("조회수 변환 중 오류 발생: " + e.getMessage());
                     }
@@ -72,13 +67,6 @@ public class RedisServiceImpl implements RedisService {
                 }
             }
         }
-    }
-
-    public void saveTestViewInRedis(Long testId) {
-        String redisKey = "getTestView::" + testId;
-        Long viewCount = testRepository.findViewCountById(testId);
-        redisTemplate.opsForHash().put(redisKey, "testId", String.valueOf(testId));
-        redisTemplate.opsForHash().put(redisKey, "view", String.valueOf(viewCount));
     }
 
 
@@ -182,45 +170,56 @@ public class RedisServiceImpl implements RedisService {
 //        return Long.parseLong(totalVisitedStr);
 //    }
 
-    @Scheduled(fixedRate = 60000)
+    @Scheduled(fixedRate = 600000)
     @Transactional
-    public void syncTotalTestViewCountToDB2() {
+    public void syncTotalTestViewCount() {
         log.info("Redis -- 전체 방문수 동기화 시작");
 
         String redisKey = "getTestTotalVisit";
-        redisTemplate.delete(redisKey);
+
+        Long totalViewCount = calculateTotalViewCount();
+        if (totalViewCount != null) {
+            redisTemplate.opsForHash().put(redisKey, "total", String.valueOf(totalViewCount));
+            log.info("TotalVisited Data 업데이트 완료: {}", totalViewCount);
+        }
     }
 
-
+    // 일반적으로 사용하는
     public Long totalTestViewCount() {
         String redisKey = "getTestTotalVisit";
         String totalVisitedStr = (String) redisTemplate.opsForHash().get(redisKey, "total");
 
-        if(totalVisitedStr == null) {
-
-            Set<String> getTestViewKeys = redisTemplate.keys("getTestView::*");
-            Long totalViewCount = 0L;
-
-            if (getTestViewKeys != null) {
-
-                for (String key : getTestViewKeys) {
-                    Long testId = Long.parseLong(key.split(":")[2]);  // Redis 키에서 testId 추출
-
-                    // Redis 해시에서 'view' 필드 값 가져오기
-                    Object viewCountObj = redisTemplate.opsForHash().get(key, "view");
-                    if (viewCountObj != null) {
-                        Long viewCount = Long.parseLong(viewCountObj.toString());
-                        totalViewCount += viewCount;
-                    }
-                }
-                log.info("최종적으로 변경된 TotalVisited Data Value : {} " , totalViewCount);
+        if (totalVisitedStr == null) {
+            Long totalViewCount = calculateTotalViewCount();
+            if (totalViewCount != null) {
+                // Redis에 'total' 필드 업데이트
                 redisTemplate.opsForHash().put(redisKey, "total", String.valueOf(totalViewCount));
-
+                log.info("최종적으로 변경된 TotalVisited Data Value : {}", totalViewCount);
+                return totalViewCount;
             }
-            return Long.parseLong(String.valueOf(totalViewCount));
         }
+
         return Long.parseLong(totalVisitedStr);
     }
 
+    public Long calculateTotalViewCount() {
+        Set<String> getTestViewKeys = redisTemplate.keys("getTestView::*");
+        Long totalViewCount = 0L;
+
+        if (getTestViewKeys != null) {
+            for (String key : getTestViewKeys) {
+                Object viewCountObj = redisTemplate.opsForHash().get(key, "view");
+                if (viewCountObj != null) {
+                    try {
+                        Long viewCount = Long.parseLong(viewCountObj.toString());
+                        totalViewCount += viewCount;
+                    } catch (NumberFormatException e) {
+                        log.error("조회수 변환 중 오류 발생: {}", e.getMessage());
+                    }
+                }
+            }
+        }
+        return totalViewCount;
+    }
 
 }

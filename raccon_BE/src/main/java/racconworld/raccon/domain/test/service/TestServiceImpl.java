@@ -1,6 +1,7 @@
 package racconworld.raccon.domain.test.service;
 
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
@@ -28,7 +29,6 @@ public class TestServiceImpl implements TestService {
     private final RedisService redisService;
 
     @Override
-//    @Cacheable(cacheNames = "getTestList", key = "'pageNumber:' + #p0", condition = "#page == 0", cacheManager = "cacheManager")
     @Cacheable(cacheNames = "getTestList", key = "'pageNumber:' + #pageNumber",  cacheManager = "cacheManager")
     public ShowTestResDto getTestListByPage(int pageNumber) {
 
@@ -38,7 +38,6 @@ public class TestServiceImpl implements TestService {
 
         return new ShowTestResDto(page.hasNext(), showTestListDtos);
     }
-
 
     @Override
 //    @Cacheable(cacheNames = "getTestTotalVisit", key = "'TestTotalVisit'", cacheManager = "cacheManager")
@@ -57,7 +56,7 @@ public class TestServiceImpl implements TestService {
 
 
 
-//    @Cacheable(cacheNames = "viewCountCache", key = "'test:view:' + #testIds", cacheManager = "cacheManager")
+    @Override
     public List<ShowTestViewListResDto> getTestViewList(List<Long> testIds) {
         List<ShowTestViewListResDto> result = new ArrayList<>();
         for (Long testId : testIds) {
