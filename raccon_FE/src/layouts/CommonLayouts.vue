@@ -18,7 +18,7 @@
       <q-separator color="gray"></q-separator>
     </q-header>
 
-    <q-page-container class="bg-teal-2">
+    <q-page-container class="bg-light-blue-1">
       <router-view />
     </q-page-container>
   </q-layout>

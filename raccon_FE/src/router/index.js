@@ -6,7 +6,8 @@ import {
   createWebHashHistory,
 } from "vue-router";
 import routes from "./routes";
-import { useAuthStore } from "src/stores/useAuthStore";
+
+const VITE_NGINX_IMG_URL = import.meta.env.VITE_NGINX_IMG_URL;
 
 export default route(function (/* { store, ssrContext } */) {
   const createHistory = process.env.SERVER
@@ -22,6 +23,7 @@ export default route(function (/* { store, ssrContext } */) {
     history: createHistory(process.env.VUE_ROUTER_BASE),
   });
 
+  // 라우터 훅에서 메타 태그를 설정
   // Router.beforeEach((to, from, next) => {
   //   const authStore = useAuthStore();
 

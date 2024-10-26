@@ -15,9 +15,9 @@
           </q-toolbar-title>
         </q-btn>
         <q-space />
-        <div class="items-center justify-center">
-          <div>총방문자수</div>
-          <div>18161</div>
+        <div class="grid" style="text-align: center">
+          <div>총 방문자수</div>
+          <div>{{ testStore.totalVisited }}</div>
         </div>
       </q-toolbar>
       <div class="row items-center">
@@ -39,7 +39,7 @@
       </div>
     </q-header>
 
-    <q-page-container class="bg-teal-2">
+    <q-page-container class="bg-light-blue-2">
       <router-view />
     </q-page-container>
 
@@ -52,20 +52,20 @@
       </div>
       <div class="q-mt-xs text-center">문의하기 : racconworld@gmail.com</div>
       <div class="q-mt-xs row justify-around">
-        <q-btn flat label="개인정보취급방침" to="/privacy-policy" />
-        <q-btn flat label="서비스 이용약관" to="/terms-of-service" />
+        <q-btn flat label="개인정보취급방침" to="/about/privacy-policy" />
+        <q-btn flat label="서비스 이용약관" to="/about/terms-of-service" />
       </div>
     </q-footer>
   </q-layout>
 </template>
 
 <script setup>
-// import { computed } from "vue";
-// import { useRoute } from "vue-router";
+import { useTestStore } from "src/stores/useTestStore";
+import { onMounted } from "vue";
 
-// const route = useRoute();
-// const pageContainerStyles = computed(() => ({
-//   maxWidth: route.meta?.width || "1080px",
-//   margin: "0 auto",
-// }));
+const testStore = useTestStore();
+
+onMounted(() => {
+  testStore.getTotalVisited();
+});
 </script>
