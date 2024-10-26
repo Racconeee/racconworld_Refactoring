@@ -24,12 +24,20 @@ public interface TestRepository extends JpaRepository<Test, Long> {
     @Query("SELECT t FROM Test t WHERE t.testName = :testName")
     Optional<Test> findByTestName(String testName);
 
-    @Modifying
-    @Query("update Test t set t.view = t.view + 1 where t.id = :testId")
-    void updateTestByView(@Param("testId") Long testId);
+//    @Modifying
+//    @Query("update Test t set t.view = t.view + 1 where t.id = :testId")
+//    void updateTestByView(@Param("testId") Long testId);
 
     @Query("SELECT sum(t.view) FROM Test t")
     Long findAllByView();
+
+
+    @Query("SELECT t.view FROM Test t WHERE t.id = :testId")
+    Long findViewCountById(@Param("testId") Long testId);
+
+    @Modifying
+    @Query("update Test t set t.view = :view where t.id = :testId")
+    void updateTestByView(@Param("testId") Long testId, @Param("view") Long view);
 
 
 

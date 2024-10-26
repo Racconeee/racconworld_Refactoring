@@ -10,14 +10,15 @@
     >
       <q-img
         loading="lazy"
-        :src="`/images/Thumbnail.png`"
+        :src="filePath"
         alt="Thumbnail"
-        height="170px"
-        width="170px"
+        height="270px"
+        width="270px"
         fit="cover"
+        :style="{ borderRadius: '5px' }"
       />
       <div>{{ testName }}</div>
-      <div>조회수 : {{ view }}</div>
+      <div><q-icon name="pets" /> {{ view }}</div>
     </q-item-section>
   </q-item>
 </template>
@@ -33,25 +34,23 @@ const setStoreTestId = () => {
   console.log(props.testId);
 
   //로컬 말고 pinia 사용하자
+  //이부분 나중에 변경하기
+  // quiz {id} 동적 경로 설정한다면.
   testStore.setCurrentTestId(props.testId);
   // localStorage.setItem("testId", props.testId);
   console.log("데이터를 저장합니다.");
-
-  router.push({ name: "quizpage" }); // 페이지 이동
+  router.push({ path: `/quiz/ready/${props.testId}` }); // 페이지 이동
 };
 
 const props = defineProps({
   testId: {
-    type: Number,
+    type: [String, Number],
   },
   view: {
     type: Number,
     default: 0,
   },
   testName: {
-    type: String,
-  },
-  fileName: {
     type: String,
   },
   filePath: {

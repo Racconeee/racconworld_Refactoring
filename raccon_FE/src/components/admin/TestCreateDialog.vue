@@ -2,12 +2,7 @@
   <q-dialog v-if="adminStore.uploadTestRes" persistent>
     <q-card class="q-pa-md" style="max-width: 400px">
       <q-card-section class="row items-center q-pb-none">
-        <q-icon
-          name="mdi-information"
-          color="primary"
-          size="32px"
-          class="q-mr-md"
-        />
+        <q-icon name="mdi-information" color="primary" size="32px" />
         <div class="text-h6">Test Upload Status</div>
       </q-card-section>
 
@@ -20,9 +15,7 @@
         </div>
         <div class="text-subtitle1 q-mb-md">
           결과 :
-          {{
-            adminStore.uploadTestRes.result || adminStore.uploadTestRes.reason
-          }}
+          {{ adminStore.uploadTestRes.result }}
         </div>
       </q-card-section>
 
@@ -34,7 +27,6 @@
 </template>
 
 <script setup>
-import { defineEmits } from "vue";
 import { useAdminStore } from "src/stores/useAdminStore";
 import { useRouter } from "vue-router";
 

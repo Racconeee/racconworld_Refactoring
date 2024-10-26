@@ -27,7 +27,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -109,10 +108,11 @@ public class UploadServiceImpl implements UploadService {
 
         Test testEntity = testRepository.save(new Test(TestName , 0L , TestType ));
         String filepath = testFileDir + testEntity.getId() + "/main";
-        testEntity.uploadFilePath(filepath);
+        String saveFilePath = "/" + testEntity.getId() + "/main";
+        testEntity.uploadFilePath(saveFilePath);
 
         createDir(filepath);
-        saveFile(testImage,"main.png", filepath);
+        saveFile(testImage, filepath);
         //파일 까지 생성하고 저장하기
         testRepository.save(testEntity);
 
@@ -125,8 +125,8 @@ public class UploadServiceImpl implements UploadService {
     // filename : 1
     // filepath + filename 형식으로 저장된다 -> spring/img/1
     @Override
-    public void saveFile(MultipartFile testImage, String filename, String filepath) throws IOException {
-        File saveFile = new File(filepath, filename);
+    public void saveFile(MultipartFile testImage, String filepath) throws IOException {
+        File saveFile = new File(filepath);
         testImage.transferTo(saveFile);
     }
 
@@ -134,7 +134,7 @@ public class UploadServiceImpl implements UploadService {
     //filepath에 해당하는 파일이 없다면 파일을 생성해준다.
     @Override
     public void createDir(String filepath) throws IOException {
-        Path imagePath = Paths.get(filepath);
+        Path imagePath = Paths.get(filepath).getParent();
         if (!Files.exists(imagePath)) {
             Files.createDirectories(imagePath);
         }
@@ -146,18 +146,18 @@ public class UploadServiceImpl implements UploadService {
      * 1.이미 이미지가 존재하는 경우
      * 2.Test가 존재하지 않는경우
      * */
-
     public void uploadResult(List<MultipartFile> fileList, Test testEntity) throws IOException {
 
         for (MultipartFile file : fileList) {
             String score = file.getOriginalFilename();
-            String filePath = resultFileDir + testEntity.getId();
-            String fileName = testEntity.getId() + "/" + score;
+            String filePath = resultFileDir + testEntity.getId()+ "/" + score;
+            String saveFilePath = "/" + testEntity.getId() + "/" + score ;
+//            String fileName = testEntity.getId() + "/" + score;
 
 //            createDir(filePath); Test 사진 넣으면 서 이미 넣었으니 우선 주석으로 테스트 해보자
-            saveFile(file, score, filePath);
+            saveFile(file, filePath);
 
-            resultRepository.save(new Result(testEntity ,fileName ,filePath, score ));
+            resultRepository.save(new Result(testEntity  ,saveFilePath, score ));
 
             //문제가 없다면 파일 생성
         }

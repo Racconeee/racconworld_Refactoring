@@ -12,6 +12,11 @@ const routes = [
         name: "basichome",
         component: () => import("pages/HomeView.vue"),
       },
+      {
+        path: "/quiz/ready/:testId",
+        name: "quizReady",
+        component: () => import("pages/quiz/QuizReady.vue"),
+      },
     ],
   },
   {
@@ -23,6 +28,16 @@ const routes = [
         path: "",
         name: "basicabout",
         component: () => import("pages/AboutView.vue"),
+      },
+      {
+        path: "privacy-policy",
+        name: "privacy",
+        component: () => import("pages/privacyView.vue"),
+      },
+      {
+        path: "terms-of-service",
+        name: "terms",
+        component: () => import("pages/termsView.vue"),
       },
     ],
   },

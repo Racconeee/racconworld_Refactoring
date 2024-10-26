@@ -22,7 +22,7 @@ const quizScoreCalculate = (choiceScoreList, testType) => {
         return accumulator + currentValue;
       }
     );
-    return scoreTypeResult;
+    return Math.round(scoreTypeResult);
   } else {
     console.log("Personaltiy 로 결과 계산을 시작합니다.");
     extraversionCount = choiceScoreList.value.filter(

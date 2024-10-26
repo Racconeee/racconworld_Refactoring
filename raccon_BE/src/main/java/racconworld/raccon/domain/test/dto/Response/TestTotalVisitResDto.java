@@ -1,4 +1,4 @@
-package racconworld.raccon.domain.upload.dto.Response;
+package racconworld.raccon.domain.test.dto.Response;
 
 
 import lombok.Data;

@@ -36,9 +36,8 @@ public class SecurityConfig {
 
     private static final String[] URL_WHITE_LIST = {
             "/api/login", "/favicon.ico",
-            "/swagger-resources/**", "/swagger-ui.html", "/swagger-ui/**",
+            "/swagger-resources/**", "/swagger-ui/**", "/v3/api-docs/**",
             "/api/test/**" , "/api/quiz/**", "/api/result/**" , "/api/admin/signup", "/api/validate/token",
-
     };
 
     private final CustomUserDetailsService customUserDetailsService;

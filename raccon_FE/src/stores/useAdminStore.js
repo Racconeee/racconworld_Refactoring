@@ -18,7 +18,11 @@ export const useAdminStore = defineStore("admin", () => {
         console.log(res);
       })
       .catch((err) => {
-        uploadTestRes.value = err.response.data;
+        console.log("err => " + err);
+        uploadTestRes.value = err;
+        if (err.status === 403) {
+          uploadTestRes.value.result = "권한이 존재하지않습니다.";
+        }
       });
   };
 
@@ -35,7 +39,11 @@ export const useAdminStore = defineStore("admin", () => {
         console.log(res);
       })
       .catch((err) => {
-        uploadTestRes.value = err.response.data;
+        console.log("err => " + err);
+        uploadTestRes.value = err;
+        if (err.status === 403) {
+          uploadTestRes.value.result = "권한이 존재하지않습니다.";
+        }
       });
   };
 

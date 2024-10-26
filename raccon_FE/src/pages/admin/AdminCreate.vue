@@ -60,12 +60,12 @@
       :key="'choice-' + cIndex"
       class="row"
     >
-      <q-input class="col-10" v-model="choice.choiceText">
+      <q-input class="col-9" v-model="choice.choiceText">
         <template v-slot:prepend>
           <div>선택지 :</div>
         </template>
       </q-input>
-      <q-input class="col-2" v-model="choice.score">
+      <q-input class="col-3" v-model="choice.score">
         <template v-slot:prepend>
           <div>점수 :</div>
         </template>
@@ -91,6 +91,7 @@
             name="close"
             @click.stop.prevent="testImage = null"
             class="cursor-pointer"
+            :style="{ width: '400px' }"
           />
         </template>
       </q-file>
@@ -106,7 +107,7 @@
         counter
         max-files="12"
         multiple
-        :style="{ width: '30vw' }"
+        :style="{ width: '400px' }"
       >
         <template v-slot:before>
           Result 결과 &nbsp;
@@ -239,6 +240,8 @@ const openCreateDialog = async () => {
 
     createDialog.value = true;
   } catch (error) {
+    createDialog.value = true;
+
     console.error(error);
   }
 };

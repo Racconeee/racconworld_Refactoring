@@ -1,0 +1,79 @@
+# 라이센스 고지
+
+## 사용한 오픈소스 라이브러리
+
+### BE 관련
+1. **Spring Framework**
+   - **사이트**: [Spring](https://spring.io/)
+   - **저작권**: Copyright © 2020 VMware, Inc. or its affiliates.
+   - **라이센스**: [Apache License 2.0](https://opensource.org/licenses/Apache-2.0)
+
+2. **MySQL Connector/J**
+   - **사이트**: [MySQL](https://dev.mysql.com/doc/connector-j/8.0/en/)
+   - **저작권**: Copyright (c) 2020 Oracle and/or its affiliates.
+   - **라이센스**: [GPL v2 with FOSS Exception](https://www.mysql.com/about/legal/licensing/foss-exception.html)
+
+3. **Lombok**
+   - **사이트**: [Project Lombok](https://projectlombok.org/)
+   - **저작권**: Copyright © 2020 Project Lombok.
+   - **라이센스**: [MIT License](https://github.com/rzwitserloot/lombok/blob/master/LICENSE)
+
+4. **Java JWT**
+   - **사이트**: [Java JWT](https://github.com/auth0/java-jwt)
+   - **저작권**: Copyright (c) 2020 Auth0.
+   - **라이센스**: [MIT License](https://github.com/auth0/java-jwt/blob/master/LICENSE)
+
+5. **SpringDoc OpenAPI**
+   - **사이트**: [SpringDoc](https://springdoc.org/)
+   - **저작권**: Copyright © 2020 SpringDoc.
+   - **라이센스**: [Apache License 2.0](https://opensource.org/licenses/Apache-2.0)
+
+### FE 관련
+1. **Axios**
+   - **사이트**: [Axios](https://axios-http.com/)
+   - **저작권**: Copyright © 2016-present Matt Zancanaro.
+   - **라이센스**: [MIT License](https://github.com/axios/axios/blob/master/LICENSE)
+
+2. **Vue.js**
+   - **사이트**: [Vue.js](https://vuejs.org/)
+   - **저작권**: Copyright © 2014-2020 Evan You.
+   - **라이센스**: [MIT License](https://github.com/vuejs/vue/blob/dev/LICENSE)
+
+3. **Quasar Framework**
+   - **사이트**: [Quasar](https://quasar.dev/)
+   - **저작권**: Copyright © 2020 Quasar Framework.
+   - **라이센스**: [MIT License](https://github.com/quasarframework/quasar/blob/dev/LICENSE)
+
+4. **Pinia**
+   - **사이트**: [Pinia](https://pinia.vuejs.org/)
+   - **저작권**: Copyright © 2020 Evan You.
+   - **라이센스**: [MIT License](https://github.com/vuejs/pinia/blob/main/LICENSE)
+
+5. **Sass**
+   - **사이트**: [Sass](https://sass-lang.com/)
+   - **저작권**: Copyright © 2006-2020 Hampton Catlin and Chris Eppstein.
+   - **라이센스**: [MIT License](https://opensource.sass-lang.com/LICENSE)
+
+6. **ESLint**
+   - **사이트**: [ESLint](https://eslint.org/)
+   - **저작권**: Copyright © 2014-2020 Nicholas C. Zakas.
+   - **라이센스**: [MIT License](https://github.com/eslint/eslint/blob/main/LICENSE)
+
+7. **Prettier**
+   - **사이트**: [Prettier](https://prettier.io/)
+   - **저작권**: Copyright © 2017-2020 Prettier.
+   - **라이센스**: [MIT License](https://github.com/prettier/prettier/blob/main/LICENSE)
+
+
+## 저작권 고지
+이 프로젝트는 OpenJDK를 사용하고 있습니다. OpenJDK에 대한 저작권 및 라이센스 정보는 다음과 같습니다:
+
+**OpenJDK**
+- **사이트**: [OpenJDK](https://openjdk.java.net/)
+- **저작권**: Copyright © 2020 Oracle and/or its affiliates.
+- **라이센스**: [GNU General Public License, version 2, with Classpath Exception](https://openjdk.java.net/legal/gplv2+ce.html)
+
+
+
+### 총괄
+이 프로젝트는 위에 명시된 오픈소스 라이브러리들을 사용하고 있으며, 각 라이브러리의 라이센스 조건을 준수합니다. 각 라이브러리의 라이센스와 저작권에 대한 자세한 정보는 해당 링크를 참조하시기 바랍니다.

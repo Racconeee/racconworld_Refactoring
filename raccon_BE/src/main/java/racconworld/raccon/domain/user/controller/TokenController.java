@@ -1,6 +1,7 @@
 package racconworld.raccon.domain.user.controller;
 
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,9 @@ public class TokenController {
     // 일관성 있게 헤더를 통해서 넘겨도 되지만
     //헤더로 넘기게 되면 필터에서 걸림 그래서 응답코드 ?도 만들어야함
     //그래서 차라리 RequestBody 로 넘기자.
+
+    @Operation(summary = "ACCESSTOKEN 검증",
+            description =  "엑세스 토큰 검증")
     @PostMapping("/token")
     public ResponseEntity<BaseResponse<String>> validateAccessToken(@RequestBody AccessTokenReqDto accessTokenReqDto ) {
 
@@ -70,11 +74,5 @@ public class TokenController {
 //    }
 //
 
-    @GetMapping("/a")
-    public String validateAccessToken() {
-
-        log.info("a 호출 ADMIN");
-        return "admin 권한 획득";
-    }
 
 }

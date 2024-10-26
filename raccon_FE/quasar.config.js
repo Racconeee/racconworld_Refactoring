@@ -20,7 +20,7 @@ module.exports = configure(function (/* ctx */) {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     // https://v2.quasar.dev/quasar-cli-vite/boot-files
-    boot: [],
+    boot: ["head"],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
     css: ["app.scss"],
@@ -49,6 +49,12 @@ module.exports = configure(function (/* ctx */) {
         VITE_SERVER_API_URL: process.env.VITE_SERVER_API_URL,
         VITE_COUPANG_URL_LINK: process.env.VITE_COUPANG_URL_LINK,
       },
+      sassLoaderOptions: {
+        sassOptions: {
+          quietDeps: true,
+        },
+      },
+      logLevel: "silent", // 경고 메시지 억제
       vueRouterMode: "history", // available values: 'hash', 'history'
       // vueRouterBase,
       // vueDevtools,
@@ -192,7 +198,7 @@ module.exports = configure(function (/* ctx */) {
       builder: {
         // https://www.electron.build/configuration/configuration
 
-        appId: "study-fe",
+        appId: "raccon_FE",
       },
     },
 

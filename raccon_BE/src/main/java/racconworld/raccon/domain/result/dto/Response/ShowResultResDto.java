@@ -5,11 +5,9 @@ import lombok.Data;
 @Data
 public class ShowResultResDto {
 
-    private String fileName;
     private String filePath;
 
-    public ShowResultResDto(String fileName, String filePath) {
-        this.fileName = fileName;
+    public ShowResultResDto(String filePath) {
         this.filePath = filePath;
     }
 }

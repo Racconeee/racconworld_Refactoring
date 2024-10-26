@@ -22,10 +22,14 @@ spring:
       view:
         prefix: /static/
         suffix: .html
-
+  task:
+    scheduling:
+      enabled: true
   jackson:
     serialization:
       fail-on-empty-beans: false
+  swagger:
+    enabled: true
 
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
@@ -61,9 +65,10 @@ jwt:
 imagePath:
   test:
 #    dir: /Users/raccon/Documents/racconworld_data/
-    dir : D:/image
+    dir : D:/image/ex/
+
   result:
-    dir : D:/image
+    dir : D:/image/ex/
 #    dir: /Users/raccon/Documents/racconworld_data/
 
 

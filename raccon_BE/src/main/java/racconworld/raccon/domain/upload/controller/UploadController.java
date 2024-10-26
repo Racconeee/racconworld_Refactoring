@@ -1,6 +1,7 @@
 package racconworld.raccon.domain.upload.controller;
 
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,11 @@ public class UploadController {
 
     //데이터 dto  , 사진들 따로 받아서 처리
 
+
+    @Operation(summary = "TEST CREATE ::SCORE::",
+            description =  "SCORE 타입으로 TEST 생성" +
+                            " 메인 img => 1장 결과 img =>  12장 문제 =>  10개 넣어야함 점수는 0~100 10점단위 점수 == 이미지이름 같게해야함 주의"
+    )
     @PostMapping("/upload/score")
     public ResponseEntity<BaseResponse<String>> uploadTestTypeScore( @RequestPart UploadTestScoreReqDto uploadTestScoreReqDto,
                                                                      @RequestPart MultipartFile testImage,
@@ -40,6 +46,11 @@ public class UploadController {
 
     }
 
+
+    @Operation(summary = "TEST CREATE ::PERSONALITY::",
+            description =  "PERSONALITY 타입으로 TEST 생성" +
+                    " 메인 img => 1장 결과 img =>  12장 문제 =>  10개 넣어야함 점수는 FE QuizCommon.JS 파일 참조 점수 == 이미지이름 같게해야함 주의"
+    )
     @PostMapping("/upload/personality")
     public ResponseEntity<BaseResponse<String>> uploadTestTypePersonality( @RequestPart UploadTestPersonalityReqDto uploadTestPersonalityReqDto,
                                                                      @RequestPart MultipartFile testImage,
