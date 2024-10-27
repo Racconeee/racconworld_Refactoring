@@ -13,4 +13,6 @@ public interface RedisService {
     void syncTotalTestViewCount();
     Long totalTestViewCount();
     Long calculateTotalViewCount();
+    void clearTestListCache();
+
 }

@@ -3,6 +3,7 @@ package racconworld.raccon.domain.user.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import racconworld.raccon.domain.redis.RedisService;
 import racconworld.raccon.domain.test.repository.TestRepository;
 
 
@@ -44,11 +45,13 @@ import racconworld.raccon.domain.test.repository.TestRepository;
 public class AdminServiceImpl implements  AdminService{
 
     private final TestRepository testRepository;
+    private final RedisService redisService;
 
 
 
     public String deleteTest(Long testId) {
         testRepository.deleteById(testId);
+        redisService.clearTestListCache();
         return "Test 삭제 성공!";
     }
 }

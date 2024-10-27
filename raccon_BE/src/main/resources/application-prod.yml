@@ -1,5 +1,5 @@
 server:
-  port: 8443
+  port: 18666
   servlet:
     context-path: /
     encoding:
@@ -7,8 +7,9 @@ server:
       enabled: true
       force-response: true
     multipart:
-      max-file-size: 10MB
-      max-request-size: 30MB
+      max-file-size: 50MB
+      max-request-size: 50MB
+
 
 spring:
   datasource:
@@ -33,7 +34,7 @@ spring:
     database-platform: org.hibernate.dialect.MySQLDialect
     open-in-view: false
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create-drop
     properties:
       hibernate:
         format_sql: false

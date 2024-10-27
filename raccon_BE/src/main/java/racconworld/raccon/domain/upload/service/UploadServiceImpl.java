@@ -11,6 +11,7 @@ import racconworld.raccon.domain.choice.entity.sub.ScoreChoice;
 import racconworld.raccon.domain.choice.repository.ChoiceRepository;
 import racconworld.raccon.domain.question.entity.Question;
 import racconworld.raccon.domain.question.repository.QuestionRepository;
+import racconworld.raccon.domain.redis.RedisService;
 import racconworld.raccon.domain.result.entity.Result;
 import racconworld.raccon.domain.result.repository.ResultRepository;
 import racconworld.raccon.domain.test.entity.Test;
@@ -36,6 +37,7 @@ public class UploadServiceImpl implements UploadService {
     private final QuestionRepository questionRepository;
     private final ChoiceRepository choiceRepository;
     private final ResultRepository resultRepository;
+    private final RedisService redisService;
 
 
     @Value("${imagePath.test.dir}")
@@ -63,8 +65,9 @@ public class UploadServiceImpl implements UploadService {
             }
         }
         uploadResult( resultImages, testEntity);
+        clearTestListCacheToRedis();
 
-        return dto.getTestType() + "의 타입의 테스트가 정상적으로 저장 되었습니다.";
+        return "Score의 타입의 테스트가 정상적으로 저장 되었습니다.";
 
     }
 
@@ -87,8 +90,9 @@ public class UploadServiceImpl implements UploadService {
             }
         }
         uploadResult( resultImages, testEntity);
+        clearTestListCacheToRedis();
 
-        return dto.getTestType() + "의 타입의 테스트가 정상적으로 저장 되었습니다.";
+        return "Personality 의 타입의 테스트가 정상적으로 저장 되었습니다.";
 
     }
 
@@ -161,6 +165,11 @@ public class UploadServiceImpl implements UploadService {
 
             //문제가 없다면 파일 생성
         }
+    }
+
+    public void clearTestListCacheToRedis(){
+        redisService.clearTestListCache();
+
     }
 
 }

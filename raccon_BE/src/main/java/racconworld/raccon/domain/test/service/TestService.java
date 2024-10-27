@@ -11,7 +11,7 @@ import java.util.List;
 public interface TestService {
 
     ShowTestResDto getTestListByPage(int pageNumber);
+
     TestTotalVisitResDto getTestTotalVisit();
-//    List<ShowTestViewListResDto> getTestViewCounts(List<Long> testIds);
     List<ShowTestViewListResDto> getTestViewList(List<Long> testIds);
 }

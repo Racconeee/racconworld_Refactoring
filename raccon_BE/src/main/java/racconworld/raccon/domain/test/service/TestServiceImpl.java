@@ -4,6 +4,7 @@ package racconworld.raccon.domain.test.service;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
@@ -38,6 +39,16 @@ public class TestServiceImpl implements TestService {
 
         return new ShowTestResDto(page.hasNext(), showTestListDtos);
     }
+
+
+    // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+    // 테스트 생성시 테스트에 관련된 redis 데이터들 삭제해주기
+    // 이러지않으면 redis 데이터가 변하지않아 표시 DB와의 동기화 시켜주자
+
+    @CacheEvict(cacheNames = "getTestList", allEntries = true, cacheManager = "cacheManager")
+    public void clearTestListCache() {
+    }
+
 
     @Override
 //    @Cacheable(cacheNames = "getTestTotalVisit", key = "'TestTotalVisit'", cacheManager = "cacheManager")

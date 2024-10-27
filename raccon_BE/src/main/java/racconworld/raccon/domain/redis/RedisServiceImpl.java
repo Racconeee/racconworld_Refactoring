@@ -5,6 +5,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -221,5 +222,12 @@ public class RedisServiceImpl implements RedisService {
         }
         return totalViewCount;
     }
+
+
+    @CacheEvict(cacheNames = "getTestList", allEntries = true, cacheManager = "cacheManager")
+    public void clearTestListCache() {
+    }
+
+
 
 }
