@@ -1,11 +1,12 @@
-
 services:
   api-server:
     build:
       context: .
       dockerfile: ./Dockerfile-prod
-    platform: linux/amd64
+    platform: linux/arm64
     container_name: spring
+    image: spring_racconworld
+#    이미지 이름 지정
     restart: always
 #    environment:
 #      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/test_ddl?useSSL=true&verifyServerCertificate=true&requireSSL=true
@@ -49,6 +50,7 @@ services:
       context: ../raccon_FE
       dockerfile: ./Dockerfile  # 위에서 만든 Dockerfile로 빌드
     container_name: nginx
+    image: nginx_racconworld
     ports:
       - "80:80"
       - "443:443"  # HTTPS 포트도 열기
@@ -71,6 +73,8 @@ services:
 #      - /var/lib/letsencrypt:/var/lib/letsencrypt
 #    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $!; done;'"
 #    container_name: certbot
+#    depends_on:
+#      - nginx
 #    networks:
 #      - racconworld_world
 

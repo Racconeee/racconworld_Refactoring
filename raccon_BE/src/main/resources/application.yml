@@ -7,8 +7,8 @@ server:
       enabled: true
       force-response: true
     multipart:
-      max-file-size: 500MB
-      max-request-size: 50MB
+      max-file-size: 80MB
+      max-request-size: 80MB
 
 spring:
   profiles:
@@ -17,7 +17,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/test_ddl
     username: root
-    password: 12345678
+    password: 1234
     mvc:
       view:
         prefix: /static/
