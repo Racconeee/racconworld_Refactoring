@@ -26,52 +26,52 @@ const quizScoreCalculate = (choiceScoreList, testType) => {
   } else {
     console.log("Personaltiy 로 결과 계산을 시작합니다.");
     extraversionCount = choiceScoreList.value.filter(
-      (choice) => choice === "Extraversion"
+      (choice) => choice === "Ex"
     ).length;
     introversionCount = choiceScoreList.value.filter(
-      (choice) => choice === "Introversion"
+      (choice) => choice === "In"
     ).length;
     sensingCount = choiceScoreList.value.filter(
-      (choice) => choice === "Sensing"
+      (choice) => choice === "Se"
     ).length;
     intuitionCount = choiceScoreList.value.filter(
-      (choice) => choice === "Intuition"
+      (choice) => choice === "In"
     ).length;
     thinkingCount = choiceScoreList.value.filter(
-      (choice) => choice === "Thinking"
+      (choice) => choice === "Th"
     ).length;
     feelingCount = choiceScoreList.value.filter(
-      (choice) => choice === "Feeling"
+      (choice) => choice === "Fe"
     ).length;
     judgingCount = choiceScoreList.value.filter(
-      (choice) => choice === "Judging"
+      (choice) => choice === "Ju"
     ).length;
     perceivingCount = choiceScoreList.value.filter(
-      (choice) => choice === "Perceiving"
+      (choice) => choice === "Pe"
     ).length;
 
     if (extraversionCount > introversionCount) {
-      personaltiyTypeResult = +"Extraversion";
+      personaltiyTypeResult = +"Ex";
     } else {
-      personaltiyTypeResult = +"Introversion";
+      personaltiyTypeResult = +"In";
     }
 
     if (sensingCount > intuitionCount) {
-      personaltiyTypeResult = +"Sensing";
+      personaltiyTypeResult = +"Se";
     } else {
-      personaltiyTypeResult = +"Intuition";
+      personaltiyTypeResult = +"In";
     }
 
     if (thinkingCount > feelingCount) {
-      personaltiyTypeResult = +"Thinking";
+      personaltiyTypeResult = +"Th";
     } else {
-      personaltiyTypeResult = +"Feeling";
+      personaltiyTypeResult = +"Fe";
     }
 
     if (judgingCount > perceivingCount) {
-      personaltiyTypeResult = +"Extraversion";
+      personaltiyTypeResult = +"Ex";
     } else {
-      personaltiyTypeResult = +"Introversion";
+      personaltiyTypeResult = +"In";
     }
     return personaltiyTypeResult;
   }

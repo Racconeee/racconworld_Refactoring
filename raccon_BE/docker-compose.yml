@@ -40,7 +40,7 @@ services:
     ports:
       - "18665:3306"
     volumes:
-      - mysql_data:/var/lib/mysql
+      - /home/raccon/racconworld_data/db:/var/lib/mysql
     networks:
       - raccon_world
 

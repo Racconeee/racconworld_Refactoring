@@ -7,8 +7,13 @@ server:
       enabled: true
       force-response: true
     multipart:
-      max-file-size: 500MB
-      max-request-size: 50MB
+      max-file-size: 150MB
+      max-request-size: 150MB
+      max-parameter-count: 400
+  tomcat:
+    max-http-form-post-size: 150MB  # 변경
+    max-http-header-size: 150MB  # 변경
+    max-swallow-size: 150MB  # 변경
 
 spring:
   profiles:

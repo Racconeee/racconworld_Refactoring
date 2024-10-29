@@ -1,5 +1,5 @@
 server:
-  port: 18666
+  port: 8443
   servlet:
     context-path: /
     encoding:
@@ -7,6 +7,11 @@ server:
       enabled: true
       force-response: true
     multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+  mvc:
+    multipart:
+      enabled: true
       max-file-size: 50MB
       max-request-size: 50MB
 
