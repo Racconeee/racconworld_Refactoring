@@ -10,10 +10,6 @@ server:
       max-file-size: 150MB
       max-request-size: 150MB
       max-parameter-count: 400
-  tomcat:
-    max-http-form-post-size: 150MB  # 변경
-    max-http-header-size: 150MB  # 변경
-    max-swallow-size: 150MB  # 변경
 
 spring:
   profiles:
@@ -22,7 +18,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/test_ddl
     username: root
-    password: 12345678
+    password: 1234
     mvc:
       view:
         prefix: /static/

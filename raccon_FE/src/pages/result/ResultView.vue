@@ -50,7 +50,7 @@
 <script setup>
 import { useTestStore } from "src/stores/useTestStore";
 import { onMounted, ref } from "vue";
-import ShareLink from "src/components/ShareLink.vue";
+import ShareLink from "src/components/etc/ShareLink.vue";
 
 const teststore = useTestStore();
 

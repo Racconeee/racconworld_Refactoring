@@ -2,6 +2,7 @@
   <div class="container">
     <QuizReadyDetail></QuizReadyDetail>
     <ShareLink></ShareLink>
+    <KakaoShareLink></KakaoShareLink>
 
     <TestMainViewApiError v-if="testStore.getTestError"></TestMainViewApiError>
 
@@ -19,13 +20,14 @@
 import { ref } from "vue";
 import { useHead } from "@vueuse/head";
 import { useTestStore } from "@/stores/useTestStore";
+import { useRoute } from "vue-router";
+import { onMounted } from "vue";
 import TestList from "src/components/Test/TestList.vue";
 import InfiniteScroll from "@/components/Test/InfiniteScroll.vue";
 import TestMainViewApiError from "@/components/Test/TestMainViewApiError.vue";
 import QuizReadyDetail from "./QuizReadyDetail.vue";
-import ShareLink from "@/components/ShareLink.vue";
-import { useRoute } from "vue-router";
-import { onMounted } from "vue";
+import ShareLink from "@/components/etc/ShareLink.vue";
+import KakaoShareLink from "src/components/etc/KakaoShareLink.vue";
 
 const route = useRoute();
 const testStore = useTestStore();
@@ -40,14 +42,8 @@ const onLoad = async (page) => {
 
 onMounted(async () => {
   testStore.setCurrentTestId(route.params.testId);
-
   testStore.setShareLink(route.fullPath);
-
-  // console.log("현재 URL에서 가져온 testId:" + testStore.setCurrentTestId);
-  console.log(testStore.currentTestId);
-  // await testStore.getTestIdToView(testStore.currentTestId);
   await testStore.getQuizList(testStore.currentTestId);
-
   useHead({
     title: `Quiz Ready - Test ${testStore.currentTestId}`,
     meta: [
