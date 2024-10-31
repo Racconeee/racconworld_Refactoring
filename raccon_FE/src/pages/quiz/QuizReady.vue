@@ -2,7 +2,6 @@
   <div class="container">
     <QuizReadyDetail></QuizReadyDetail>
     <ShareLink></ShareLink>
-    <KakaoShareLink></KakaoShareLink>
 
     <TestMainViewApiError v-if="testStore.getTestError"></TestMainViewApiError>
 
@@ -27,7 +26,6 @@ import InfiniteScroll from "@/components/Test/InfiniteScroll.vue";
 import TestMainViewApiError from "@/components/Test/TestMainViewApiError.vue";
 import QuizReadyDetail from "./QuizReadyDetail.vue";
 import ShareLink from "@/components/etc/ShareLink.vue";
-import KakaoShareLink from "src/components/etc/KakaoShareLink.vue";
 
 const route = useRoute();
 const testStore = useTestStore();

@@ -1,5 +1,5 @@
 let scoreTypeResult = 0;
-let personaltiyTypeResult = "";
+let personalityTypeResult = ""; // 오타 수정
 
 let extraversionCount = 0;
 let introversionCount = 0;
@@ -14,73 +14,59 @@ const quizScoreCalculate = (choiceScoreList, testType) => {
   console.log(choiceScoreList.value);
   console.log(testType);
 
-  if (testType == "SCORE") {
-    console.log("SCORE TYPE 으로 결과 계산을 시작합니다.");
+  if (testType === "SCORE") {
+    console.log("SCORE TYPE으로 결과 계산을 시작합니다.");
 
     scoreTypeResult = choiceScoreList.value.reduce(
-      (accumulator, currentValue) => {
-        return accumulator + currentValue;
-      }
+      (accumulator, currentValue) => accumulator + currentValue,
+      0 // 초기값 설정
     );
     return Math.round(scoreTypeResult);
   } else {
-    console.log("Personaltiy 로 결과 계산을 시작합니다.");
+    console.log("Personality로 결과 계산을 시작합니다.");
+
     extraversionCount = choiceScoreList.value.filter(
-      (choice) => choice === "Ex"
+      (choice) => choice === "Extraversion"
     ).length;
     introversionCount = choiceScoreList.value.filter(
-      (choice) => choice === "In"
+      (choice) => choice === "Introversion"
     ).length;
     sensingCount = choiceScoreList.value.filter(
-      (choice) => choice === "Se"
+      (choice) => choice === "Sensing"
     ).length;
     intuitionCount = choiceScoreList.value.filter(
-      (choice) => choice === "In"
+      (choice) => choice === "Intuition"
     ).length;
     thinkingCount = choiceScoreList.value.filter(
-      (choice) => choice === "Th"
+      (choice) => choice === "Thinking"
     ).length;
     feelingCount = choiceScoreList.value.filter(
-      (choice) => choice === "Fe"
+      (choice) => choice === "Feeling"
     ).length;
     judgingCount = choiceScoreList.value.filter(
-      (choice) => choice === "Ju"
+      (choice) => choice === "Judging"
     ).length;
     perceivingCount = choiceScoreList.value.filter(
-      (choice) => choice === "Pe"
+      (choice) => choice === "Perceiving"
     ).length;
 
-    if (extraversionCount > introversionCount) {
-      personaltiyTypeResult = +"Ex";
-    } else {
-      personaltiyTypeResult = +"In";
-    }
+    personalityTypeResult +=
+      extraversionCount > introversionCount ? "Extraversion" : "Introversion";
+    personalityTypeResult +=
+      sensingCount > intuitionCount ? "Sensing" : "Intuition";
+    personalityTypeResult +=
+      thinkingCount > feelingCount ? "Thinking" : "Feeling";
+    personalityTypeResult +=
+      judgingCount > perceivingCount ? "Judging" : "Perceiving";
 
-    if (sensingCount > intuitionCount) {
-      personaltiyTypeResult = +"Se";
-    } else {
-      personaltiyTypeResult = +"In";
-    }
-
-    if (thinkingCount > feelingCount) {
-      personaltiyTypeResult = +"Th";
-    } else {
-      personaltiyTypeResult = +"Fe";
-    }
-
-    if (judgingCount > perceivingCount) {
-      personaltiyTypeResult = +"Ex";
-    } else {
-      personaltiyTypeResult = +"In";
-    }
-    return personaltiyTypeResult;
+    return personalityTypeResult;
   }
 };
 
 const QuizCommon = {
   quizScoreCalculate,
   scoreTypeResult,
-  personaltiyTypeResult,
+  personalityTypeResult,
 };
 
 export default QuizCommon;

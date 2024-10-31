@@ -5,6 +5,7 @@
       <q-card class="terms-card">
         <q-card-section>
           <div class="section">
+            <div class="section-title">현재는 테스트 목적입니다.</div>
             <div class="section-title">목적</div>
             <p class="section-content">
               본 사이트는 유머러스하고 재미있는 테스트를 제공하여 사용자의
