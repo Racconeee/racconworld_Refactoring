@@ -169,9 +169,7 @@ export const useTestStore = defineStore("test", () => {
   };
 
   //resultList
-  const resultList = ref("");
   const resultScore = ref(0);
-
   const resultFilePath = ref("");
   const getResultList = async function (testId, score) {
     await axios({
@@ -184,8 +182,7 @@ export const useTestStore = defineStore("test", () => {
     })
       .then((res) => {
         console.log(res);
-        resultList.value = VITE_NGINX_IMG_URL + res.data;
-        resultFilePath.value = res.data.file; // 여기에 파일 path넣기
+        resultFilePath.value = VITE_NGINX_IMG_URL + res.data.file; // 여기에 파일 path넣기
       })
       .catch((err) => {
         console.log(err);
@@ -215,7 +212,6 @@ export const useTestStore = defineStore("test", () => {
     quizList,
     getQuizList,
     resultScore,
-    resultList,
     setresultScore,
     currentTestId,
     setCurrentTestId,

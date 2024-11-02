@@ -7,7 +7,7 @@
 
     <q-img
       class="image-container"
-      :src="teststore.resultList"
+      :src="teststore.resultFilePath"
       loading="lazy"
       alt="Thumbnail"
       fit="fill"
@@ -70,7 +70,6 @@ onMounted(async () => {
   if (resultboolean.value) {
     imageFilter.value = ""; // 블러와 세피아 필터를 제거
   }
-  console.log("resultList => " + teststore.resultList);
 });
 </script>
 

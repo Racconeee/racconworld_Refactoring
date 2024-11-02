@@ -1,9 +1,5 @@
 <template>
   <div v-if="TotalQuizList.questions && TotalQuizList.questions.length > 0">
-    <!-- <div class="flex flex-center text-h4 q-pa-lg q-mb-xl">
-      {{ currentPage + 1 }}/{{ TotalQuizList.questions.length }}
-    </div> -->
-
     <section class="flex flex-center">
       <q-linear-progress
         :value="(currentPage + 1) / TotalQuizList.questions.length"
@@ -56,13 +52,9 @@ let quizResult = "";
 const router = useRouter();
 
 const incrementCurrentPage = (choice) => {
-  console.log("page : => ", currentPage.value);
-  console.log(TotalQuizList.value.questions.length - 1);
-  console.log(choice.score);
   choiceScoreList.value.push(choice.score);
 
   if (TotalQuizList.value.questions.length - 1 <= currentPage.value) {
-    console.log("더이상의 데이터는 존재하지않습니다. 계산 ㄱㄱ ");
     //문제를 모두 풀엇으면 QuizCommon파일로 지금까지의 답변과 TestType 보내서 계산해서 받음
     quizResult = QuizCommon.quizScoreCalculate(
       choiceScoreList,
@@ -70,7 +62,6 @@ const incrementCurrentPage = (choice) => {
     );
 
     testStore.setresultScore(quizResult);
-    console.log("testStore.resultScore : -> ", testStore.resultScore.value);
     router.push({ name: "resultpage" }); // 페이지 이동
     return;
   }

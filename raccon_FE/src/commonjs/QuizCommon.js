@@ -11,20 +11,13 @@ let judgingCount = 0;
 let perceivingCount = 0;
 
 const quizScoreCalculate = (choiceScoreList, testType) => {
-  console.log(choiceScoreList.value);
-  console.log(testType);
-
   if (testType === "SCORE") {
-    console.log("SCORE TYPE으로 결과 계산을 시작합니다.");
-
     scoreTypeResult = choiceScoreList.value.reduce(
       (accumulator, currentValue) => accumulator + currentValue,
       0 // 초기값 설정
     );
     return Math.round(scoreTypeResult);
   } else {
-    console.log("Personality로 결과 계산을 시작합니다.");
-
     extraversionCount = choiceScoreList.value.filter(
       (choice) => choice === "Extraversion"
     ).length;
