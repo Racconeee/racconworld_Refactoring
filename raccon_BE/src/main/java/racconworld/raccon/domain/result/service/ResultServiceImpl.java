@@ -26,7 +26,7 @@ public class ResultServiceImpl implements ResultService {
     //cach hit 가 되면 incrementTestView
     @Override
     @Transactional
-    @Cacheable(cacheNames = "ShowResultFilePath", key = "'testId:' + #p0 + 'score:' + #p1", cacheManager = "cacheManager")
+    @Cacheable(cacheNames = "ShowResultFilePath", key = "'testId:' + #p0 + ':score:' + #p1", cacheManager = "cacheManager")
     public ShowResultResDto showResult(Long testId, String score) {
 
         Result result = repository.findResultByTestIdAndScore(testId , score).orElseThrow(() ->
