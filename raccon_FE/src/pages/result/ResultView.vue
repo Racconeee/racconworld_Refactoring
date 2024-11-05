@@ -51,19 +51,12 @@
 import { useTestStore } from "src/stores/useTestStore";
 import { onMounted, ref } from "vue";
 import ShareLink from "src/components/etc/ShareLink.vue";
+import { useRouter } from "vue-router";
 
 const teststore = useTestStore();
+const router = useRouter();
 
 const imageFilter = ref("blur(10px) sepia()");
-
-const clearBlur = () => {
-  imageFilter.value = ""; // 블러와 세피아 필터를 제거
-  sessionStorage.setItem("resultLink", true);
-  resultboolean.value = true;
-  window.open(teststore.getVITE_COUPANG_URL_LINK, "_blank").focus();
-};
-const resultboolean = ref(sessionStorage.getItem("resultLink") || false);
-
 onMounted(async () => {
   await teststore.getResultList(teststore.currentTestId, teststore.resultScore);
 
@@ -73,6 +66,19 @@ onMounted(async () => {
 
   console.log("teststore.resultFilePath => ", teststore.resultFilePath);
 });
+
+const clearBlur = () => {
+  imageFilter.value = ""; // 블러와 세피아 필터를 제거
+  sessionStorage.setItem("resultLink", true);
+  resultboolean.value = true;
+  window.open(teststore.getVITE_COUPANG_URL_LINK, "_blank").focus();
+};
+
+const goToQuiz = () => {
+  router.push({ name: "resultpage" });
+};
+
+const resultboolean = ref(sessionStorage.getItem("resultLink") || false);
 </script>
 
 <style lang="scss" scoped>
