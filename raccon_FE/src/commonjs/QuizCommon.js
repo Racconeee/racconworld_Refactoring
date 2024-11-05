@@ -1,16 +1,6 @@
-let scoreTypeResult = 0;
-let personalityTypeResult = ""; // 오타 수정
-
-let extraversionCount = 0;
-let introversionCount = 0;
-let sensingCount = 0;
-let intuitionCount = 0;
-let thinkingCount = 0;
-let feelingCount = 0;
-let judgingCount = 0;
-let perceivingCount = 0;
-
 const quizScoreCalculate = (choiceScoreList, testType) => {
+  let scoreTypeResult = 0;
+
   if (testType === "SCORE") {
     scoreTypeResult = choiceScoreList.value.reduce(
       (accumulator, currentValue) => accumulator + currentValue,
@@ -18,6 +8,17 @@ const quizScoreCalculate = (choiceScoreList, testType) => {
     );
     return Math.round(scoreTypeResult);
   } else {
+    let personalityTypeResult = ""; // 오타 수정
+
+    let extraversionCount = 0;
+    let introversionCount = 0;
+    let sensingCount = 0;
+    let intuitionCount = 0;
+    let thinkingCount = 0;
+    let feelingCount = 0;
+    let judgingCount = 0;
+    let perceivingCount = 0;
+
     extraversionCount = choiceScoreList.value.filter(
       (choice) => choice === "Extraversion"
     ).length;
