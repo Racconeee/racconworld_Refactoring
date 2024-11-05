@@ -75,7 +75,7 @@ const clearBlur = () => {
 };
 
 const goToQuiz = () => {
-  router.push({ name: "resultpage" });
+  router.push({ name: "home" });
 };
 
 const resultboolean = ref(sessionStorage.getItem("resultLink") || false);
