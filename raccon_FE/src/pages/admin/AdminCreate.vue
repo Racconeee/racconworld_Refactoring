@@ -105,7 +105,7 @@
         bottom-slots
         v-model="resultImages"
         counter
-        max-files="12"
+        max-files="16"
         multiple
         :style="{ width: '400px' }"
       >
