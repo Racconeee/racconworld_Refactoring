@@ -1,46 +1,35 @@
 const quizScoreCalculate = (choiceScoreList, testType) => {
-  let scoreTypeResult = 0;
-
   if (testType === "SCORE") {
-    scoreTypeResult = choiceScoreList.value.reduce(
+    const scoreTypeResult = choiceScoreList.value.reduce(
       (accumulator, currentValue) => accumulator + currentValue,
       0 // 초기값 설정
     );
-    return Math.round(scoreTypeResult);
+    return { scoreTypeResult: Math.round(scoreTypeResult) };
   } else {
-    let personalityTypeResult = ""; // 오타 수정
+    let personalityTypeResult = "";
 
-    let extraversionCount = 0;
-    let introversionCount = 0;
-    let sensingCount = 0;
-    let intuitionCount = 0;
-    let thinkingCount = 0;
-    let feelingCount = 0;
-    let judgingCount = 0;
-    let perceivingCount = 0;
-
-    extraversionCount = choiceScoreList.value.filter(
+    const extraversionCount = choiceScoreList.value.filter(
       (choice) => choice === "Extraversion"
     ).length;
-    introversionCount = choiceScoreList.value.filter(
+    const introversionCount = choiceScoreList.value.filter(
       (choice) => choice === "Introversion"
     ).length;
-    sensingCount = choiceScoreList.value.filter(
+    const sensingCount = choiceScoreList.value.filter(
       (choice) => choice === "Sensing"
     ).length;
-    intuitionCount = choiceScoreList.value.filter(
+    const intuitionCount = choiceScoreList.value.filter(
       (choice) => choice === "Intuition"
     ).length;
-    thinkingCount = choiceScoreList.value.filter(
+    const thinkingCount = choiceScoreList.value.filter(
       (choice) => choice === "Thinking"
     ).length;
-    feelingCount = choiceScoreList.value.filter(
+    const feelingCount = choiceScoreList.value.filter(
       (choice) => choice === "Feeling"
     ).length;
-    judgingCount = choiceScoreList.value.filter(
+    const judgingCount = choiceScoreList.value.filter(
       (choice) => choice === "Judging"
     ).length;
-    perceivingCount = choiceScoreList.value.filter(
+    const perceivingCount = choiceScoreList.value.filter(
       (choice) => choice === "Perceiving"
     ).length;
 
@@ -53,14 +42,12 @@ const quizScoreCalculate = (choiceScoreList, testType) => {
     personalityTypeResult +=
       judgingCount > perceivingCount ? "Judging" : "Perceiving";
 
-    return personalityTypeResult;
+    return { personalityTypeResult };
   }
 };
 
 const QuizCommon = {
   quizScoreCalculate,
-  scoreTypeResult,
-  personalityTypeResult,
 };
 
 export default QuizCommon;
