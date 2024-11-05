@@ -52,7 +52,6 @@ const quizScoreCalculate = (choiceScoreList, testType) => {
     personalityTypeResult +=
       judgingCount > perceivingCount ? "Judging" : "Perceiving";
 
-    personalityTypeResult += ".png";
     return personalityTypeResult;
   }
 };

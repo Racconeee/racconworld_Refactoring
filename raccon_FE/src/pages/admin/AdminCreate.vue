@@ -226,18 +226,12 @@ const openCreateDialog = async () => {
 
   formData.append("testImage", testImage.value);
   resultImages.value.forEach((file) => {
-    formData.append("resultImages", file);
+    const filenameWithoutExtension = file.name.replace(/\.[^/.]+$/, "");
+    const newFile = new File([file], filenameWithoutExtension, {
+      type: file.type,
+    });
+    formData.append("resultImages", newFile);
   });
-
-  console.log(
-    "파일의 사이즈는 :: ",
-    Array.from(formData.values())
-      .filter((value) => value instanceof File)
-      .reduce((acc, file) => acc + file.size, 0) /
-      1024 /
-      1024,
-    "MB"
-  );
 
   try {
     if (testType.value === "PERSONALITY") {

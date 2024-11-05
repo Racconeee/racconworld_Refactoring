@@ -31,7 +31,6 @@ public class RedisServiceImpl implements RedisService {
     @Scheduled(fixedRate = 600000)
     @Transactional
     public void syncViewCountsToDB() {
-        log.info("Redis -- 조회수 동기화 시작");
 
         Set<String> keys = redisTemplate.keys("getTestView::*");
         if (keys != null) {
@@ -102,14 +101,12 @@ public class RedisServiceImpl implements RedisService {
     @Scheduled(fixedRate = 600000)
     @Transactional
     public void syncTotalTestViewCount() {
-        log.info("Redis -- 전체 방문수 동기화 시작");
 
         String redisKey = "getTestTotalVisit";
 
         Long totalViewCount = calculateTotalViewCount();
         if (totalViewCount != null) {
             redisTemplate.opsForHash().put(redisKey, "total", String.valueOf(totalViewCount));
-            log.info("TotalVisited Data 업데이트 완료: {}", totalViewCount);
         }
     }
 
@@ -123,7 +120,6 @@ public class RedisServiceImpl implements RedisService {
             if (totalViewCount != null) {
                 // Redis에 'total' 필드 업데이트
                 redisTemplate.opsForHash().put(redisKey, "total", String.valueOf(totalViewCount));
-                log.info("최종적으로 변경된 TotalVisited Data Value : {}", totalViewCount);
                 return totalViewCount;
             }
         }

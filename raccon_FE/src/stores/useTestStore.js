@@ -49,6 +49,7 @@ export const useTestStore = defineStore("test", () => {
           return {
             ...test,
             filePath: `${VITE_NGINX_IMG_URL}${test.filePath}`, // filePath에 URL 추가
+            //왜들어가ㅣㅆ는지 생각하기
           };
         });
 
@@ -182,7 +183,7 @@ export const useTestStore = defineStore("test", () => {
     })
       .then((res) => {
         console.log(res);
-        resultFilePath.value = VITE_NGINX_IMG_URL + res.data.file; // 여기에 파일 path넣기
+        resultFilePath.value = VITE_NGINX_IMG_URL + res.data.filePath; // 여기에 파일 path넣기
       })
       .catch((err) => {
         console.log(err);

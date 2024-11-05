@@ -70,6 +70,8 @@ onMounted(async () => {
   if (resultboolean.value) {
     imageFilter.value = ""; // 블러와 세피아 필터를 제거
   }
+
+  console.log("teststore.resultFilePath => ", teststore.resultFilePath);
 });
 </script>
 
