@@ -4,7 +4,7 @@ const quizScoreCalculate = (choiceScoreList, testType) => {
       (accumulator, currentValue) => accumulator + currentValue,
       0 // 초기값 설정
     );
-    return { scoreTypeResult: Math.round(scoreTypeResult) };
+    return Math.round(scoreTypeResult);
   } else {
     let personalityTypeResult = "";
 
@@ -42,7 +42,7 @@ const quizScoreCalculate = (choiceScoreList, testType) => {
     personalityTypeResult +=
       judgingCount > perceivingCount ? "Judging" : "Perceiving";
 
-    return { personalityTypeResult };
+    return personalityTypeResult;
   }
 };
 
