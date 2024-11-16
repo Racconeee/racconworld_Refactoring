@@ -48,9 +48,11 @@
       class="bg-teal-6 text-gray items-center justify-center q-pa-xs"
     >
       <div class="q-mt-xs text-center">
-        © 2024 Raccoonworld. All rights reserved.
+        © 2024 i.racconworld.i@gmail.com. All rights reserved.
       </div>
-      <div class="q-mt-xs text-center">문의하기 : racconworld@gmail.com</div>
+      <div class="q-mt-xs text-center">
+        문의하기 : i.racconworld.i@gmail.com
+      </div>
       <div class="q-mt-xs row justify-around">
         <q-btn flat label="개인정보취급방침" to="/about/privacy-policy" />
         <q-btn flat label="서비스 이용약관" to="/about/terms-of-service" />
