@@ -9,7 +9,7 @@ import racconworld.raccon.domain.user.service.AdminService;
 import racconworld.raccon.domain.user.service.UserService;
 import racconworld.raccon.global.common.BaseResponse;
 import racconworld.raccon.global.common.code.SuccessCode;
-import racconworld.raccon.global.jwt.dto.Request.IdPwTokenReqDto;
+import racconworld.raccon.domain.user.dto.Request.IdPwTokenReqDto;
 
 @RestController
 @RequestMapping("/api/admin")
