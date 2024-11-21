@@ -1,3 +1,7 @@
+<<<<<<< Updated upstream
+=======
+# 1단계: Vue 애플리케이션 빌드 (Node.js 환경에서)
+>>>>>>> Stashed changes
 FROM node:16 AS build-stage
 
 # 작업 디렉터리 설정
