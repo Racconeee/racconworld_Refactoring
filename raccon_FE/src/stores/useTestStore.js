@@ -30,8 +30,6 @@ export const useTestStore = defineStore("test", () => {
 
   const setCurrentTestId = (testId) => {
     currentTestId.value = testId;
-    console.log("currentTestId.value 설정 완료 했습니다.");
-    console.log(currentTestId.value);
   };
 
   //전체 테스트 조회
@@ -56,15 +54,12 @@ export const useTestStore = defineStore("test", () => {
         testList.value = [...testList.value, ...updatedTestList];
         const testIds = testList.value.map((test) => test.testId);
 
-        console.log("TestIds => " + testIds);
-
         getTestIds(testIds);
 
         testListhasNext.value = res.data.result.hasNext;
       })
       .catch((err) => {
         getTestError.value = true;
-        console.log(err);
       });
   };
 
@@ -86,18 +81,12 @@ export const useTestStore = defineStore("test", () => {
           return map;
         }, {});
 
-        console.log(viewData.value); // 콘솔에 출력하여 확인
-
-        // testList 배열의 각 항목에 조회수를 매핑
         testList.value = testList.value.map((test) => {
-          // viewData에서 testId에 해당하는 조회수를 가져옴
           test.view = viewData.value[test.testId] || 0; // 조회수가 없으면 0으로 설정
           return test;
         });
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 
   // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
@@ -114,33 +103,22 @@ export const useTestStore = defineStore("test", () => {
     })
       .then((res) => {
         TestIdToView.value = res.data.result.view;
-        console.log("res.data.result.view");
-        console.log(res.data.result.view);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 
   //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
   //전체방문자수
   const totalVisited = ref(0);
   const getTotalVisited = async function (testId) {
-    console.log("url : ", `${VITE_SERVER_API_URL}/test/total/visit`);
-    console.log(testId);
-
     await axios({
       method: "get",
       url: `${VITE_SERVER_API_URL}/test/total/visit`,
     })
       .then((res) => {
-        console.log(res.data.result);
-
         totalVisited.value = res.data.result.testTotalVisit;
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 
   //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
@@ -151,22 +129,15 @@ export const useTestStore = defineStore("test", () => {
   //생각이 들지만 현재에 있어서는 좀 반복적인 코드를 사용하는 것 같다.
   const quizList = ref({});
   const getQuizList = async function (testId) {
-    console.log("url : ", `${VITE_SERVER_API_URL}/quiz/detail/${testId}`);
-    console.log(testId);
-
     await axios({
       method: "get",
       url: `${VITE_SERVER_API_URL}/quiz/detail/${testId}`,
     })
       .then((res) => {
-        console.log(res.data.result);
-
         quizList.value = res.data.result;
         quizList.value.view = viewData[test.testId] || 0; // 조회수가 없으면 0으로 설정
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 
   //resultList
@@ -182,12 +153,9 @@ export const useTestStore = defineStore("test", () => {
       },
     })
       .then((res) => {
-        console.log(res);
         resultFilePath.value = VITE_NGINX_IMG_URL + res.data.result.filePath; // 여기에 파일 path넣기
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 
   const setresultScore = (Score) => {

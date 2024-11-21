@@ -11,7 +11,6 @@ async function findByAllTestList() {
     return response.data;
   } catch (error) {
     // 에러 처리
-    console.error("Error fetching test list:", error);
     throw error; // 에러를 다시 던져서 호출하는 곳에서 처리하게 함
   }
 }

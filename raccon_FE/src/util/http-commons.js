@@ -7,30 +7,6 @@ import axios from "axios";
 
 const VITE_SERVER_API_URL = import.meta.env.VITE_SERVER_API_URL;
 
-// function apiAxios() {
-//   console.log("VITE_SERVER_API_URL : ", VITE_SERVER_API_URL);
-
-//   const instance = axios.create({
-//     baseURL: VITE_SERVER_API_URL,
-//     headers: {
-//       "Content-Type": "application/json;charset=utf-8",
-//     },
-//   });
-//   return instance;
-// }
-
-// function authApiAxios() {
-//   const instance = axios.create({
-//     baseURL: VITE_SERVER_API_URL,
-//     headers: {
-//       "Content-Type": "application/json;charset=utf-8",
-//     },
-//   });
-//   return instance;
-// }
-
-// export { apiAxios, authApiAxios };
-
 const authAxios = axios.create({
   baseURL: VITE_SERVER_API_URL,
 });
@@ -39,17 +15,14 @@ authAxios.interceptors.request.use(
   (config) => {
     try {
       const accessToken = localStorage.getItem("AccessToken");
-      console.log("accessToken 값은", accessToken);
 
       if (accessToken) {
         // Authorization 헤더에 AccessToken 추가
         config.headers["AccessToken"] = accessToken;
       }
 
-      console.log("config의 값은", config);
       return config;
     } catch (error) {
-      console.error("AccessToken 값이 존재하지않습니다.", error);
       return config;
     }
   },
@@ -58,7 +31,6 @@ authAxios.interceptors.request.use(
   }
 );
 
-// 응답 인터셉터 설정
 authAxios.interceptors.response.use(
   (response) => response, // 성공적인 응답 처리
 
@@ -81,10 +53,6 @@ authAxios.interceptors.response.use(
         originalRequest.headers["AccessToken"] = `Bearer ${data.accessToken}`;
         return api(originalRequest); // 새로운 토큰으로 요청 재실행
       } catch (err) {
-        console.log("err -> " + err);
-
-        console.log("리프레시 토큰도 만료되었습니다.");
-        // 로그아웃 처리나 로그인 페이지로 이동
         return Promise.reject(error);
       }
     }
