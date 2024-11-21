@@ -7,7 +7,7 @@
 
     <q-img
       class="image-container"
-      :src="teststore.resultList"
+      :src="teststore.resultFilePath"
       loading="lazy"
       alt="Thumbnail"
       fit="fill"
@@ -50,11 +50,22 @@
 <script setup>
 import { useTestStore } from "src/stores/useTestStore";
 import { onMounted, ref } from "vue";
-import ShareLink from "src/components/ShareLink.vue";
+import ShareLink from "src/components/etc/ShareLink.vue";
+import { useRouter } from "vue-router";
 
 const teststore = useTestStore();
+const router = useRouter();
 
 const imageFilter = ref("blur(10px) sepia()");
+onMounted(async () => {
+  await teststore.getResultList(teststore.currentTestId, teststore.resultScore);
+
+  if (resultboolean.value) {
+    imageFilter.value = ""; // 블러와 세피아 필터를 제거
+  }
+
+  console.log("teststore.resultFilePath => ", teststore.resultFilePath);
+});
 
 const clearBlur = () => {
   imageFilter.value = ""; // 블러와 세피아 필터를 제거
@@ -62,16 +73,12 @@ const clearBlur = () => {
   resultboolean.value = true;
   window.open(teststore.getVITE_COUPANG_URL_LINK, "_blank").focus();
 };
+
+const goToQuiz = () => {
+  router.push({ name: "home" });
+};
+
 const resultboolean = ref(sessionStorage.getItem("resultLink") || false);
-
-onMounted(async () => {
-  await teststore.getResultList(teststore.currentTestId, teststore.resultScore);
-
-  if (resultboolean.value) {
-    imageFilter.value = ""; // 블러와 세피아 필터를 제거
-  }
-  console.log("resultList => " + teststore.resultList);
-});
 </script>
 
 <style lang="scss" scoped>

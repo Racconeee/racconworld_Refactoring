@@ -4,9 +4,10 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
-Dockerfile-prod
-!src/main/resources/application.yml
 
+# Ignore all db directories in subdirectories
+*/db/
+*/data/
 
 ### STS ###
 .apt_generated
@@ -25,11 +26,10 @@ bin/
 *.iws
 *.iml
 *.ipr
-*.yml
-*.sh
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+*.p12
 
 ### NetBeans ###
 /nbproject/private/

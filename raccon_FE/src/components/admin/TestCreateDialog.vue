@@ -38,7 +38,7 @@ const emit = defineEmits(["send-close"]);
 const closeDialog = () => {
   adminStore.clearUploadTestRes();
   emit("send-close");
-  router.push({ name: "testinfo" });
+  // router.push({ name: "testinfo" });
 };
 </script>
 

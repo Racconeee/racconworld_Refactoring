@@ -1,4 +1,4 @@
-package racconworld.raccon.global.jwt.dto.Request;
+package racconworld.raccon.domain.user.dto.Request;
 
 
 import lombok.Data;

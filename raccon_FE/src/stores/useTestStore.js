@@ -49,6 +49,7 @@ export const useTestStore = defineStore("test", () => {
           return {
             ...test,
             filePath: `${VITE_NGINX_IMG_URL}${test.filePath}`, // filePath에 URL 추가
+            //왜들어가ㅣㅆ는지 생각하기
           };
         });
 
@@ -169,9 +170,7 @@ export const useTestStore = defineStore("test", () => {
   };
 
   //resultList
-  const resultList = ref("");
   const resultScore = ref(0);
-
   const resultFilePath = ref("");
   const getResultList = async function (testId, score) {
     await axios({
@@ -184,12 +183,9 @@ export const useTestStore = defineStore("test", () => {
     })
       .then((res) => {
         console.log(res);
-        resultList.value = VITE_NGINX_IMG_URL + res.data;
-        // resultFilePath.value = res.data.file 여기에 파일 path넣기
+        resultFilePath.value = VITE_NGINX_IMG_URL + res.data.result.filePath; // 여기에 파일 path넣기
       })
       .catch((err) => {
-        resultList.value =
-          VITE_NGINX_IMG_URL + "/13/스크린샷 2024-10-16 132546.png";
         console.log(err);
       });
   };
@@ -217,7 +213,6 @@ export const useTestStore = defineStore("test", () => {
     quizList,
     getQuizList,
     resultScore,
-    resultList,
     setresultScore,
     currentTestId,
     setCurrentTestId,

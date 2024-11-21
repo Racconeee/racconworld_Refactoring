@@ -11,7 +11,6 @@ defineOptions({
   name: "App",
 });
 
-// App.vue에서 기본 메타 데이터 설정
 useHead({
   title: "Raccon World",
   meta: [

@@ -105,7 +105,7 @@
         bottom-slots
         v-model="resultImages"
         counter
-        max-files="12"
+        max-files="16"
         multiple
         :style="{ width: '400px' }"
       >
@@ -141,7 +141,7 @@ const emptyInputDialog = ref(false);
 // 이걸로 할수 있지만 일부러 나눠서 코드가 늘어나더라도 api 2번 나가는거 방지함
 // createDialog.value = !createDialog.value;
 
-const MAX_FILE_SIZE = 3 * 1024 * 1024; // 5MB
+const MAX_FILE_SIZE = 50 * 1024 * 1024;
 
 //testType의 값에 따라서 api 호출한다. + 팝업창값도 변경해서 나오게 만듬
 //중복 코드가 많이 보이기는함 리팩토링 필요
@@ -201,7 +201,7 @@ const validateInputs = () => {
   }
   resultImages.value.some((file) => {
     if (file.size > MAX_FILE_SIZE) {
-      adminStore.emptyInputCheck("파일의 용량은 3MB로 제한되어있습니다.");
+      adminStore.emptyInputCheck("파일의 용량은 50MB로 제한되어있습니다.");
       isValid.value = false;
       return true; // 조건을 만족하는 경우 반복 중단
     }
@@ -226,7 +226,11 @@ const openCreateDialog = async () => {
 
   formData.append("testImage", testImage.value);
   resultImages.value.forEach((file) => {
-    formData.append("resultImages", file);
+    const filenameWithoutExtension = file.name.replace(/\.[^/.]+$/, "");
+    const newFile = new File([file], filenameWithoutExtension, {
+      type: file.type,
+    });
+    formData.append("resultImages", newFile);
   });
 
   try {

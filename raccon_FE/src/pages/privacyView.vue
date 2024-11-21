@@ -4,6 +4,7 @@
     <div class="content-wrapper flex justify-center">
       <q-card class="policy-card">
         <q-card-section>
+          <div class="section-title">현재는 테스트 목적입니다.</div>
           <div class="section-title">개인정보의 수집 및 이용 목적</div>
           <p class="section-content">
             본 사이트는 사용자의 개인정보를 수집하지 않습니다. 모든 서비스는

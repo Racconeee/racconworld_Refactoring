@@ -28,4 +28,6 @@ public interface UploadService {
     void createDir(String filepath) throws IOException;
     void uploadResult(List<MultipartFile> fileList, Test testEntity) throws IOException;
 
+    void clearTestListCacheToRedis();
+
 }

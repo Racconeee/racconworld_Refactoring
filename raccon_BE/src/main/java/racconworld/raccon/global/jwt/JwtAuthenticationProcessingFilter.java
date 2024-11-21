@@ -63,11 +63,6 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
             filterChain.doFilter(request ,response);
             return;
         }
-        log.info("권한이 필요한 url : {} " , request.getRequestURI());
-        log.info("request.getHeader(AccessToken) : {}" , request.getHeader("AccessToken"));
-        log.info("request.getHeader(refreshHeader) : {}" , request.getHeader("RefreshToken"));
-        log.info("소문자로 들어올수도 ?(refreshHeader) : {}" , request.getHeader("refreshToken"));
-
 
         String refreshToken = jwtService.extractRefreshToken(request)
                 .filter(jwtService::isTokenValid)
