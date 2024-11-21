@@ -31,6 +31,10 @@ out/
 !**/src/test/**/out/
 *.p12
 
+
+### FE ###
+.env.production
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
