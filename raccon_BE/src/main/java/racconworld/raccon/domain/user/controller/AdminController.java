@@ -6,10 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import racconworld.raccon.domain.user.service.AdminService;
-import racconworld.raccon.domain.user.service.UserService;
 import racconworld.raccon.global.common.BaseResponse;
 import racconworld.raccon.global.common.code.SuccessCode;
-import racconworld.raccon.domain.user.dto.Request.IdPwTokenReqDto;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -18,7 +16,6 @@ import racconworld.raccon.domain.user.dto.Request.IdPwTokenReqDto;
 public class AdminController {
 
     private final AdminService adminService;
-    private final UserService userService;
 
     //다른 조건이 없기에 이렇게 설계햇다.
     //만약 다른 조건이 추가된다면 dto나 RequestParam을 채택 햇을 듯
@@ -33,18 +30,4 @@ public class AdminController {
         );
     }
 
-
-    @Operation(summary = "ADMIN 계정 회원가입",
-            description =  "배포할 때는 삭제예정 - 회원가입 필요 없음 TEST를 위해 생성 API ")
-    @PostMapping("/signup")
-    public ResponseEntity<BaseResponse<String>> createAdmin(@RequestBody IdPwTokenReqDto idPwTokenReqDto) {
-
-        log.info("username : {} " , idPwTokenReqDto.getUsername());
-        log.info("password : {} " , idPwTokenReqDto.getPassword());
-        return BaseResponse.success(
-                SuccessCode.SIGNUP_SUCCESS,
-                userService.signUpAdmin(idPwTokenReqDto.getUsername(), idPwTokenReqDto.getPassword())
-        );
-
-    }
 }

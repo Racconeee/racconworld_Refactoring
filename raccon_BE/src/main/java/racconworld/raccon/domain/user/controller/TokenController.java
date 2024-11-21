@@ -35,44 +35,10 @@ public class TokenController {
     @PostMapping("/token")
     public ResponseEntity<BaseResponse<String>> validateAccessToken(@RequestBody AccessTokenReqDto accessTokenReqDto ) {
 
-        log.info("token_value :");
-        log.info("검증에 들어온 token_value :{} " , accessTokenReqDto.getAccessToken());
 
         String accessToken = jwtService.bodyExtractAccessToken(accessTokenReqDto.getAccessToken());
         jwtService.isTokenValid(accessToken);
         return BaseResponse.success(SuccessCode.VALID_ACCESS_TOKEN_SIGNATURE , "인증이 완료 되었습니다.");
     }
-//
-//    @PostMapping("/refreshtoken")
-//    public ResponseEntity<BaseResponse<String>> validateRefreshToken(@RequestHeader String  refreshToken) {
-//
-//        log.info("RFtoken_value :");
-//        log.info("검증에 들어온 RFtoken_value :{} " , refreshTokenReqDto.getRefreshToken());
-//
-//        String refreshToken = jwtService.bodyExtractAccessToken(refreshTokenReqDto.getRefreshToken());
-//        boolean TokenValidResult = jwtService.isTokenValid(refreshToken);
-//        if(TokenValidResult) {
-//            return BaseResponse.success(SuccessCode.VALID_ACCESS_TOKEN_SIGNATURE , "인증이 완료 되었습니다.");
-//        } else {
-//            return BaseResponse.error(ErrorCode.INVALID_ACCESS_TOKEN_SIGNATURE ,"토큰 값이 유효하지 않습니다.");
-//        }
-//    }
-//
-//    @PostMapping("/token")
-//    public ResponseEntity<BaseResponse<String>> reissueRefreshToken(@RequestBody RefreshTokenReqDto refreshTokenReqDto ) {
-//
-//        log.info("RefreshToken :");
-//        log.info("검증에 들어온 RefreshToken :{} " , refreshTokenReqDto.getRefreshToken());
-//
-//        String accessToken = jwtService.bodyExtractAccessToken(refreshTokenReqDto.getRefreshToken());
-//        boolean TokenValidResult = jwtService.isTokenValid(accessToken);
-//        if(TokenValidResult) {
-//            return BaseResponse.success(SuccessCode.VALID_ACCESS_TOKEN_SIGNATURE , "인증이 완료 되었습니다.");
-//        } else {
-//            return BaseResponse.error(ErrorCode.INVALID_ACCESS_TOKEN_SIGNATURE ,"토큰 값이 유효하지 않습니다.");
-//        }
-//    }
-//
-
 
 }

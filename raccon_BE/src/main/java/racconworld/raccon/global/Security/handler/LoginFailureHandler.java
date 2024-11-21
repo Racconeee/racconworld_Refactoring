@@ -20,7 +20,6 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
 
 
-        log.info("Login failed: {}", exception.getMessage());
 
         // 예를 들어 로그인 실패시 INVALID_USER_CREDENTIALS 코드를 사용하여 로그를 남기고 클라이언트에게 응답합니다.
         ErrorCode errorCode = ErrorCode.INVALID_USER_CREDENTIALS;

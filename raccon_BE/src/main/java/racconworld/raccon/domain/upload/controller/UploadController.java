@@ -36,10 +36,6 @@ public class UploadController {
                                                                      @RequestPart MultipartFile testImage,
                                                                      @RequestPart List<MultipartFile> resultImages) throws IOException {
 
-        log.info("uploadTestScoreReqDto : {} ", uploadTestScoreReqDto);
-        log.info("uploadTestScoreReqDto : {} ", testImage);
-        log.info("uploadTestScoreReqDto : {} ", resultImages);
-
         return BaseResponse.success(SuccessCode.UPLOAD_SUCCESS ,
                 uploadService.uploadTestTypeScore(uploadTestScoreReqDto, testImage, resultImages)
         );
@@ -55,12 +51,6 @@ public class UploadController {
     public ResponseEntity<BaseResponse<String>> uploadTestTypePersonality( @RequestPart UploadTestPersonalityReqDto uploadTestPersonalityReqDto,
                                                                      @RequestPart MultipartFile testImage,
                                                                      @RequestPart List<MultipartFile> resultImages) throws IOException {
-
-
-        log.info("uploadTestPersonalityReqDto : {} ", uploadTestPersonalityReqDto);
-        log.info("testImage : {} ", testImage.getOriginalFilename());
-        log.info("resultImage : {} ", resultImages.stream().map(MultipartFile::getOriginalFilename).toList());
-
 
         return BaseResponse.success(SuccessCode.UPLOAD_SUCCESS ,
                 uploadService.uploadTestTypePersonality(uploadTestPersonalityReqDto, testImage, resultImages)

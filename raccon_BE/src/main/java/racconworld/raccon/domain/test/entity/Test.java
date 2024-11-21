@@ -1,7 +1,10 @@
 package racconworld.raccon.domain.test.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import racconworld.raccon.domain.question.entity.Question;
 import racconworld.raccon.domain.result.entity.Result;
 
@@ -27,7 +30,6 @@ public class Test {
     private String testName;
     private Long view;
     @Enumerated(EnumType.STRING)
-//    @Column(columnDefinition = "varchar(15)")
     private TestType testType; // 테스트 유형 (SCORE, PERSONALITY)
     private String filePath;
 
