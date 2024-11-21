@@ -11,7 +11,6 @@ import racconworld.raccon.domain.question.repository.QuestionRepository;
 import racconworld.raccon.domain.redis.RedisService;
 import racconworld.raccon.domain.test.entity.Test;
 import racconworld.raccon.domain.test.repository.TestRepository;
-import racconworld.raccon.domain.visit.repository.VisitRepository;
 import racconworld.raccon.global.common.code.ErrorCode;
 import racconworld.raccon.global.exception.CustomExceptionHandler;
 

@@ -10,7 +10,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import racconworld.raccon.domain.test.dto.Response.ShowTestViewListResDto;
 import racconworld.raccon.domain.test.repository.TestRepository;
-import racconworld.raccon.domain.visit.repository.VisitRepository;
 
 import java.util.*;
 
