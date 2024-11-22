@@ -107,7 +107,7 @@ public class SecurityConfig {
     CorsConfigurationSource corsConfigurationSource() {
         final List<String> allowedHeaders = List.of("*");
         final List<String> allowedOriginPatterns = List.of(
-                "https://racconworld.com",
+//                "https://racconworld.com",
                 "*"
         );
         return request -> {
