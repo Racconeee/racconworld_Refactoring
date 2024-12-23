@@ -76,6 +76,10 @@ racconworld는 누구나 무료로 즐길 수 있는 Test 기반 웹 사이트�
   <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white">
   <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
   <img src="https://img.shields.io/badge/quasar-2496ED?style=for-the-badge&logo=quasar&logoColor=black">
+  <br>
+  <img src="https://img.shields.io/badge/Vue.js-F7DF1E?style=for-the-badge&logo=vuedotjs&logoColor=black">
+  <img src="https://img.shields.io/badge/pinia-F7DF1E?style=for-the-badge&logo=pinia&logoColor=black">
+
 </div>
 <br>
 
