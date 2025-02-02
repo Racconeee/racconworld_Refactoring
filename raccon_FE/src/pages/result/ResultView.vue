@@ -63,19 +63,18 @@ onMounted(async () => {
   if (resultboolean.value) {
     imageFilter.value = ""; // 블러와 세피아 필터를 제거
   }
-
-  console.log("teststore.resultFilePath => ", teststore.resultFilePath);
 });
 
 const clearBlur = () => {
   imageFilter.value = ""; // 블러와 세피아 필터를 제거
   sessionStorage.setItem("resultLink", true);
   resultboolean.value = true;
-  window.open(teststore.getVITE_COUPANG_URL_LINK, "_blank").focus();
+
+  window.open(teststore.getVITE_COUPANG_URL_LINK(), "_blank").focus();
 };
 
 const goToQuiz = () => {
-  router.push({ name: "home" });
+  router.push({ path: "/" }); // 홈 경로로 리다이렉트
 };
 
 const resultboolean = ref(sessionStorage.getItem("resultLink") || false);

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import authAxios from "src/util/http-commons"; // 해당 api 로 추가 설정하기
+import authAxios from "src/util/http-commons";
 
 const VITE_SERVER_API_URL = import.meta.env.VITE_SERVER_API_URL;
 
@@ -15,10 +15,8 @@ export const useAdminStore = defineStore("admin", () => {
     })
       .then((res) => {
         uploadTestRes.value = res.data;
-        console.log(res);
       })
       .catch((err) => {
-        console.log("err => " + err);
         uploadTestRes.value = err;
         if (err.status === 403) {
           uploadTestRes.value.result = "권한이 존재하지않습니다.";
@@ -36,10 +34,8 @@ export const useAdminStore = defineStore("admin", () => {
     })
       .then((res) => {
         uploadTestRes.value = res.data;
-        console.log(res);
       })
       .catch((err) => {
-        console.log("err => " + err);
         uploadTestRes.value = err;
         if (err.status === 403) {
           uploadTestRes.value.result = "권한이 존재하지않습니다.";
@@ -77,13 +73,10 @@ export const useAdminStore = defineStore("admin", () => {
       url: `${VITE_SERVER_API_URL}/admin/test/delete/${testId}`,
     })
       .then((res) => {
-        console.log(res);
         deletTeststate.value = res.data.status;
       })
       .catch((err) => {
         deletTeststate.value = err.response.data;
-
-        console.log(err);
       });
   };
 

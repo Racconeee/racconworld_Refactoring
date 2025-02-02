@@ -135,6 +135,7 @@ export const useTestStore = defineStore("test", () => {
     })
       .then((res) => {
         quizList.value = res.data.result;
+        quizList.value.filePath = VITE_NGINX_IMG_URL + quizList.value.filePath;
         quizList.value.view = viewData[test.testId] || 0; // 조회수가 없으면 0으로 설정
       })
       .catch((err) => {});

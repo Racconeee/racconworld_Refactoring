@@ -34,7 +34,6 @@ const pageNumber = ref(0);
 
 // 데이터 로드 함수 정의
 const onLoad = async (page) => {
-  console.log("데이터 로드 중:", page);
   await testStore.getTestList({ pageNumber: page });
 };
 
@@ -47,7 +46,7 @@ onMounted(async () => {
     meta: [
       {
         name: "description",
-        content: `This is the Quiz Ready page for Test ${testStore.quizList.testName}. Get ready!`,
+        content: `${testStore.quizList.testName}`,
       },
       {
         property: "og:title",
@@ -59,9 +58,7 @@ onMounted(async () => {
       },
       {
         property: "og:image",
-        content: `${testStore.getVITE_NGINX_IMG_URL()}/file/${
-          testStore.currentTestId
-        }/main`, // 고정된 이미지 또는 동적 이미지 경로 설정
+        content: `https://racconworld.com/images/share_image.png`, // 고정된 이미지 또는 동적 이미지 경로 설정
       },
       {
         property: "og:url",

@@ -9,17 +9,17 @@
       <q-item-section
         class="flex flex-column items-center justify-center text-center"
       >
-        <div class="text-h4 q-mt-xl">{{ testStore.quizList.testName }}</div>
-
+        <div class="text-h4 q-mt-xl">{{ selectedTest?.testName }}</div>
         <q-img
           loading="lazy"
-          :src="filePath"
+          :src="selectedTest?.filePath"
           alt="Thumbnail"
           height="330px"
           width="330px"
           fit="cover"
           :style="{ borderRadius: '5px' }"
         />
+
         <div class="q-mt-xl text-h6">참여자 수</div>
         <div class="text-h6">
           <q-icon name="pets" />{{ selectedTest?.view || 0 }}
