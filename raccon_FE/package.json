@@ -1,0 +1,42 @@
+{
+  "name": "raccon_FE",
+  "version": "0.0.1",
+  "description": "Racconeee",
+  "productName": "raccon_FE App",
+  "author": "Racconeee <117073015+Racconeee@users.noreply.github.com>",
+  "private": true,
+  "scripts": {
+    "lint": "eslint --ext .js,.vue ./",
+    "format": "prettier --write \"**/*.{js,vue,scss,html,md,json}\" --ignore-path .gitignore",
+    "test": "echo \"No test specified\" && exit 0",
+    "dev": "quasar dev",
+    "pro": "quasar dev --mode staging",
+    "build": "quasar build"
+  },
+  "dependencies": {
+    "@quasar/extras": "^1.16.4",
+    "@vueuse/head": "^2.0.0",
+    "axios": "^1.7.5",
+    "pinia": "^2.1.3",
+    "quasar": "^2.12.0",
+    "sass": "^1.43.4",
+    "terser": "^5.37.0",
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.2"
+  },
+  "devDependencies": {
+    "@quasar/app-vite": "^1.10.0",
+    "autoprefixer": "^10.4.14",
+    "eslint": "^8.42.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-vue": "^9.14.1",
+    "postcss": "^8.4.14",
+    "prettier": "^2.8.8",
+    "vite-plugin-checker": "^0.8.0"
+  },
+  "engines": {
+    "node": "^18 || ^16 || ^14.19",
+    "npm": ">= 6.13.4",
+    "yarn": ">= 1.21.1"
+  }
+}
