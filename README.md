@@ -1,4 +1,3 @@
-<div align=center> 
   <img src="https://capsule-render.vercel.app/api?type=transparent&fontColor=2EFE9A&text=👋Welcome%20to&fontSize=50&height=50" />
   <p>
     <a href="https://racconworld.com"><img src="https://capsule-render.vercel.app/api?type=transparent&fontColor=BFFF00&text=Racconworld.com&fontSize=30&height=30"/>
@@ -108,3 +107,11 @@ racconworld는 누구나 무료로 즐길 수 있는 Test 기반 웹 사이트�
 
 <h3>7.API 명세서 - Swagger</h3>
 <img width="459" alt="image" src="https://github.com/Racconeee/racconworld/assets/117073015/5b73c908-f9bb-4212-9b16-e0abaa7cc247">   
+
+
+<h3>8.주요기능 </h3>
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/55004703-d742-42e8-a5fe-de6e178a027b" />
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/54bc201a-5234-439d-887a-1033aaa0c2d3">
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/39f58d06-b0dc-4590-8894-9d09d1a7c48e">   
+
+
