@@ -141,7 +141,8 @@ public class UploadServiceImpl implements UploadService {
         Path imagePath = Paths.get(filepath).getParent();
         if (!Files.exists(imagePath)) {
             Files.createDirectories(imagePath);
-        }
+	}
+
     }
     // result
     /*

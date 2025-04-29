@@ -8,9 +8,7 @@
     >
       <TestList :items="testStore.testList"></TestList>
 
-      <!-- 부모 컴포넌트의 내용을 삽입할 슬롯 -->
       <TestMainTestEnd v-if="!hasNext"></TestMainTestEnd>
-      <!-- 마지막 데이터 표시 컴포넌트 -->
     </q-infinite-scroll>
   </div>
 </template>
@@ -27,19 +25,15 @@ const pageNumber = ref(0);
 
 const testStore = useTestStore();
 
-// 부모로부터 받아올 속성 (Props)
 const props = defineProps({
   hasNext: Boolean, // 다음 데이터가 있는지 여부
   onLoad: Function, // 데이터를 로드할 함수
   getTestError: Boolean, // 에러 여부
 });
 
-// done() 호출 시 무한 스크롤 종료 처리
 const onLoadRef = (index, done) => {
-  console.log("onLoadRef 실행");
 
   if (props.getTestError) {
-    console.log("서버와의 연결이 안됨");
     return;
   }
 

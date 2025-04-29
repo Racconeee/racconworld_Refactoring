@@ -44,3 +44,17 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### env ###
+.env
+.env.*
+*.pem
+*.key
+*.crt
+*.p12
+*.jks
+*.keystore
+*.der
+
+
+

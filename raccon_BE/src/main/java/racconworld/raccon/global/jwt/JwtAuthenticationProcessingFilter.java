@@ -53,6 +53,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
 
         if(PatternMatchUtils.simpleMatch(URL_WHITE_LIST ,request.getRequestURI())){
             filterChain.doFilter(request ,response);
+	    return;
         }
 
         String refreshToken = jwtService.extractRefreshToken(request)

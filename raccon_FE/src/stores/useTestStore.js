@@ -1,4 +1,3 @@
-// src/stores/testStore.js
 import axios from "axios";
 import { defineStore } from "pinia";
 import { ref } from "vue";
@@ -9,7 +8,6 @@ const VITE_DOMAIN_BASE_URL = import.meta.env.VITE_DOMAIN_BASE_URL;
 const VITE_COUPANG_URL_LINK = import.meta.env.VITE_COUPANG_URL_LINK;
 
 export const useTestStore = defineStore("test", () => {
-  // 설정 관련
 
   const getVITE_COUPANG_URL_LINK = () => {
     return VITE_COUPANG_URL_LINK;
@@ -26,13 +24,11 @@ export const useTestStore = defineStore("test", () => {
   // etc ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
   const currentTestId = ref(0);
 
-  // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡPㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
   const setCurrentTestId = (testId) => {
     currentTestId.value = testId;
   };
 
-  //전체 테스트 조회
   const testList = ref([]);
   const testListhasNext = ref(true);
   const getTestError = ref(false);
@@ -47,7 +43,6 @@ export const useTestStore = defineStore("test", () => {
           return {
             ...test,
             filePath: `${VITE_NGINX_IMG_URL}${test.filePath}`, // filePath에 URL 추가
-            //왜들어가ㅣㅆ는지 생각하기
           };
         });
 
@@ -135,6 +130,7 @@ export const useTestStore = defineStore("test", () => {
     })
       .then((res) => {
         quizList.value = res.data.result;
+        quizList.value.filePath = VITE_NGINX_IMG_URL + quizList.value.filePath;
         quizList.value.view = viewData[test.testId] || 0; // 조회수가 없으면 0으로 설정
       })
       .catch((err) => {});
@@ -162,7 +158,6 @@ export const useTestStore = defineStore("test", () => {
     resultScore.value = Score;
   };
 
-  // 공유하기 링크 url 설정
   const ShareLink = ref();
   const setShareLink = (url) => {
     ShareLink.value = VITE_DOMAIN_BASE_URL + url;

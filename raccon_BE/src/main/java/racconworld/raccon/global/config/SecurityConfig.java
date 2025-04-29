@@ -34,8 +34,8 @@ import java.util.List;
 public class SecurityConfig {
 
     private static final String[] URL_WHITE_LIST = {
-            "/api/login", "/favicon.ico",
-            "/swagger-resources/**", "/swagger-ui/**", "/v3/api-docs/**",
+            "/api/login", "/favicon.ico", "/racconworld/file/**" ,  
+            "/swagger-resources/**", "/swagger-ui/**", "/v3/api-docs/**", 
             "/api/test/**" , "/api/quiz/**", "/api/result/**" , "/api/validate/token",
     };
 
@@ -55,8 +55,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         request  -> request
                                 .requestMatchers(URL_WHITE_LIST).permitAll()
-//                                .requestMatchers("*").permitAll() //Test 단계에서 일시적으로
-                                .requestMatchers("/admin/**" , "/api/admin/**").authenticated()
+				//.requestMatchers("*").permitAll() //Test 단계에서 일시적으로
+                                //.requestMatchers("/admin/**" , "/api/admin/**").authenticated()
                                 .anyRequest().authenticated())
                 .addFilterAfter(customUsernamePasswordAuthenticationFilter(), LogoutFilter.class)
                 .addFilterBefore(JwtAuthenticationProcessingFilter(), UsernamePasswordAuthenticationFilter.class);
@@ -107,8 +107,8 @@ public class SecurityConfig {
     CorsConfigurationSource corsConfigurationSource() {
         final List<String> allowedHeaders = List.of("*");
         final List<String> allowedOriginPatterns = List.of(
-                "https://racconworld.com",
-                "*"
+                "https://racconworld.com"
+                
         );
         return request -> {
             CorsConfiguration config = new CorsConfiguration();

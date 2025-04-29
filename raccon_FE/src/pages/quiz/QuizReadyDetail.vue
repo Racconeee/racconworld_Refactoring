@@ -9,11 +9,12 @@
       <q-item-section
         class="flex flex-column items-center justify-center text-center"
       >
-        <div class="text-h4 q-mt-xl">{{ testStore.quizList.testName }}</div>
+
+        <div class="text-h4 q-mt-xl">{{ selectedTest?.testName }}</div>
 
         <q-img
           loading="lazy"
-          :src="filePath"
+          :src="selectedTest?.filePath"
           alt="Thumbnail"
           height="330px"
           width="330px"
