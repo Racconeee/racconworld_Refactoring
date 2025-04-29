@@ -9,7 +9,9 @@
       <q-item-section
         class="flex flex-column items-center justify-center text-center"
       >
+
         <div class="text-h4 q-mt-xl">{{ selectedTest?.testName }}</div>
+
         <q-img
           loading="lazy"
           :src="selectedTest?.filePath"
@@ -19,7 +21,6 @@
           fit="cover"
           :style="{ borderRadius: '5px' }"
         />
-
         <div class="q-mt-xl text-h6">참여자 수</div>
         <div class="text-h6">
           <q-icon name="pets" />{{ selectedTest?.view || 0 }}

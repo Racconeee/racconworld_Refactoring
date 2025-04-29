@@ -38,12 +38,10 @@ const emit = defineEmits(["send-close"]);
 const closeDialog = () => {
   adminStore.clearUploadTestRes();
   emit("send-close");
-  // router.push({ name: "testinfo" });
 };
 </script>
 
 <style scoped>
-/* 다이얼로그 카드의 스타일을 조금 더 다듬습니다 */
 .q-card {
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);

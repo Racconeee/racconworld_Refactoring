@@ -37,6 +37,7 @@ const onLoad = async (page) => {
   await testStore.getTestList({ pageNumber: page });
 };
 
+
 onMounted(async () => {
   testStore.setCurrentTestId(route.params.testId);
   testStore.setShareLink(route.fullPath);
@@ -58,7 +59,7 @@ onMounted(async () => {
       },
       {
         property: "og:image",
-        content: `https://racconworld.com/images/share_image.png`, // 고정된 이미지 또는 동적 이미지 경로 설정
+        content: `https://racconworld.com/images/share_image.png`, 
       },
       {
         property: "og:url",
@@ -67,6 +68,7 @@ onMounted(async () => {
     ],
   });
 });
+
 </script>
 
 <style scoped>

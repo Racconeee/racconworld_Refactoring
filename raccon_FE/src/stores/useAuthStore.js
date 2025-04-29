@@ -1,6 +1,7 @@
 import axios from "axios";
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 
 const VITE_SERVER_API_URL = import.meta.env.VITE_SERVER_API_URL;
 
@@ -34,7 +35,8 @@ export const useAuthStore = defineStore("auth", () => {
           isLoginValue.value = false;
         }
       })
-      .catch((err) => {});
+      .catch((err) => {
+      });
   };
 
   const getAccessToken = () => {
@@ -82,12 +84,7 @@ export const useAuthStore = defineStore("auth", () => {
       return false;
     }
   };
-  //토큰 정리하기 내일
-  //이부분 해야됨
-  //AC토큰 인증하기
-  //토큰을 인증하는데 만약 401 토큰이 만료되었다고 하게 되면 리프레쉬 토큰을 통해서 재발급 받기
   const validateAccessToken = async (accessToken_value) => {
-    "검증하는 validateAccessToken-accessToken의 값은 : ", accessToken_value;
     const AccessTokenDto = {
       accessToken: accessToken_value,
     };
@@ -105,7 +102,9 @@ export const useAuthStore = defineStore("auth", () => {
         }
       })
       .catch(async (err) => {
+
         if (err.response.status === 401) {
+
           if (refreshToken.value) {
             await validateRefreshToken(refreshToken.value);
             return;

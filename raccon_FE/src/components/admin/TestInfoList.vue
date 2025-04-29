@@ -50,11 +50,8 @@ const adminStore = useAdminStore();
 const scrollTargetRef = ref(null);
 const pageNumber = ref(0);
 
-// 무한 스크롤 시 데이터 로드
-
-//done()을 호출하게 된다면 무한 스크롤이 더이상 실해되지않다
-//testListhasNext (true : 다음 데이터가 더 있다 false : 더이상 없다 )
 const onLoadRef = (index, done) => {
+
   if (testStore.getTestError) {
     return;
   }

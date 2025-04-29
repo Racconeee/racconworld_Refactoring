@@ -20,18 +20,34 @@ RUN chmod -R 755 /var/www/certbot/.well-known/acme-challenge/
 
 RUN mkdir -p /etc/letsencrypt
 
-# 2단계: Nginx로 빌드된 정적 파일을 서빙 (Nginx 환경)
 FROM nginx:stable-alpine AS production-stage
-RUN rm -rf /etc/nginx/nginx.conf
-# Nginx 설정 파일을 기본 설정과 덮어씌움 (Optional)
+
+RUN mkdir -p /usr/share/nginx /var/cache/nginx /var/run/nginx && \
+    chown -R nginx:nginx /usr/share/nginx /var/cache/nginx /var/run/nginx && \
+    chmod -R 755 /usr/share/nginx /var/cache/nginx /var/run/nginx
+
+RUN mkdir -p /var/run/nginx && \
+    chown -R nginx:nginx /var/run/nginx && \
+    chmod -R 755 /var/run/nginx
+
+COPY ./certs/fullchain.pem /etc/nginx/certs/fullchain.pem
+COPY ./certs/privkey.pem /etc/nginx/certs/privkey.pem
+
+RUN chmod 600 /etc/nginx/certs/fullchain.pem /etc/nginx/certs/privkey.pem
+RUN chown nginx:nginx /etc/nginx/certs/fullchain.pem /etc/nginx/certs/privkey.pem
+
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 
-RUN rm -rf /usr/share/nginx/html/*
-# 빌드된 Vue 파일을 Nginx의 기본 경로로 복사
+
+RUN mkdir -p /racconworld_data/img
+RUN chmod g+s /racconworld_data/img
+RUN chown -R nginx:nginx /racconworld_data/img && chmod -R 775 /racconworld_data/img
+
 COPY --from=build-stage /app/dist /usr/share/nginx/html
 
-# Nginx 포트 노출
+USER nginx
+
 EXPOSE 80
 EXPOSE 443
-# Nginx 실행
+
 CMD ["nginx", "-g", "daemon off;"]

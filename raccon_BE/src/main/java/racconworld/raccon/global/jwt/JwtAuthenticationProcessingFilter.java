@@ -1,5 +1,7 @@
 package racconworld.raccon.global.jwt;
 
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -53,7 +55,7 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
 
         if(PatternMatchUtils.simpleMatch(URL_WHITE_LIST ,request.getRequestURI())){
             filterChain.doFilter(request ,response);
-            return;
+	    return;
         }
 
         String refreshToken = jwtService.extractRefreshToken(request)

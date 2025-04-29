@@ -3,6 +3,11 @@ const path = require("path"); // path 모듈을 불러옵니다.
 
 /* eslint-env node */
 
+/*
+ * This file runs in a Node context (it's NOT transpiled by Babel), so use only
+ * the ES6 features that are supported by your Node version. https://node.green/
+ */
+
 module.exports = configure(function (/* ctx */) {
   return {
     // app boot file (/src/boot)
@@ -20,6 +25,19 @@ module.exports = configure(function (/* ctx */) {
 
     // Build configuration
     build: {
+      minify: "terser", // Terser 사용
+      terserOptions: {
+        compress: {
+          drop_console: true, // 모든 console.log 제거
+          drop_debugger: true, // 모든 debugger 제거
+          pure_funcs: [
+            "console.log",
+            "console.info",
+            "console.warn",
+            "console.error",
+          ],
+        },
+      },
       target: {
         browser: ["es2019", "edge88", "firefox78", "chrome87", "safari13.1"],
         node: "node20",
@@ -40,12 +58,6 @@ module.exports = configure(function (/* ctx */) {
         "@": path.resolve(__dirname, "./src"),
       },
       vite: {
-        build: {
-          minify: "esbuild", // esbuild를 이용해 minify 적용
-          esbuild: {
-            drop: ["console", "debugger", "log"],
-          },
-        },
         plugins: [
           [
             "vite-plugin-checker",
@@ -111,3 +123,4 @@ module.exports = configure(function (/* ctx */) {
     },
   };
 });
+

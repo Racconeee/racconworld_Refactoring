@@ -39,23 +39,17 @@ import QuizCommon from "@/commonjs/QuizCommon.js";
 import { useRouter } from "vue-router";
 
 const testStore = useTestStore();
-//pinia에서 계속 데이터를 가져오는것보다 한번 설정해서 사용하기
 const TotalQuizList = computed(() => testStore.quizList);
-//현재 몇번 문제 푸는지 저장
 const currentPage = ref(0);
-//지금까지의 점수 저장
 const choiceScoreList = ref([]);
-//결과 값 저장
 let quizResult = "";
 
-//라우터 설정 해주기
 const router = useRouter();
 
 const incrementCurrentPage = (choice) => {
   choiceScoreList.value.push(choice.score);
 
   if (TotalQuizList.value.questions.length - 1 <= currentPage.value) {
-    //문제를 모두 풀엇으면 QuizCommon파일로 지금까지의 답변과 TestType 보내서 계산해서 받음
     quizResult = QuizCommon.quizScoreCalculate(
       choiceScoreList,
       TotalQuizList.value.testType

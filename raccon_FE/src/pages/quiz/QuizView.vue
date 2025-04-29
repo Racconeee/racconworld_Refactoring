@@ -20,13 +20,16 @@ onMounted(async () => {
     router.push({ path: "/" }); // 홈 경로로 리다이렉트
     return;
   }
+  
   if (testStore.currentTestId) {
     return await testStore.getQuizList(testStore.currentTestId).then(() => {});
   }
   return await testStore
     .getQuizList(localStorage.getItem("testId"))
     .then(() => {});
+
 });
+
 </script>
 
 <style></style>

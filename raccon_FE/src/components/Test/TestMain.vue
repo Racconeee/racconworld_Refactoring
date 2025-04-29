@@ -20,9 +20,7 @@ import TestMainViewApiError from "./TestMainViewApiError.vue";
 const testStore = useTestStore();
 const pageNumber = ref(0);
 
-// 데이터 로드 함수 정의
 const onLoad = async (page) => {
-  console.log("데이터 로드 중:", page);
   await testStore.getTestList({ pageNumber: page });
 };
 </script>
@@ -33,3 +31,4 @@ const onLoad = async (page) => {
   flex-direction: column;
 }
 </style>
+
