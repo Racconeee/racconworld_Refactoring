@@ -102,8 +102,6 @@ public class JwtService {
     public void sendAccessAndRefreshToken(HttpServletResponse response, String accessToken, String refreshToken) {
         response.setHeader("Access-Control-Expose-Headers", "AccessToken, RefreshToken");
         response.setStatus(HttpServletResponse.SC_OK);
-        log.info(" setAccessToken : {}"  ,accessToken);
-        log.info(" setRefreshToken : {}"  ,refreshToken);
 
         setAccessTokenHeader(response,BEARER + accessToken);
         setRefreshTokenHeader(response,BEARER + refreshToken);
@@ -152,21 +150,5 @@ public class JwtService {
     public String bodyExtractAccessToken(String token) {
             return token.replace(BEARER, "").trim();
     }
-
-//
-//    public boolean verifyJwtToken(String token) {
-//
-//        try {
-//                Jwts.parserBuilder()
-//                    .setSigningKey(secretKey)
-//                    .build()
-//                    .parseClaimsJws(token)
-//                    .getBody();
-//                return true;
-//        } catch (Exception e) {
-//            log.error("JWT Token 검증 실패: {}", e.getMessage());
-//            throw new CustomExceptionHandler(ErrorCode.INVALID_ACCESS_TOKEN_SIGNATURE);
-//        }
-//    }
 
 }

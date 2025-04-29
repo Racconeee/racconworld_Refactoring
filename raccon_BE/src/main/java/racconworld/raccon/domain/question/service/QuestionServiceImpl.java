@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import racconworld.raccon.domain.question.dto.Response.DetailQuizResDto;
 import racconworld.raccon.domain.question.entity.Question;
 import racconworld.raccon.domain.question.repository.QuestionRepository;
-import racconworld.raccon.domain.redis.RedisService;
 import racconworld.raccon.domain.test.entity.Test;
 import racconworld.raccon.domain.test.repository.TestRepository;
 import racconworld.raccon.global.common.code.ErrorCode;
@@ -23,7 +22,6 @@ public class QuestionServiceImpl implements QuestionService {
 
     private final QuestionRepository questionRepository;
     private final TestRepository testRepository;
-    private final RedisService redisService;
 
     @Override
     @Transactional

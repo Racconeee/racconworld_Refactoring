@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import racconworld.raccon.domain.test.dto.Response.ShowTestViewListResDto;
 import racconworld.raccon.domain.test.repository.TestRepository;
 
-import java.util.*;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -98,7 +98,6 @@ public class RedisServiceImpl implements RedisService {
     //나중에 데이터가 늘어나는 것을 생각해도
 
     @Scheduled(fixedRate = 600000)
-    @Transactional
     public void syncTotalTestViewCount() {
 
         String redisKey = "getTestTotalVisit";
@@ -107,6 +106,24 @@ public class RedisServiceImpl implements RedisService {
         if (totalViewCount != null) {
             redisTemplate.opsForHash().put(redisKey, "total", String.valueOf(totalViewCount));
         }
+    }
+    public Long calculateTotalViewCount() {
+        Set<String> getTestViewKeys = redisTemplate.keys("getTestView::*");
+        Long totalViewCount = 0L;
+        if (getTestViewKeys != null) {
+            for (String key : getTestViewKeys) {
+                Object viewCountObj = redisTemplate.opsForHash().get(key, "view");
+                if (viewCountObj != null) {
+                    try {
+                        Long viewCount = Long.parseLong(viewCountObj.toString());
+                        totalViewCount += viewCount;
+                    } catch (NumberFormatException e) {
+                        log.error("조회수 변환 중 오류 발생: {}", e.getMessage());
+                    }
+                }
+            }
+        }
+        return totalViewCount;
     }
 
     // 일반적으로 사용하는
@@ -126,25 +143,6 @@ public class RedisServiceImpl implements RedisService {
         return Long.parseLong(totalVisitedStr);
     }
 
-    public Long calculateTotalViewCount() {
-        Set<String> getTestViewKeys = redisTemplate.keys("getTestView::*");
-        Long totalViewCount = 0L;
-
-        if (getTestViewKeys != null) {
-            for (String key : getTestViewKeys) {
-                Object viewCountObj = redisTemplate.opsForHash().get(key, "view");
-                if (viewCountObj != null) {
-                    try {
-                        Long viewCount = Long.parseLong(viewCountObj.toString());
-                        totalViewCount += viewCount;
-                    } catch (NumberFormatException e) {
-                        log.error("조회수 변환 중 오류 발생: {}", e.getMessage());
-                    }
-                }
-            }
-        }
-        return totalViewCount;
-    }
 
 
     @CacheEvict(cacheNames = "getTestList", allEntries = true, cacheManager = "cacheManager")

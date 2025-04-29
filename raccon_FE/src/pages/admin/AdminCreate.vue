@@ -128,7 +128,6 @@
 </template>
 
 <script setup>
-// url="http://localhost:4444/upload" .env 파일에서 데이터 가져와서 하는걸로 변경하기
 import { ref, reactive, watch } from "vue";
 import { useAdminStore } from "@/stores/useAdminStore";
 import TestCreateDialog from "@/components/admin/TestCreateDialog.vue";
@@ -138,13 +137,9 @@ const adminStore = useAdminStore();
 
 const createDialog = ref(false);
 const emptyInputDialog = ref(false);
-// 이걸로 할수 있지만 일부러 나눠서 코드가 늘어나더라도 api 2번 나가는거 방지함
-// createDialog.value = !createDialog.value;
 
 const MAX_FILE_SIZE = 50 * 1024 * 1024;
 
-//testType의 값에 따라서 api 호출한다. + 팝업창값도 변경해서 나오게 만듬
-//중복 코드가 많이 보이기는함 리팩토링 필요
 const validateInputs = () => {
   const isValid = ref(true); // 모든 검증을 확인하는 플래그 변수
 
@@ -203,11 +198,11 @@ const validateInputs = () => {
     if (file.size > MAX_FILE_SIZE) {
       adminStore.emptyInputCheck("파일의 용량은 50MB로 제한되어있습니다.");
       isValid.value = false;
-      return true; // 조건을 만족하는 경우 반복 중단
+      return true;
     }
   });
 
-  return isValid.value; // 검증 후 플래그 반환
+  return isValid.value;
 };
 
 const openCreateDialog = async () => {
@@ -245,20 +240,16 @@ const openCreateDialog = async () => {
     createDialog.value = true;
   } catch (error) {
     createDialog.value = true;
-
-    console.error(error);
   }
 };
 
 const closeCreateDialog = () => {
   createDialog.value = false;
-  console.log(createDialog.value);
 };
 
 const closeEmptyInputDialog = () => {
   emptyInputDialog.value = false;
   adminStore.clearCmptyInput();
-  console.log(emptyInputDialog.value);
 };
 
 const testName = ref("");
@@ -274,8 +265,6 @@ const testTypeList = ["SCORE", "PERSONALITY"];
 
 const questions = reactive([]);
 
-//2개의 데이터 중 하나라도 변경된다면
-//일부러 null 값을 넣어서 동적으로 타입 넣기
 watch(
   [quizLength, choiceLength],
   () => {

@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import racconworld.raccon.domain.question.dto.Response.DetailQuizResDto;
 import racconworld.raccon.domain.question.service.QuestionService;
-import racconworld.raccon.domain.redis.RedisService;
 import racconworld.raccon.global.common.BaseResponse;
 import racconworld.raccon.global.common.code.SuccessCode;
 
@@ -34,9 +33,7 @@ public class QuestionController {
     @GetMapping("/detail/{testId}")
     public ResponseEntity<BaseResponse<DetailQuizResDto>> showDetailQuiz(@PathVariable("testId") Long testId) throws Exception {
 
-        log.info("testId : {} " , testId);
         DetailQuizResDto detailScoreQuizResDto = questionService.showDetailQuiz(testId);
-
 
         return BaseResponse.success(
                 SuccessCode.SELECT_SUCCESS,

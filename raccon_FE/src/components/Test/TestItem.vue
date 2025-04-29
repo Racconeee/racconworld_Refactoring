@@ -17,6 +17,7 @@
         fit="cover"
         :style="{ borderRadius: '5px' }"
       />
+
       <div>{{ testName }}</div>
       <div><q-icon name="pets" /> {{ view }}</div>
     </q-item-section>
@@ -31,14 +32,11 @@ const router = useRouter();
 const testStore = useTestStore();
 
 const setStoreTestId = () => {
-  console.log(props.testId);
-
   //로컬 말고 pinia 사용하자
   //이부분 나중에 변경하기
   // quiz {id} 동적 경로 설정한다면.
   testStore.setCurrentTestId(props.testId);
   // localStorage.setItem("testId", props.testId);
-  console.log("데이터를 저장합니다.");
   router.push({ path: `/quiz/ready/${props.testId}` }); // 페이지 이동
 };
 
@@ -59,4 +57,10 @@ const props = defineProps({
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped lang="scss">
+q-img {
+  height: 270px !important;
+  width: 270px !important;
+  object-fit: cover !important;
+}
+</style>

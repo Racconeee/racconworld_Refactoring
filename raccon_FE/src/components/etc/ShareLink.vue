@@ -23,12 +23,8 @@ const showImage = ref(false);
 //Test링크가 없어진다면 대체 링크 생성하기
 const copyTextToClipboard = () => {
   if (testStore.ShareLink === undefined) {
-    console.log("testStore.ShareLink 의 값이  undefined 인 관계로 링크생성");
-
     testStore.setShareLink("/quiz/ready/" + localStorage.getItem("testId"));
   }
-  console.log("생성된 링크 값 : ");
-  console.log(testStore.ShareLink);
 
   copyToClipboard(testStore.ShareLink)
     .then(() => {

@@ -36,9 +36,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
-        log.info("로그인 성공 ");
-
-
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String username = userDetails.getUsername();
 
@@ -54,11 +51,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
                 });
 
 
-//        response.sendRedirect(REDIRECT_URI_SUCCESS);
-//
-        log.info("login_Success");
-        log.info("AccessToken : {} " , accessToken);
-        log.info("RefreshToken : {} " , refreshToken);
         SuccessCode successCode = SuccessCode.LOGIN_SUCCESS;
 
         response.setStatus(successCode.getStatus());

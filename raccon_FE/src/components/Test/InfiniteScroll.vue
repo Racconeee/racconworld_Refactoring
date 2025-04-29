@@ -36,10 +36,7 @@ const props = defineProps({
 
 // done() 호출 시 무한 스크롤 종료 처리
 const onLoadRef = (index, done) => {
-  console.log("onLoadRef 실행");
-
   if (props.getTestError) {
-    console.log("서버와의 연결이 안됨");
     return;
   }
 

@@ -9,10 +9,10 @@ import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -36,7 +36,7 @@ public class SecurityConfig {
     private static final String[] URL_WHITE_LIST = {
             "/api/login", "/favicon.ico",
             "/swagger-resources/**", "/swagger-ui/**", "/v3/api-docs/**",
-            "/api/test/**" , "/api/quiz/**", "/api/result/**" , "/api/admin/signup", "/api/validate/token",
+            "/api/test/**" , "/api/quiz/**", "/api/result/**" , "/api/validate/token",
     };
 
     private final CustomUserDetailsService customUserDetailsService;
@@ -56,7 +56,7 @@ public class SecurityConfig {
                         request  -> request
                                 .requestMatchers(URL_WHITE_LIST).permitAll()
 //                                .requestMatchers("*").permitAll() //Test 단계에서 일시적으로
-                                .requestMatchers("/admin/*" , "/api/admin/**" ,"/api/validate/a" ).authenticated()
+                                .requestMatchers("/admin/**" , "/api/admin/**").authenticated()
                                 .anyRequest().authenticated())
                 .addFilterAfter(customUsernamePasswordAuthenticationFilter(), LogoutFilter.class)
                 .addFilterBefore(JwtAuthenticationProcessingFilter(), UsernamePasswordAuthenticationFilter.class);
@@ -107,8 +107,7 @@ public class SecurityConfig {
     CorsConfigurationSource corsConfigurationSource() {
         final List<String> allowedHeaders = List.of("*");
         final List<String> allowedOriginPatterns = List.of(
-//                "http://localhost:9000",
-//                "http://localhost:9001",
+//                "https://racconworld.com",
                 "*"
         );
         return request -> {
